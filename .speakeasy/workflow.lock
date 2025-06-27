@@ -1,0 +1,30 @@
+speakeasyVersion: 1.570.3
+sources:
+    Zero Networks:
+        sourceNamespace: zero-networks
+        sourceRevisionDigest: sha256:c295f70608c8823520b13a80c0ba632ce9289c6e7765ec4c736c58a53e57cc34
+        sourceBlobDigest: sha256:72fc99a2d85aedc96af82d2a309efe8d3d1328942cac7bdba65acfb9dff98eb5
+        tags:
+            - latest
+            - 1.0.8
+targets:
+    zero-networks:
+        source: Zero Networks
+        sourceNamespace: zero-networks
+        sourceRevisionDigest: sha256:c295f70608c8823520b13a80c0ba632ce9289c6e7765ec4c736c58a53e57cc34
+        sourceBlobDigest: sha256:72fc99a2d85aedc96af82d2a309efe8d3d1328942cac7bdba65acfb9dff98eb5
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        Zero Networks:
+            inputs:
+                - location: openapi.yaml
+            overlays:
+                - location: overlay.yaml
+            registry:
+                location: registry.speakeasyapi.dev/zeronetworks/zeronetworks/zero-networks
+    targets:
+        zero-networks:
+            target: terraform
+            source: Zero Networks
