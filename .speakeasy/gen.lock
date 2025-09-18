@@ -3,22 +3,22 @@ id: 1b1ea54c-df12-489c-b709-cd18064f581d
 management:
   docChecksum: f1191587360892c62335299518901b9e
   docVersion: 1.0.9
-  speakeasyVersion: 1.612.0
-  generationVersion: 2.695.0
-  releaseVersion: 0.10.0
-  configChecksum: f7b6081ff212df81b6bfbe49808b4298
+  speakeasyVersion: 1.619.0
+  generationVersion: 2.706.0
+  releaseVersion: 1.0.1
+  configChecksum: 632f3d980ac3a24e5fee2073b0d930f1
+  published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.44.1
-    globalSecurity: 2.82.0
+    core: 3.45.0
+    globalSecurity: 2.82.1
     globalServerURLs: 2.83.0
     nameOverrides: 2.81.3
     unions: 2.81.17
 generatedFiles:
   - .gitattributes
   - USAGE.md
-  - examples/README.md
   - examples/data-sources/zeronetworks_asset_id/data-source.tf
   - examples/data-sources/zeronetworks_inbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_inbound_rule/data-source.tf
@@ -193,6 +193,8 @@ generatedFiles:
   - internal/sdk/models/shared/source.go
   - internal/sdk/models/shared/srcuserslist.go
   - internal/sdk/models/shared/userrole.go
+  - internal/sdk/optionalnullable/optionalnullable.go
+  - internal/sdk/optionalnullable/optionalnullable_test.go
   - internal/sdk/retry/config.go
   - internal/sdk/rulesinbound.go
   - internal/sdk/rulesoutbound.go

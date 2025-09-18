@@ -5,7 +5,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 // IssueCode - * '0' - Unspecified
@@ -245,16 +245,16 @@ func (h *HealthIssue) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *HealthIssue) GetIssueCode() *IssueCode {
-	if o == nil {
+func (h *HealthIssue) GetIssueCode() *IssueCode {
+	if h == nil {
 		return nil
 	}
-	return o.IssueCode
+	return h.IssueCode
 }
 
-func (o *HealthIssue) GetDetails() *string {
-	if o == nil {
+func (h *HealthIssue) GetDetails() *string {
+	if h == nil {
 		return nil
 	}
-	return o.Details
+	return h.Details
 }

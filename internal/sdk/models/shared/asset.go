@@ -3,7 +3,7 @@
 package shared
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 type Asset struct {
@@ -321,268 +321,268 @@ func (a *Asset) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Asset) GetAssetType() *AssetType {
-	if o == nil {
+func (a *Asset) GetAssetType() *AssetType {
+	if a == nil {
 		return nil
 	}
-	return o.AssetType
+	return a.AssetType
 }
 
-func (o *Asset) GetBreakGlassActivated() *bool {
-	if o == nil {
+func (a *Asset) GetBreakGlassActivated() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.BreakGlassActivated
+	return a.BreakGlassActivated
 }
 
-func (o *Asset) GetDomain() *string {
-	if o == nil {
+func (a *Asset) GetDomain() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Domain
+	return a.Domain
 }
 
-func (o *Asset) GetID() *string {
-	if o == nil {
+func (a *Asset) GetID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *Asset) GetIdentityProtectionState() *int64 {
-	if o == nil {
+func (a *Asset) GetIdentityProtectionState() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.IdentityProtectionState
+	return a.IdentityProtectionState
 }
 
-func (o *Asset) GetName() *string {
-	if o == nil {
+func (a *Asset) GetName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Name
+	return a.Name
 }
 
-func (o *Asset) GetOtLocattion() *OtLocation {
-	if o == nil {
+func (a *Asset) GetOtLocattion() *OtLocation {
+	if a == nil {
 		return nil
 	}
-	return o.OtLocattion
+	return a.OtLocattion
 }
 
-func (o *Asset) GetProtectionState() *ProtectionState {
-	if o == nil {
+func (a *Asset) GetProtectionState() *ProtectionState {
+	if a == nil {
 		return nil
 	}
-	return o.ProtectionState
+	return a.ProtectionState
 }
 
-func (o *Asset) GetRPCProtectionState() *int64 {
-	if o == nil {
+func (a *Asset) GetRPCProtectionState() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.RPCProtectionState
+	return a.RPCProtectionState
 }
 
-func (o *Asset) GetAssetStatus() *AssetStatus {
-	if o == nil {
+func (a *Asset) GetAssetStatus() *AssetStatus {
+	if a == nil {
 		return nil
 	}
-	return o.AssetStatus
+	return a.AssetStatus
 }
 
-func (o *Asset) GetAssignedDeploymentID() *string {
-	if o == nil {
+func (a *Asset) GetAssignedDeploymentID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.AssignedDeploymentID
+	return a.AssignedDeploymentID
 }
 
-func (o *Asset) GetExternalDeviceID() *string {
-	if o == nil {
+func (a *Asset) GetExternalDeviceID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ExternalDeviceID
+	return a.ExternalDeviceID
 }
 
-func (o *Asset) GetFqdn() *string {
-	if o == nil {
+func (a *Asset) GetFqdn() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Fqdn
+	return a.Fqdn
 }
 
-func (o *Asset) GetHasDNS() *bool {
-	if o == nil {
+func (a *Asset) GetHasDNS() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.HasDNS
+	return a.HasDNS
 }
 
-func (o *Asset) GetHealthState() *HealthState {
-	if o == nil {
+func (a *Asset) GetHealthState() *HealthState {
+	if a == nil {
 		return nil
 	}
-	return o.HealthState
+	return a.HealthState
 }
 
-func (o *Asset) GetIdentityProtectAt() *int64 {
-	if o == nil {
+func (a *Asset) GetIdentityProtectAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.IdentityProtectAt
+	return a.IdentityProtectAt
 }
 
-func (o *Asset) GetIdentityProtectedAt() *int64 {
-	if o == nil {
+func (a *Asset) GetIdentityProtectedAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.IdentityProtectedAt
+	return a.IdentityProtectedAt
 }
 
-func (o *Asset) GetInactiveReason() *InactiveReason {
-	if o == nil {
+func (a *Asset) GetInactiveReason() *InactiveReason {
+	if a == nil {
 		return nil
 	}
-	return o.InactiveReason
+	return a.InactiveReason
 }
 
-func (o *Asset) GetInactiveSince() *int64 {
-	if o == nil {
+func (a *Asset) GetInactiveSince() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.InactiveSince
+	return a.InactiveSince
 }
 
-func (o *Asset) GetIPV4Addresses() []string {
-	if o == nil {
+func (a *Asset) GetIPV4Addresses() []string {
+	if a == nil {
 		return nil
 	}
-	return o.IPV4Addresses
+	return a.IPV4Addresses
 }
 
-func (o *Asset) GetIPV6Addresses() []string {
-	if o == nil {
+func (a *Asset) GetIPV6Addresses() []string {
+	if a == nil {
 		return nil
 	}
-	return o.IPV6Addresses
+	return a.IPV6Addresses
 }
 
-func (o *Asset) GetLastLogon() *int64 {
-	if o == nil {
+func (a *Asset) GetLastLogon() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.LastLogon
+	return a.LastLogon
 }
 
-func (o *Asset) GetManufacturer() *string {
-	if o == nil {
+func (a *Asset) GetManufacturer() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Manufacturer
+	return a.Manufacturer
 }
 
-func (o *Asset) GetOperatingSystem() *string {
-	if o == nil {
+func (a *Asset) GetOperatingSystem() *string {
+	if a == nil {
 		return nil
 	}
-	return o.OperatingSystem
+	return a.OperatingSystem
 }
 
-func (o *Asset) GetOsType() *int64 {
-	if o == nil {
+func (a *Asset) GetOsType() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.OsType
+	return a.OsType
 }
 
-func (o *Asset) GetOutboundRestriction() *int64 {
-	if o == nil {
+func (a *Asset) GetOutboundRestriction() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.OutboundRestriction
+	return a.OutboundRestriction
 }
 
-func (o *Asset) GetPasswordUpdateTime() *int64 {
-	if o == nil {
+func (a *Asset) GetPasswordUpdateTime() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.PasswordUpdateTime
+	return a.PasswordUpdateTime
 }
 
-func (o *Asset) GetPreferredDeploymentID() *string {
-	if o == nil {
+func (a *Asset) GetPreferredDeploymentID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.PreferredDeploymentID
+	return a.PreferredDeploymentID
 }
 
-func (o *Asset) GetPrincipalName() *string {
-	if o == nil {
+func (a *Asset) GetPrincipalName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.PrincipalName
+	return a.PrincipalName
 }
 
-func (o *Asset) GetProtectAt() *int64 {
-	if o == nil {
+func (a *Asset) GetProtectAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.ProtectAt
+	return a.ProtectAt
 }
 
-func (o *Asset) GetProtectedAt() *int64 {
-	if o == nil {
+func (a *Asset) GetProtectedAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.ProtectedAt
+	return a.ProtectedAt
 }
 
-func (o *Asset) GetPurdueLevel() *int64 {
-	if o == nil {
+func (a *Asset) GetPurdueLevel() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.PurdueLevel
+	return a.PurdueLevel
 }
 
-func (o *Asset) GetIsQuarantined() *bool {
-	if o == nil {
+func (a *Asset) GetIsQuarantined() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.IsQuarantined
+	return a.IsQuarantined
 }
 
-func (o *Asset) GetRPCMonitored() *bool {
-	if o == nil {
+func (a *Asset) GetRPCMonitored() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.RPCMonitored
+	return a.RPCMonitored
 }
 
-func (o *Asset) GetRPCProtectAt() *int64 {
-	if o == nil {
+func (a *Asset) GetRPCProtectAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.RPCProtectAt
+	return a.RPCProtectAt
 }
 
-func (o *Asset) GetRPCProtectedAt() *int64 {
-	if o == nil {
+func (a *Asset) GetRPCProtectedAt() *int64 {
+	if a == nil {
 		return nil
 	}
-	return o.RPCProtectedAt
+	return a.RPCProtectedAt
 }
 
-func (o *Asset) GetSource() *Source {
-	if o == nil {
+func (a *Asset) GetSource() *Source {
+	if a == nil {
 		return nil
 	}
-	return o.Source
+	return a.Source
 }
 
-func (o *Asset) GetSwitchLocationOverridden() *bool {
-	if o == nil {
+func (a *Asset) GetSwitchLocationOverridden() *bool {
+	if a == nil {
 		return nil
 	}
-	return o.SwitchLocationOverridden
+	return a.SwitchLocationOverridden
 }

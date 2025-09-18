@@ -6,9 +6,9 @@ type RuleItem struct {
 	Item *Rule `json:"item,omitempty"`
 }
 
-func (o *RuleItem) GetItem() *Rule {
-	if o == nil {
+func (r *RuleItem) GetItem() *Rule {
+	if r == nil {
 		return nil
 	}
-	return o.Item
+	return r.Item
 }

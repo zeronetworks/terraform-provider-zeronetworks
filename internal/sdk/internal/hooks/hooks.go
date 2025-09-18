@@ -5,7 +5,7 @@ package hooks
 import (
 	"context"
 	"errors"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/config"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/config"
 	"net/http"
 )
 

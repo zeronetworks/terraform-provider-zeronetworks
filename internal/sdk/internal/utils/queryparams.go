@@ -14,7 +14,8 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/types"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/optionalnullable"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/types"
 )
 
 func PopulateQueryParams(_ context.Context, req *http.Request, queryParams interface{}, globals interface{}) error {
@@ -157,6 +158,16 @@ func populateDeepObjectParams(tag *paramTag, objType reflect.Type, objValue refl
 
 	switch objValue.Kind() {
 	case reflect.Map:
+		// check if optionalnullable.OptionalNullable[T]
+		if nullableValue, ok := optionalnullable.AsOptionalNullable(objValue); ok {
+			// Handle optionalnullable.OptionalNullable[T] using GetUntyped method
+			if value, isSet := nullableValue.GetUntyped(); isSet && value != nil {
+				values.Add(tag.ParamName, valToString(value))
+			}
+			// If not set or explicitly null, skip adding to values
+			return values
+		}
+
 		populateDeepObjectParamsMap(values, tag.ParamName, objValue)
 	case reflect.Struct:
 		populateDeepObjectParamsStruct(values, tag.ParamName, objValue)

@@ -6,8 +6,8 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/operations"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/operations"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
 func (r *AssetIDDataSourceModel) RefreshFromSharedAssetIDSearch(ctx context.Context, resp *shared.AssetIDSearch) diag.Diagnostics {

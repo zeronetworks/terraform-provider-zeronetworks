@@ -38,93 +38,93 @@ type RPCRuleBody struct {
 	UserIdsList []string  `json:"userIdsList"`
 }
 
-func (o *RPCRuleBody) GetAction() RuleAction {
-	if o == nil {
+func (r *RPCRuleBody) GetAction() RuleAction {
+	if r == nil {
 		return RuleAction(0)
 	}
-	return o.Action
+	return r.Action
 }
 
-func (o *RPCRuleBody) GetChangeTicket() *string {
-	if o == nil {
+func (r *RPCRuleBody) GetChangeTicket() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ChangeTicket
+	return r.ChangeTicket
 }
 
-func (o *RPCRuleBody) GetDescription() string {
-	if o == nil {
+func (r *RPCRuleBody) GetDescription() string {
+	if r == nil {
 		return ""
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *RPCRuleBody) GetExcludedAssetIdsList() []string {
-	if o == nil {
+func (r *RPCRuleBody) GetExcludedAssetIdsList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.ExcludedAssetIdsList
+	return r.ExcludedAssetIdsList
 }
 
-func (o *RPCRuleBody) GetExpiresAt() *int64 {
-	if o == nil {
+func (r *RPCRuleBody) GetExpiresAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ExpiresAt
+	return r.ExpiresAt
 }
 
-func (o *RPCRuleBody) GetInterfaceUuidsList() []string {
-	if o == nil {
+func (r *RPCRuleBody) GetInterfaceUuidsList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.InterfaceUuidsList
+	return r.InterfaceUuidsList
 }
 
-func (o *RPCRuleBody) GetLocalAssetID() string {
-	if o == nil {
+func (r *RPCRuleBody) GetLocalAssetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.LocalAssetID
+	return r.LocalAssetID
 }
 
-func (o *RPCRuleBody) GetName() *string {
-	if o == nil {
+func (r *RPCRuleBody) GetName() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *RPCRuleBody) GetOpNumbersList() []int64 {
-	if o == nil {
+func (r *RPCRuleBody) GetOpNumbersList() []int64 {
+	if r == nil {
 		return []int64{}
 	}
-	return o.OpNumbersList
+	return r.OpNumbersList
 }
 
-func (o *RPCRuleBody) GetProtocolsList() []int64 {
-	if o == nil {
+func (r *RPCRuleBody) GetProtocolsList() []int64 {
+	if r == nil {
 		return []int64{}
 	}
-	return o.ProtocolsList
+	return r.ProtocolsList
 }
 
-func (o *RPCRuleBody) GetRemoteAssetIdsList() []string {
-	if o == nil {
+func (r *RPCRuleBody) GetRemoteAssetIdsList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.RemoteAssetIdsList
+	return r.RemoteAssetIdsList
 }
 
-func (o *RPCRuleBody) GetState() RuleState {
-	if o == nil {
+func (r *RPCRuleBody) GetState() RuleState {
+	if r == nil {
 		return RuleState(0)
 	}
-	return o.State
+	return r.State
 }
 
-func (o *RPCRuleBody) GetUserIdsList() []string {
-	if o == nil {
+func (r *RPCRuleBody) GetUserIdsList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.UserIdsList
+	return r.UserIdsList
 }

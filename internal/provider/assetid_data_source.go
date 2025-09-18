@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-framework/types/basetypes"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk"
 )
 
 // Ensure provider defined types fully satisfy framework interfaces.

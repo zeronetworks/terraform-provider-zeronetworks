@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ type RPCRuleDeleteRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=ruleId"`
 }
 
-func (o *RPCRuleDeleteRequest) GetID() string {
-	if o == nil {
+func (r *RPCRuleDeleteRequest) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
 type RPCRuleDeleteResponse struct {
@@ -30,30 +30,30 @@ type RPCRuleDeleteResponse struct {
 	Error *shared.Error
 }
 
-func (o *RPCRuleDeleteResponse) GetContentType() string {
-	if o == nil {
+func (r *RPCRuleDeleteResponse) GetContentType() string {
+	if r == nil {
 		return ""
 	}
-	return o.ContentType
+	return r.ContentType
 }
 
-func (o *RPCRuleDeleteResponse) GetStatusCode() int {
-	if o == nil {
+func (r *RPCRuleDeleteResponse) GetStatusCode() int {
+	if r == nil {
 		return 0
 	}
-	return o.StatusCode
+	return r.StatusCode
 }
 
-func (o *RPCRuleDeleteResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (r *RPCRuleDeleteResponse) GetRawResponse() *http.Response {
+	if r == nil {
 		return nil
 	}
-	return o.RawResponse
+	return r.RawResponse
 }
 
-func (o *RPCRuleDeleteResponse) GetError() *shared.Error {
-	if o == nil {
+func (r *RPCRuleDeleteResponse) GetError() *shared.Error {
+	if r == nil {
 		return nil
 	}
-	return o.Error
+	return r.Error
 }

@@ -4,7 +4,7 @@ package config
 
 import (
 	"context"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/retry"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/retry"
 	"net/http"
 	"time"
 )

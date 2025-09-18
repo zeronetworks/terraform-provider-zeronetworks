@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -14,18 +14,18 @@ type InboundRuleUpdateRequest struct {
 	RuleBody shared.RuleBody `request:"mediaType=application/json"`
 }
 
-func (o *InboundRuleUpdateRequest) GetID() string {
-	if o == nil {
+func (i *InboundRuleUpdateRequest) GetID() string {
+	if i == nil {
 		return ""
 	}
-	return o.ID
+	return i.ID
 }
 
-func (o *InboundRuleUpdateRequest) GetRuleBody() shared.RuleBody {
-	if o == nil {
+func (i *InboundRuleUpdateRequest) GetRuleBody() shared.RuleBody {
+	if i == nil {
 		return shared.RuleBody{}
 	}
-	return o.RuleBody
+	return i.RuleBody
 }
 
 type InboundRuleUpdateResponse struct {
@@ -41,37 +41,37 @@ type InboundRuleUpdateResponse struct {
 	Error *shared.Error
 }
 
-func (o *InboundRuleUpdateResponse) GetContentType() string {
-	if o == nil {
+func (i *InboundRuleUpdateResponse) GetContentType() string {
+	if i == nil {
 		return ""
 	}
-	return o.ContentType
+	return i.ContentType
 }
 
-func (o *InboundRuleUpdateResponse) GetStatusCode() int {
-	if o == nil {
+func (i *InboundRuleUpdateResponse) GetStatusCode() int {
+	if i == nil {
 		return 0
 	}
-	return o.StatusCode
+	return i.StatusCode
 }
 
-func (o *InboundRuleUpdateResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (i *InboundRuleUpdateResponse) GetRawResponse() *http.Response {
+	if i == nil {
 		return nil
 	}
-	return o.RawResponse
+	return i.RawResponse
 }
 
-func (o *InboundRuleUpdateResponse) GetRuleResponse() *shared.RuleResponse {
-	if o == nil {
+func (i *InboundRuleUpdateResponse) GetRuleResponse() *shared.RuleResponse {
+	if i == nil {
 		return nil
 	}
-	return o.RuleResponse
+	return i.RuleResponse
 }
 
-func (o *InboundRuleUpdateResponse) GetError() *shared.Error {
-	if o == nil {
+func (i *InboundRuleUpdateResponse) GetError() *shared.Error {
+	if i == nil {
 		return nil
 	}
-	return o.Error
+	return i.Error
 }

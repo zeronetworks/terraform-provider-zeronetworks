@@ -6,9 +6,9 @@ type AssetIDSearch struct {
 	AssetID *string `json:"assetId,omitempty"`
 }
 
-func (o *AssetIDSearch) GetAssetID() *string {
-	if o == nil {
+func (a *AssetIDSearch) GetAssetID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.AssetID
+	return a.AssetID
 }

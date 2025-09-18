@@ -6,9 +6,9 @@ type RPCRuleResponse struct {
 	Item *RPCRule `json:"item,omitempty"`
 }
 
-func (o *RPCRuleResponse) GetItem() *RPCRule {
-	if o == nil {
+func (r *RPCRuleResponse) GetItem() *RPCRule {
+	if r == nil {
 		return nil
 	}
-	return o.Item
+	return r.Item
 }

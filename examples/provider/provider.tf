@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     zeronetworks = {
-      source  = "speakeasy/zeronetworks"
-      version = "0.10.0"
+      source  = "zeronetworks/zeronetworks"
+      version = "1.0.1"
     }
   }
 }

@@ -60,177 +60,177 @@ type RPCRule struct {
 	UserInfos   []IDNamePair `json:"userInfos,omitempty"`
 }
 
-func (o *RPCRule) GetAction() *RuleAction {
-	if o == nil {
+func (r *RPCRule) GetAction() *RuleAction {
+	if r == nil {
 		return nil
 	}
-	return o.Action
+	return r.Action
 }
 
-func (o *RPCRule) GetChangeTicket() *string {
-	if o == nil {
+func (r *RPCRule) GetChangeTicket() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ChangeTicket
+	return r.ChangeTicket
 }
 
-func (o *RPCRule) GetCreatedAt() *int64 {
-	if o == nil {
+func (r *RPCRule) GetCreatedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return r.CreatedAt
 }
 
-func (o *RPCRule) GetCreatedBy() *CreatedBy {
-	if o == nil {
+func (r *RPCRule) GetCreatedBy() *CreatedBy {
+	if r == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return r.CreatedBy
 }
 
-func (o *RPCRule) GetDescription() *string {
-	if o == nil {
+func (r *RPCRule) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *RPCRule) GetExcludedAssetIdsList() []string {
-	if o == nil {
+func (r *RPCRule) GetExcludedAssetIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedAssetIdsList
+	return r.ExcludedAssetIdsList
 }
 
-func (o *RPCRule) GetExcludedAssetInfos() []IDNamePair {
-	if o == nil {
+func (r *RPCRule) GetExcludedAssetInfos() []IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedAssetInfos
+	return r.ExcludedAssetInfos
 }
 
-func (o *RPCRule) GetExpiresAt() *int64 {
-	if o == nil {
+func (r *RPCRule) GetExpiresAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ExpiresAt
+	return r.ExpiresAt
 }
 
-func (o *RPCRule) GetID() *string {
-	if o == nil {
+func (r *RPCRule) GetID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *RPCRule) GetInterfaceUuidsList() []string {
-	if o == nil {
+func (r *RPCRule) GetInterfaceUuidsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.InterfaceUuidsList
+	return r.InterfaceUuidsList
 }
 
-func (o *RPCRule) GetLocalAssetID() *string {
-	if o == nil {
+func (r *RPCRule) GetLocalAssetID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.LocalAssetID
+	return r.LocalAssetID
 }
 
-func (o *RPCRule) GetLocalAssetInfo() *IDNamePair {
-	if o == nil {
+func (r *RPCRule) GetLocalAssetInfo() *IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.LocalAssetInfo
+	return r.LocalAssetInfo
 }
 
-func (o *RPCRule) GetName() *string {
-	if o == nil {
+func (r *RPCRule) GetName() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *RPCRule) GetOpNumbersList() []int64 {
-	if o == nil {
+func (r *RPCRule) GetOpNumbersList() []int64 {
+	if r == nil {
 		return nil
 	}
-	return o.OpNumbersList
+	return r.OpNumbersList
 }
 
-func (o *RPCRule) GetParentID() *string {
-	if o == nil {
+func (r *RPCRule) GetParentID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ParentID
+	return r.ParentID
 }
 
-func (o *RPCRule) GetParentType() *int {
-	if o == nil {
+func (r *RPCRule) GetParentType() *int {
+	if r == nil {
 		return nil
 	}
-	return o.ParentType
+	return r.ParentType
 }
 
-func (o *RPCRule) GetProtocolsList() []int64 {
-	if o == nil {
+func (r *RPCRule) GetProtocolsList() []int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ProtocolsList
+	return r.ProtocolsList
 }
 
-func (o *RPCRule) GetRemoteAssetIdsList() []string {
-	if o == nil {
+func (r *RPCRule) GetRemoteAssetIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.RemoteAssetIdsList
+	return r.RemoteAssetIdsList
 }
 
-func (o *RPCRule) GetRemoteAssetInfos() []IDNamePair {
-	if o == nil {
+func (r *RPCRule) GetRemoteAssetInfos() []IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.RemoteAssetInfos
+	return r.RemoteAssetInfos
 }
 
-func (o *RPCRule) GetRuleClass() *RuleClass {
-	if o == nil {
+func (r *RPCRule) GetRuleClass() *RuleClass {
+	if r == nil {
 		return nil
 	}
-	return o.RuleClass
+	return r.RuleClass
 }
 
-func (o *RPCRule) GetState() *RuleState {
-	if o == nil {
+func (r *RPCRule) GetState() *RuleState {
+	if r == nil {
 		return nil
 	}
-	return o.State
+	return r.State
 }
 
-func (o *RPCRule) GetUpdatedAt() *int64 {
-	if o == nil {
+func (r *RPCRule) GetUpdatedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return r.UpdatedAt
 }
 
-func (o *RPCRule) GetUpdatedBy() *IDNamePair {
-	if o == nil {
+func (r *RPCRule) GetUpdatedBy() *IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.UpdatedBy
+	return r.UpdatedBy
 }
 
-func (o *RPCRule) GetUserIdsList() []string {
-	if o == nil {
+func (r *RPCRule) GetUserIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.UserIdsList
+	return r.UserIdsList
 }
 
-func (o *RPCRule) GetUserInfos() []IDNamePair {
-	if o == nil {
+func (r *RPCRule) GetUserInfos() []IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.UserInfos
+	return r.UserInfos
 }

@@ -265,16 +265,16 @@ type PortsList struct {
 	ProtocolType *Protocol `json:"protocolType,omitempty"`
 }
 
-func (o *PortsList) GetPorts() *string {
-	if o == nil {
+func (p *PortsList) GetPorts() *string {
+	if p == nil {
 		return nil
 	}
-	return o.Ports
+	return p.Ports
 }
 
-func (o *PortsList) GetProtocolType() *Protocol {
-	if o == nil {
+func (p *PortsList) GetProtocolType() *Protocol {
+	if p == nil {
 		return nil
 	}
-	return o.ProtocolType
+	return p.ProtocolType
 }

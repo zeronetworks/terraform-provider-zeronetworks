@@ -4,8 +4,8 @@ package operations
 
 import (
 	"errors"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/retry"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/retry"
 	"time"
 )
 

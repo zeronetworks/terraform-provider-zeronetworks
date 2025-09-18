@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -20,37 +20,37 @@ type RPCRulesCreateResponse struct {
 	Error *shared.Error
 }
 
-func (o *RPCRulesCreateResponse) GetContentType() string {
-	if o == nil {
+func (r *RPCRulesCreateResponse) GetContentType() string {
+	if r == nil {
 		return ""
 	}
-	return o.ContentType
+	return r.ContentType
 }
 
-func (o *RPCRulesCreateResponse) GetStatusCode() int {
-	if o == nil {
+func (r *RPCRulesCreateResponse) GetStatusCode() int {
+	if r == nil {
 		return 0
 	}
-	return o.StatusCode
+	return r.StatusCode
 }
 
-func (o *RPCRulesCreateResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (r *RPCRulesCreateResponse) GetRawResponse() *http.Response {
+	if r == nil {
 		return nil
 	}
-	return o.RawResponse
+	return r.RawResponse
 }
 
-func (o *RPCRulesCreateResponse) GetRPCRuleResponse() *shared.RPCRuleResponse {
-	if o == nil {
+func (r *RPCRulesCreateResponse) GetRPCRuleResponse() *shared.RPCRuleResponse {
+	if r == nil {
 		return nil
 	}
-	return o.RPCRuleResponse
+	return r.RPCRuleResponse
 }
 
-func (o *RPCRulesCreateResponse) GetError() *shared.Error {
-	if o == nil {
+func (r *RPCRulesCreateResponse) GetError() *shared.Error {
+	if r == nil {
 		return nil
 	}
-	return o.Error
+	return r.Error
 }

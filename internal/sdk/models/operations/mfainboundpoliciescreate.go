@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -20,37 +20,37 @@ type MFAInboundPoliciesCreateResponse struct {
 	Error *shared.Error
 }
 
-func (o *MFAInboundPoliciesCreateResponse) GetContentType() string {
-	if o == nil {
+func (m *MFAInboundPoliciesCreateResponse) GetContentType() string {
+	if m == nil {
 		return ""
 	}
-	return o.ContentType
+	return m.ContentType
 }
 
-func (o *MFAInboundPoliciesCreateResponse) GetStatusCode() int {
-	if o == nil {
+func (m *MFAInboundPoliciesCreateResponse) GetStatusCode() int {
+	if m == nil {
 		return 0
 	}
-	return o.StatusCode
+	return m.StatusCode
 }
 
-func (o *MFAInboundPoliciesCreateResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (m *MFAInboundPoliciesCreateResponse) GetRawResponse() *http.Response {
+	if m == nil {
 		return nil
 	}
-	return o.RawResponse
+	return m.RawResponse
 }
 
-func (o *MFAInboundPoliciesCreateResponse) GetReactivePolicyItem() *shared.ReactivePolicyItem {
-	if o == nil {
+func (m *MFAInboundPoliciesCreateResponse) GetReactivePolicyItem() *shared.ReactivePolicyItem {
+	if m == nil {
 		return nil
 	}
-	return o.ReactivePolicyItem
+	return m.ReactivePolicyItem
 }
 
-func (o *MFAInboundPoliciesCreateResponse) GetError() *shared.Error {
-	if o == nil {
+func (m *MFAInboundPoliciesCreateResponse) GetError() *shared.Error {
+	if m == nil {
 		return nil
 	}
-	return o.Error
+	return m.Error
 }

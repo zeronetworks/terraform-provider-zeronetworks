@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ type MFAInboundPoliciesDeleteRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=reactivePolicyId"`
 }
 
-func (o *MFAInboundPoliciesDeleteRequest) GetID() string {
-	if o == nil {
+func (m *MFAInboundPoliciesDeleteRequest) GetID() string {
+	if m == nil {
 		return ""
 	}
-	return o.ID
+	return m.ID
 }
 
 type MFAInboundPoliciesDeleteResponse struct {
@@ -30,30 +30,30 @@ type MFAInboundPoliciesDeleteResponse struct {
 	Error *shared.Error
 }
 
-func (o *MFAInboundPoliciesDeleteResponse) GetContentType() string {
-	if o == nil {
+func (m *MFAInboundPoliciesDeleteResponse) GetContentType() string {
+	if m == nil {
 		return ""
 	}
-	return o.ContentType
+	return m.ContentType
 }
 
-func (o *MFAInboundPoliciesDeleteResponse) GetStatusCode() int {
-	if o == nil {
+func (m *MFAInboundPoliciesDeleteResponse) GetStatusCode() int {
+	if m == nil {
 		return 0
 	}
-	return o.StatusCode
+	return m.StatusCode
 }
 
-func (o *MFAInboundPoliciesDeleteResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (m *MFAInboundPoliciesDeleteResponse) GetRawResponse() *http.Response {
+	if m == nil {
 		return nil
 	}
-	return o.RawResponse
+	return m.RawResponse
 }
 
-func (o *MFAInboundPoliciesDeleteResponse) GetError() *shared.Error {
-	if o == nil {
+func (m *MFAInboundPoliciesDeleteResponse) GetError() *shared.Error {
+	if m == nil {
 		return nil
 	}
-	return o.Error
+	return m.Error
 }
