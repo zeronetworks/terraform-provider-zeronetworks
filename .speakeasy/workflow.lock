@@ -1,4 +1,4 @@
-speakeasyVersion: 1.612.0
+speakeasyVersion: 1.619.0
 sources:
     Zero Networks:
         sourceNamespace: zero-networks
@@ -28,3 +28,7 @@ workflow:
         zero-networks:
             target: terraform
             source: Zero Networks
+            publish:
+                terraform:
+                    gpgPrivateKey: $terraform_gpg_private_key
+                    gpgPassPhrase: $terraform_gpg_passphrase

@@ -2,16 +2,16 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 1.0.9 and generator version 2.695.0
+// Generated from OpenAPI doc version 1.0.9 and generator version 2.706.0
 
 import (
 	"context"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/config"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/hooks"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/retry"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/config"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/hooks"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/retry"
 	"net/http"
 	"time"
 )
@@ -151,9 +151,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *ZeroNetworks {
 	sdk := &ZeroNetworks{
-		SDKVersion: "0.10.0",
+		SDKVersion: "1.0.1",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 0.10.0 2.695.0 1.0.9 github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 1.0.1 2.706.0 1.0.9 github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{

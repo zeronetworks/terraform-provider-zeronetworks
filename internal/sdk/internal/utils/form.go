@@ -12,7 +12,8 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/types"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/optionalnullable"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/types"
 )
 
 func populateForm(paramName string, explode bool, objType reflect.Type, objValue reflect.Value, delimiter string, defaultValue *string, getFieldName func(reflect.StructField) string) url.Values {
@@ -75,6 +76,16 @@ func populateForm(paramName string, explode bool, objType reflect.Type, objValue
 			}
 		}
 	case reflect.Map:
+		// check if optionalnullable.OptionalNullable[T]
+		if nullableValue, ok := optionalnullable.AsOptionalNullable(objValue); ok {
+			// Handle optionalnullable.OptionalNullable[T] using GetUntyped method
+			if value, isSet := nullableValue.GetUntyped(); isSet && value != nil {
+				formValues.Add(paramName, valToString(value))
+			}
+			// If not set or explicitly null, skip adding to form
+			return formValues
+		}
+
 		items := []string{}
 
 		iter := objValue.MapRange()

@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ type AssetsSearchRequest struct {
 	Fqdn *string `queryParam:"style=form,explode=true,name=fqdn"`
 }
 
-func (o *AssetsSearchRequest) GetFqdn() *string {
-	if o == nil {
+func (a *AssetsSearchRequest) GetFqdn() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Fqdn
+	return a.Fqdn
 }
 
 type AssetsSearchResponse struct {
@@ -32,37 +32,37 @@ type AssetsSearchResponse struct {
 	Error *shared.Error
 }
 
-func (o *AssetsSearchResponse) GetContentType() string {
-	if o == nil {
+func (a *AssetsSearchResponse) GetContentType() string {
+	if a == nil {
 		return ""
 	}
-	return o.ContentType
+	return a.ContentType
 }
 
-func (o *AssetsSearchResponse) GetStatusCode() int {
-	if o == nil {
+func (a *AssetsSearchResponse) GetStatusCode() int {
+	if a == nil {
 		return 0
 	}
-	return o.StatusCode
+	return a.StatusCode
 }
 
-func (o *AssetsSearchResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (a *AssetsSearchResponse) GetRawResponse() *http.Response {
+	if a == nil {
 		return nil
 	}
-	return o.RawResponse
+	return a.RawResponse
 }
 
-func (o *AssetsSearchResponse) GetAssetIDSearch() *shared.AssetIDSearch {
-	if o == nil {
+func (a *AssetsSearchResponse) GetAssetIDSearch() *shared.AssetIDSearch {
+	if a == nil {
 		return nil
 	}
-	return o.AssetIDSearch
+	return a.AssetIDSearch
 }
 
-func (o *AssetsSearchResponse) GetError() *shared.Error {
-	if o == nil {
+func (a *AssetsSearchResponse) GetError() *shared.Error {
+	if a == nil {
 		return nil
 	}
-	return o.Error
+	return a.Error
 }

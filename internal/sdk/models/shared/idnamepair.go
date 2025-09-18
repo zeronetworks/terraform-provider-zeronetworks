@@ -9,16 +9,16 @@ type IDNamePair struct {
 	Name *string `json:"name,omitempty"`
 }
 
-func (o *IDNamePair) GetID() *string {
-	if o == nil {
+func (i *IDNamePair) GetID() *string {
+	if i == nil {
 		return nil
 	}
-	return o.ID
+	return i.ID
 }
 
-func (o *IDNamePair) GetName() *string {
-	if o == nil {
+func (i *IDNamePair) GetName() *string {
+	if i == nil {
 		return nil
 	}
-	return o.Name
+	return i.Name
 }

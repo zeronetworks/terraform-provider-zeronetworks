@@ -3,7 +3,7 @@
 package shared
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 type AddedBy struct {
@@ -22,18 +22,18 @@ func (a *AddedBy) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *AddedBy) GetID() *string {
-	if o == nil {
+func (a *AddedBy) GetID() *string {
+	if a == nil {
 		return nil
 	}
-	return o.ID
+	return a.ID
 }
 
-func (o *AddedBy) GetName() *string {
-	if o == nil {
+func (a *AddedBy) GetName() *string {
+	if a == nil {
 		return nil
 	}
-	return o.Name
+	return a.Name
 }
 
 type Group struct {
@@ -68,107 +68,107 @@ func (g *Group) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *Group) GetCreatedAt() *int64 {
-	if o == nil {
+func (g *Group) GetCreatedAt() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return g.CreatedAt
 }
 
-func (o *Group) GetDescription() *string {
-	if o == nil {
+func (g *Group) GetDescription() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Description
+	return g.Description
 }
 
-func (o *Group) GetDirectMembersCount() *int64 {
-	if o == nil {
+func (g *Group) GetDirectMembersCount() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.DirectMembersCount
+	return g.DirectMembersCount
 }
 
-func (o *Group) GetDomain() *string {
-	if o == nil {
+func (g *Group) GetDomain() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Domain
+	return g.Domain
 }
 
-func (o *Group) GetExternalID() *string {
-	if o == nil {
+func (g *Group) GetExternalID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.ExternalID
+	return g.ExternalID
 }
 
-func (o *Group) GetGUID() *string {
-	if o == nil {
+func (g *Group) GetGUID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.GUID
+	return g.GUID
 }
 
-func (o *Group) GetHasProtectionPolicy() *bool {
-	if o == nil {
+func (g *Group) GetHasProtectionPolicy() *bool {
+	if g == nil {
 		return nil
 	}
-	return o.HasProtectionPolicy
+	return g.HasProtectionPolicy
 }
 
-func (o *Group) GetID() *string {
-	if o == nil {
+func (g *Group) GetID() *string {
+	if g == nil {
 		return nil
 	}
-	return o.ID
+	return g.ID
 }
 
-func (o *Group) GetName() *string {
-	if o == nil {
+func (g *Group) GetName() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Name
+	return g.Name
 }
 
-func (o *Group) GetPrincipalName() *string {
-	if o == nil {
+func (g *Group) GetPrincipalName() *string {
+	if g == nil {
 		return nil
 	}
-	return o.PrincipalName
+	return g.PrincipalName
 }
 
-func (o *Group) GetRole() *int {
-	if o == nil {
+func (g *Group) GetRole() *int {
+	if g == nil {
 		return nil
 	}
-	return o.Role
+	return g.Role
 }
 
-func (o *Group) GetSid() *string {
-	if o == nil {
+func (g *Group) GetSid() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Sid
+	return g.Sid
 }
 
-func (o *Group) GetUpdatedAt() *int64 {
-	if o == nil {
+func (g *Group) GetUpdatedAt() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return g.UpdatedAt
 }
 
-func (o *Group) GetAddedAt() *int64 {
-	if o == nil {
+func (g *Group) GetAddedAt() *int64 {
+	if g == nil {
 		return nil
 	}
-	return o.AddedAt
+	return g.AddedAt
 }
 
-func (o *Group) GetAddedBy() *AddedBy {
-	if o == nil {
+func (g *Group) GetAddedBy() *AddedBy {
+	if g == nil {
 		return nil
 	}
-	return o.AddedBy
+	return g.AddedBy
 }

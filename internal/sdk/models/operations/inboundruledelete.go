@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ type InboundRuleDeleteRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=ruleId"`
 }
 
-func (o *InboundRuleDeleteRequest) GetID() string {
-	if o == nil {
+func (i *InboundRuleDeleteRequest) GetID() string {
+	if i == nil {
 		return ""
 	}
-	return o.ID
+	return i.ID
 }
 
 type InboundRuleDeleteResponse struct {
@@ -30,30 +30,30 @@ type InboundRuleDeleteResponse struct {
 	Error *shared.Error
 }
 
-func (o *InboundRuleDeleteResponse) GetContentType() string {
-	if o == nil {
+func (i *InboundRuleDeleteResponse) GetContentType() string {
+	if i == nil {
 		return ""
 	}
-	return o.ContentType
+	return i.ContentType
 }
 
-func (o *InboundRuleDeleteResponse) GetStatusCode() int {
-	if o == nil {
+func (i *InboundRuleDeleteResponse) GetStatusCode() int {
+	if i == nil {
 		return 0
 	}
-	return o.StatusCode
+	return i.StatusCode
 }
 
-func (o *InboundRuleDeleteResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (i *InboundRuleDeleteResponse) GetRawResponse() *http.Response {
+	if i == nil {
 		return nil
 	}
-	return o.RawResponse
+	return i.RawResponse
 }
 
-func (o *InboundRuleDeleteResponse) GetError() *shared.Error {
-	if o == nil {
+func (i *InboundRuleDeleteResponse) GetError() *shared.Error {
+	if i == nil {
 		return nil
 	}
-	return o.Error
+	return i.Error
 }

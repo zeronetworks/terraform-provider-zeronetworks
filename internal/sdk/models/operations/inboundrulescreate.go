@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -20,37 +20,37 @@ type InboundRulesCreateResponse struct {
 	Error *shared.Error
 }
 
-func (o *InboundRulesCreateResponse) GetContentType() string {
-	if o == nil {
+func (i *InboundRulesCreateResponse) GetContentType() string {
+	if i == nil {
 		return ""
 	}
-	return o.ContentType
+	return i.ContentType
 }
 
-func (o *InboundRulesCreateResponse) GetStatusCode() int {
-	if o == nil {
+func (i *InboundRulesCreateResponse) GetStatusCode() int {
+	if i == nil {
 		return 0
 	}
-	return o.StatusCode
+	return i.StatusCode
 }
 
-func (o *InboundRulesCreateResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (i *InboundRulesCreateResponse) GetRawResponse() *http.Response {
+	if i == nil {
 		return nil
 	}
-	return o.RawResponse
+	return i.RawResponse
 }
 
-func (o *InboundRulesCreateResponse) GetRuleResponse() *shared.RuleResponse {
-	if o == nil {
+func (i *InboundRulesCreateResponse) GetRuleResponse() *shared.RuleResponse {
+	if i == nil {
 		return nil
 	}
-	return o.RuleResponse
+	return i.RuleResponse
 }
 
-func (o *InboundRulesCreateResponse) GetError() *shared.Error {
-	if o == nil {
+func (i *InboundRulesCreateResponse) GetError() *shared.Error {
+	if i == nil {
 		return nil
 	}
-	return o.Error
+	return i.Error
 }

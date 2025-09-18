@@ -4,7 +4,7 @@ package objectplanmodifier
 
 import (
 	"context"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/planmodifiers/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/planmodifiers/utils"
 
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 )

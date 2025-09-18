@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -14,18 +14,18 @@ type MFAOutboundPoliciesUpdateRequest struct {
 	ReactivePolicyOutboundBody shared.ReactivePolicyOutboundBody `request:"mediaType=application/json"`
 }
 
-func (o *MFAOutboundPoliciesUpdateRequest) GetID() string {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateRequest) GetID() string {
+	if m == nil {
 		return ""
 	}
-	return o.ID
+	return m.ID
 }
 
-func (o *MFAOutboundPoliciesUpdateRequest) GetReactivePolicyOutboundBody() shared.ReactivePolicyOutboundBody {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateRequest) GetReactivePolicyOutboundBody() shared.ReactivePolicyOutboundBody {
+	if m == nil {
 		return shared.ReactivePolicyOutboundBody{}
 	}
-	return o.ReactivePolicyOutboundBody
+	return m.ReactivePolicyOutboundBody
 }
 
 type MFAOutboundPoliciesUpdateResponse struct {
@@ -41,37 +41,37 @@ type MFAOutboundPoliciesUpdateResponse struct {
 	Error *shared.Error
 }
 
-func (o *MFAOutboundPoliciesUpdateResponse) GetContentType() string {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateResponse) GetContentType() string {
+	if m == nil {
 		return ""
 	}
-	return o.ContentType
+	return m.ContentType
 }
 
-func (o *MFAOutboundPoliciesUpdateResponse) GetStatusCode() int {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateResponse) GetStatusCode() int {
+	if m == nil {
 		return 0
 	}
-	return o.StatusCode
+	return m.StatusCode
 }
 
-func (o *MFAOutboundPoliciesUpdateResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateResponse) GetRawResponse() *http.Response {
+	if m == nil {
 		return nil
 	}
-	return o.RawResponse
+	return m.RawResponse
 }
 
-func (o *MFAOutboundPoliciesUpdateResponse) GetReactivePolicyItem() *shared.ReactivePolicyItem {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateResponse) GetReactivePolicyItem() *shared.ReactivePolicyItem {
+	if m == nil {
 		return nil
 	}
-	return o.ReactivePolicyItem
+	return m.ReactivePolicyItem
 }
 
-func (o *MFAOutboundPoliciesUpdateResponse) GetError() *shared.Error {
-	if o == nil {
+func (m *MFAOutboundPoliciesUpdateResponse) GetError() *shared.Error {
+	if m == nil {
 		return nil
 	}
-	return o.Error
+	return m.Error
 }

@@ -16,8 +16,7 @@ Zero Networks: APIs for Zero Networks
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
-* [zeronetworks](#zeronetworks)
-  * [🏗 **Welcome to your new Terraform Provider!** 🏗](#welcome-to-your-new-terraform-provider)
+* [Zeronetworks terraform provider](#zeronetworks-terraform-provider)
   * [Installation](#installation)
   * [Authentication](#authentication)
   * [Available Resources and Data Sources](#available-resources-and-data-sources)
@@ -36,8 +35,8 @@ To install this provider, copy and paste this code into your Terraform configura
 terraform {
   required_providers {
     zeronetworks = {
-      source  = "speakeasy/zeronetworks"
-      version = "0.10.0"
+      source  = "zeronetworks/zeronetworks"
+      version = "1.0.1"
     }
   }
 }
@@ -111,7 +110,7 @@ Terraform searches for the `.terraformrc` file in your home directory and applie
 provider_installation {
 
   dev_overrides {
-      "registry.terraform.io/speakeasy/zeronetworks" = "<PATH>"
+      "registry.terraform.io/zeronetworks/zeronetworks" = "<PATH>"
   }
 
   # For all other providers, install them directly from their origin provider

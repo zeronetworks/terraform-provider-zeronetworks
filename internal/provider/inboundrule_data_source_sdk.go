@@ -6,10 +6,10 @@ import (
 	"context"
 	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/provider/typeconvert"
-	tfTypes "github.com/speakeasy/terraform-provider-zeronetworks/internal/provider/types"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/operations"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/provider/typeconvert"
+	tfTypes "github.com/zeronetworks/terraform-provider-zeronetworks/internal/provider/types"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/operations"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
 func (r *InboundRuleDataSourceModel) RefreshFromSharedRule(ctx context.Context, resp *shared.Rule) diag.Diagnostics {

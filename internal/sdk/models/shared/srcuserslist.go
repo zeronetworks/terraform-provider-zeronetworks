@@ -7,16 +7,16 @@ type SrcUsersList struct {
 	Sid *string `json:"sid,omitempty"`
 }
 
-func (o *SrcUsersList) GetID() *string {
-	if o == nil {
+func (s *SrcUsersList) GetID() *string {
+	if s == nil {
 		return nil
 	}
-	return o.ID
+	return s.ID
 }
 
-func (o *SrcUsersList) GetSid() *string {
-	if o == nil {
+func (s *SrcUsersList) GetSid() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Sid
+	return s.Sid
 }

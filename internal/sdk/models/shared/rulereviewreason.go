@@ -19,16 +19,16 @@ type RuleReviewReason struct {
 	Details *string `json:"details,omitempty"`
 }
 
-func (o *RuleReviewReason) GetReason() int64 {
-	if o == nil {
+func (r *RuleReviewReason) GetReason() int64 {
+	if r == nil {
 		return 0
 	}
-	return o.Reason
+	return r.Reason
 }
 
-func (o *RuleReviewReason) GetDetails() *string {
-	if o == nil {
+func (r *RuleReviewReason) GetDetails() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Details
+	return r.Details
 }

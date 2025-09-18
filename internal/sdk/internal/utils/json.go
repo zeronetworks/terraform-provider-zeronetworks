@@ -14,7 +14,7 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/types"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/types"
 
 	"github.com/ericlagergren/decimal"
 )
@@ -285,6 +285,11 @@ func marshalValue(v interface{}, tag reflect.StructTag) (json.RawMessage, error)
 	case reflect.Map:
 		if isNil(typ, val) {
 			return []byte("null"), nil
+		}
+
+		// Check if the map implements json.Marshaler (like optionalnullable.OptionalNullable[T])
+		if marshaler, ok := val.Interface().(json.Marshaler); ok {
+			return marshaler.MarshalJSON()
 		}
 
 		out := map[string]json.RawMessage{}

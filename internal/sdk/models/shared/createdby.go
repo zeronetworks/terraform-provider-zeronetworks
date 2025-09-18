@@ -35,30 +35,30 @@ type CreatedBy struct {
 	UserRole *UserRole `json:"userRole,omitempty"`
 }
 
-func (o *CreatedBy) GetCreatedBy() *IDNamePair {
-	if o == nil {
+func (c *CreatedBy) GetCreatedBy() *IDNamePair {
+	if c == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return c.CreatedBy
 }
 
-func (o *CreatedBy) GetEmail() *string {
-	if o == nil {
+func (c *CreatedBy) GetEmail() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Email
+	return c.Email
 }
 
-func (o *CreatedBy) GetEnforcementSource() *EnforcementSource {
-	if o == nil {
+func (c *CreatedBy) GetEnforcementSource() *EnforcementSource {
+	if c == nil {
 		return nil
 	}
-	return o.EnforcementSource
+	return c.EnforcementSource
 }
 
-func (o *CreatedBy) GetUserRole() *UserRole {
-	if o == nil {
+func (c *CreatedBy) GetUserRole() *UserRole {
+	if c == nil {
 		return nil
 	}
-	return o.UserRole
+	return c.UserRole
 }

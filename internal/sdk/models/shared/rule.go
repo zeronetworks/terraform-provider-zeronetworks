@@ -5,7 +5,7 @@ package shared
 import (
 	"errors"
 	"fmt"
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 type LocalEntityInfoType string
@@ -158,268 +158,268 @@ type Rule struct {
 	IsRejectOnLinux *bool       `json:"isRejectOnLinux,omitempty"`
 }
 
-func (o *Rule) GetAction() *RuleAction {
-	if o == nil {
+func (r *Rule) GetAction() *RuleAction {
+	if r == nil {
 		return nil
 	}
-	return o.Action
+	return r.Action
 }
 
-func (o *Rule) GetAeOverridden() *bool {
-	if o == nil {
+func (r *Rule) GetAeOverridden() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.AeOverridden
+	return r.AeOverridden
 }
 
-func (o *Rule) GetActivitiesCount() *int {
-	if o == nil {
+func (r *Rule) GetActivitiesCount() *int {
+	if r == nil {
 		return nil
 	}
-	return o.ActivitiesCount
+	return r.ActivitiesCount
 }
 
-func (o *Rule) GetApprovedAt() *int64 {
-	if o == nil {
+func (r *Rule) GetApprovedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ApprovedAt
+	return r.ApprovedAt
 }
 
-func (o *Rule) GetApprovedBy() *IDNamePair {
-	if o == nil {
+func (r *Rule) GetApprovedBy() *IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.ApprovedBy
+	return r.ApprovedBy
 }
 
-func (o *Rule) GetCreatedAt() *int64 {
-	if o == nil {
+func (r *Rule) GetCreatedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return r.CreatedAt
 }
 
-func (o *Rule) GetCreatedBy() *CreatedBy {
-	if o == nil {
+func (r *Rule) GetCreatedBy() *CreatedBy {
+	if r == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return r.CreatedBy
 }
 
-func (o *Rule) GetChangeTicket() *string {
-	if o == nil {
+func (r *Rule) GetChangeTicket() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ChangeTicket
+	return r.ChangeTicket
 }
 
-func (o *Rule) GetContext() *int64 {
-	if o == nil {
+func (r *Rule) GetContext() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.Context
+	return r.Context
 }
 
-func (o *Rule) GetDeletedAt() *int64 {
-	if o == nil {
+func (r *Rule) GetDeletedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.DeletedAt
+	return r.DeletedAt
 }
 
-func (o *Rule) GetDeletedBy() *IDNamePair {
-	if o == nil {
+func (r *Rule) GetDeletedBy() *IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.DeletedBy
+	return r.DeletedBy
 }
 
-func (o *Rule) GetDescription() *string {
-	if o == nil {
+func (r *Rule) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *Rule) GetDirection() *RuleDirection {
-	if o == nil {
+func (r *Rule) GetDirection() *RuleDirection {
+	if r == nil {
 		return nil
 	}
-	return o.Direction
+	return r.Direction
 }
 
-func (o *Rule) GetExcludedEntityInfos() []IDNamePair {
-	if o == nil {
+func (r *Rule) GetExcludedEntityInfos() []IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedEntityInfos
+	return r.ExcludedEntityInfos
 }
 
-func (o *Rule) GetExcludedLocalIdsList() []string {
-	if o == nil {
+func (r *Rule) GetExcludedLocalIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedLocalIdsList
+	return r.ExcludedLocalIdsList
 }
 
-func (o *Rule) GetExpiresAt() *int64 {
-	if o == nil {
+func (r *Rule) GetExpiresAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ExpiresAt
+	return r.ExpiresAt
 }
 
-func (o *Rule) GetID() *string {
-	if o == nil {
+func (r *Rule) GetID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ID
+	return r.ID
 }
 
-func (o *Rule) GetIPSecOpt() *IPSecOpt {
-	if o == nil {
+func (r *Rule) GetIPSecOpt() *IPSecOpt {
+	if r == nil {
 		return nil
 	}
-	return o.IPSecOpt
+	return r.IPSecOpt
 }
 
-func (o *Rule) GetLocalEntityID() *string {
-	if o == nil {
+func (r *Rule) GetLocalEntityID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.LocalEntityID
+	return r.LocalEntityID
 }
 
-func (o *Rule) GetLocalProcessesList() []string {
-	if o == nil {
+func (r *Rule) GetLocalProcessesList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.LocalProcessesList
+	return r.LocalProcessesList
 }
 
-func (o *Rule) GetLocalEntityInfos() []LocalEntityInfo {
-	if o == nil {
+func (r *Rule) GetLocalEntityInfos() []LocalEntityInfo {
+	if r == nil {
 		return nil
 	}
-	return o.LocalEntityInfos
+	return r.LocalEntityInfos
 }
 
-func (o *Rule) GetMultipleLocalEntityIdsList() []string {
-	if o == nil {
+func (r *Rule) GetMultipleLocalEntityIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.MultipleLocalEntityIdsList
+	return r.MultipleLocalEntityIdsList
 }
 
-func (o *Rule) GetName() *string {
-	if o == nil {
+func (r *Rule) GetName() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *Rule) GetParentID() *string {
-	if o == nil {
+func (r *Rule) GetParentID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ParentID
+	return r.ParentID
 }
 
-func (o *Rule) GetParentSwitchRuleID() *string {
-	if o == nil {
+func (r *Rule) GetParentSwitchRuleID() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ParentSwitchRuleID
+	return r.ParentSwitchRuleID
 }
 
-func (o *Rule) GetParentSwitchRuleType() *int {
-	if o == nil {
+func (r *Rule) GetParentSwitchRuleType() *int {
+	if r == nil {
 		return nil
 	}
-	return o.ParentSwitchRuleType
+	return r.ParentSwitchRuleType
 }
 
-func (o *Rule) GetParentType() *int {
-	if o == nil {
+func (r *Rule) GetParentType() *int {
+	if r == nil {
 		return nil
 	}
-	return o.ParentType
+	return r.ParentType
 }
 
-func (o *Rule) GetPortsList() []PortsList {
-	if o == nil {
+func (r *Rule) GetPortsList() []PortsList {
+	if r == nil {
 		return nil
 	}
-	return o.PortsList
+	return r.PortsList
 }
 
-func (o *Rule) GetRemoteEntityIdsList() []string {
-	if o == nil {
+func (r *Rule) GetRemoteEntityIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.RemoteEntityIdsList
+	return r.RemoteEntityIdsList
 }
 
-func (o *Rule) GetRemoteEntityInfos() []IDNamePair {
-	if o == nil {
+func (r *Rule) GetRemoteEntityInfos() []IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.RemoteEntityInfos
+	return r.RemoteEntityInfos
 }
 
-func (o *Rule) GetRuleclass() *RuleClass {
-	if o == nil {
+func (r *Rule) GetRuleclass() *RuleClass {
+	if r == nil {
 		return nil
 	}
-	return o.Ruleclass
+	return r.Ruleclass
 }
 
-func (o *Rule) GetRuleReview() *RuleReviewReason {
-	if o == nil {
+func (r *Rule) GetRuleReview() *RuleReviewReason {
+	if r == nil {
 		return nil
 	}
-	return o.RuleReview
+	return r.RuleReview
 }
 
-func (o *Rule) GetServicesList() []string {
-	if o == nil {
+func (r *Rule) GetServicesList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ServicesList
+	return r.ServicesList
 }
 
-func (o *Rule) GetSrcUsersList() []SrcUsersList {
-	if o == nil {
+func (r *Rule) GetSrcUsersList() []SrcUsersList {
+	if r == nil {
 		return nil
 	}
-	return o.SrcUsersList
+	return r.SrcUsersList
 }
 
-func (o *Rule) GetState() *RuleState {
-	if o == nil {
+func (r *Rule) GetState() *RuleState {
+	if r == nil {
 		return nil
 	}
-	return o.State
+	return r.State
 }
 
-func (o *Rule) GetUpdatedAt() *int64 {
-	if o == nil {
+func (r *Rule) GetUpdatedAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return r.UpdatedAt
 }
 
-func (o *Rule) GetUpdatedBy() *IDNamePair {
-	if o == nil {
+func (r *Rule) GetUpdatedBy() *IDNamePair {
+	if r == nil {
 		return nil
 	}
-	return o.UpdatedBy
+	return r.UpdatedBy
 }
 
-func (o *Rule) GetIsRejectOnLinux() *bool {
-	if o == nil {
+func (r *Rule) GetIsRejectOnLinux() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.IsRejectOnLinux
+	return r.IsRejectOnLinux
 }

@@ -6,44 +6,44 @@ type ReactivePolicyOutboundBodyDstEntityInfo struct {
 	ID string `json:"id"`
 }
 
-func (o *ReactivePolicyOutboundBodyDstEntityInfo) GetID() string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBodyDstEntityInfo) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
 type ReactivePolicyOutboundBodyExcludedSrcEntityInfo struct {
 	ID string `json:"id"`
 }
 
-func (o *ReactivePolicyOutboundBodyExcludedSrcEntityInfo) GetID() string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBodyExcludedSrcEntityInfo) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
 type ReactivePolicyOutboundBodySrcEntityInfo struct {
 	ID string `json:"id"`
 }
 
-func (o *ReactivePolicyOutboundBodySrcEntityInfo) GetID() string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBodySrcEntityInfo) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
 type ReactivePolicyOutboundBodySrcUserInfo struct {
 	ID string `json:"id"`
 }
 
-func (o *ReactivePolicyOutboundBodySrcUserInfo) GetID() string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBodySrcUserInfo) GetID() string {
+	if r == nil {
 		return ""
 	}
-	return o.ID
+	return r.ID
 }
 
 type ReactivePolicyOutboundBody struct {
@@ -83,156 +83,156 @@ type ReactivePolicyOutboundBody struct {
 	UseOccasionalMfa *bool               `json:"useOccasionalMfa,omitempty"`
 }
 
-func (o *ReactivePolicyOutboundBody) GetAdditionalPortsList() []PortsList {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetAdditionalPortsList() []PortsList {
+	if r == nil {
 		return []PortsList{}
 	}
-	return o.AdditionalPortsList
+	return r.AdditionalPortsList
 }
 
-func (o *ReactivePolicyOutboundBody) GetChangeTicket() *string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetChangeTicket() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ChangeTicket
+	return r.ChangeTicket
 }
 
-func (o *ReactivePolicyOutboundBody) GetDescription() *string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *ReactivePolicyOutboundBody) GetDstEntityInfo() ReactivePolicyOutboundBodyDstEntityInfo {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetDstEntityInfo() ReactivePolicyOutboundBodyDstEntityInfo {
+	if r == nil {
 		return ReactivePolicyOutboundBodyDstEntityInfo{}
 	}
-	return o.DstEntityInfo
+	return r.DstEntityInfo
 }
 
-func (o *ReactivePolicyOutboundBody) GetDstPort() string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetDstPort() string {
+	if r == nil {
 		return ""
 	}
-	return o.DstPort
+	return r.DstPort
 }
 
-func (o *ReactivePolicyOutboundBody) GetDstProcessNames() []string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetDstProcessNames() []string {
+	if r == nil {
 		return nil
 	}
-	return o.DstProcessNames
+	return r.DstProcessNames
 }
 
-func (o *ReactivePolicyOutboundBody) GetExcludedSrcEntityInfos() []ReactivePolicyOutboundBodyExcludedSrcEntityInfo {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetExcludedSrcEntityInfos() []ReactivePolicyOutboundBodyExcludedSrcEntityInfo {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedSrcEntityInfos
+	return r.ExcludedSrcEntityInfos
 }
 
-func (o *ReactivePolicyOutboundBody) GetExcludedSrcProcesses() []string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetExcludedSrcProcesses() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedSrcProcesses
+	return r.ExcludedSrcProcesses
 }
 
-func (o *ReactivePolicyOutboundBody) GetFallbackToLoggedOnUser() bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetFallbackToLoggedOnUser() bool {
+	if r == nil {
 		return false
 	}
-	return o.FallbackToLoggedOnUser
+	return r.FallbackToLoggedOnUser
 }
 
-func (o *ReactivePolicyOutboundBody) GetName() *string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetName() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *ReactivePolicyOutboundBody) GetMfaMethods() []MfaMethods {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetMfaMethods() []MfaMethods {
+	if r == nil {
 		return []MfaMethods{}
 	}
-	return o.MfaMethods
+	return r.MfaMethods
 }
 
-func (o *ReactivePolicyOutboundBody) GetOverrideBuiltins() bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetOverrideBuiltins() bool {
+	if r == nil {
 		return false
 	}
-	return o.OverrideBuiltins
+	return r.OverrideBuiltins
 }
 
-func (o *ReactivePolicyOutboundBody) GetProtocolType() int64 {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetProtocolType() int64 {
+	if r == nil {
 		return 0
 	}
-	return o.ProtocolType
+	return r.ProtocolType
 }
 
-func (o *ReactivePolicyOutboundBody) GetRestrictToOriginatedUser() *bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetRestrictToOriginatedUser() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.RestrictToOriginatedUser
+	return r.RestrictToOriginatedUser
 }
 
-func (o *ReactivePolicyOutboundBody) GetRestrictLoginToOriginatingUser() *bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetRestrictLoginToOriginatingUser() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.RestrictLoginToOriginatingUser
+	return r.RestrictLoginToOriginatingUser
 }
 
-func (o *ReactivePolicyOutboundBody) GetRuleDuration() RuleDuration {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetRuleDuration() RuleDuration {
+	if r == nil {
 		return RuleDuration(0)
 	}
-	return o.RuleDuration
+	return r.RuleDuration
 }
 
-func (o *ReactivePolicyOutboundBody) GetSrcEntityInfos() []ReactivePolicyOutboundBodySrcEntityInfo {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetSrcEntityInfos() []ReactivePolicyOutboundBodySrcEntityInfo {
+	if r == nil {
 		return []ReactivePolicyOutboundBodySrcEntityInfo{}
 	}
-	return o.SrcEntityInfos
+	return r.SrcEntityInfos
 }
 
-func (o *ReactivePolicyOutboundBody) GetSrcProcessNames() []string {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetSrcProcessNames() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.SrcProcessNames
+	return r.SrcProcessNames
 }
 
-func (o *ReactivePolicyOutboundBody) GetSrcUserInfos() []ReactivePolicyOutboundBodySrcUserInfo {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetSrcUserInfos() []ReactivePolicyOutboundBodySrcUserInfo {
+	if r == nil {
 		return []ReactivePolicyOutboundBodySrcUserInfo{}
 	}
-	return o.SrcUserInfos
+	return r.SrcUserInfos
 }
 
-func (o *ReactivePolicyOutboundBody) GetState() ReactivePolicyState {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetState() ReactivePolicyState {
+	if r == nil {
 		return ReactivePolicyState(0)
 	}
-	return o.State
+	return r.State
 }
 
-func (o *ReactivePolicyOutboundBody) GetUseDefaultIdp() *bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetUseDefaultIdp() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.UseDefaultIdp
+	return r.UseDefaultIdp
 }
 
-func (o *ReactivePolicyOutboundBody) GetUseOccasionalMfa() *bool {
-	if o == nil {
+func (r *ReactivePolicyOutboundBody) GetUseOccasionalMfa() *bool {
+	if r == nil {
 		return nil
 	}
-	return o.UseOccasionalMfa
+	return r.UseOccasionalMfa
 }

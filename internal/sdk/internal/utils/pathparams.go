@@ -13,7 +13,8 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/types"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/optionalnullable"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/types"
 )
 
 func GenerateURL(_ context.Context, serverURL, path string, pathParams interface{}, globals interface{}) (string, error) {
@@ -114,6 +115,16 @@ func getSimplePathParams(parentName string, objType reflect.Type, objValue refle
 		}
 		pathParams[parentName] = strings.Join(ppVals, ",")
 	case reflect.Map:
+		// check if optionalnullable.OptionalNullable[T]
+		if nullableValue, ok := optionalnullable.AsOptionalNullable(objValue); ok {
+			// Handle optionalnullable.OptionalNullable[T] using GetUntyped method
+			if value, isSet := nullableValue.GetUntyped(); isSet && value != nil {
+				pathParams[parentName] = valToString(value)
+			}
+			// If not set or explicitly null, return nil (skip parameter)
+			return pathParams
+		}
+
 		if objValue.Len() == 0 {
 			return nil
 		}

@@ -3,7 +3,7 @@
 package operations
 
 import (
-	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
+	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/models/shared"
 	"net/http"
 )
 
@@ -12,11 +12,11 @@ type InboundRuleGetRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=ruleId"`
 }
 
-func (o *InboundRuleGetRequest) GetID() string {
-	if o == nil {
+func (i *InboundRuleGetRequest) GetID() string {
+	if i == nil {
 		return ""
 	}
-	return o.ID
+	return i.ID
 }
 
 type InboundRuleGetResponse struct {
@@ -32,37 +32,37 @@ type InboundRuleGetResponse struct {
 	Error *shared.Error
 }
 
-func (o *InboundRuleGetResponse) GetContentType() string {
-	if o == nil {
+func (i *InboundRuleGetResponse) GetContentType() string {
+	if i == nil {
 		return ""
 	}
-	return o.ContentType
+	return i.ContentType
 }
 
-func (o *InboundRuleGetResponse) GetStatusCode() int {
-	if o == nil {
+func (i *InboundRuleGetResponse) GetStatusCode() int {
+	if i == nil {
 		return 0
 	}
-	return o.StatusCode
+	return i.StatusCode
 }
 
-func (o *InboundRuleGetResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (i *InboundRuleGetResponse) GetRawResponse() *http.Response {
+	if i == nil {
 		return nil
 	}
-	return o.RawResponse
+	return i.RawResponse
 }
 
-func (o *InboundRuleGetResponse) GetRuleItem() *shared.RuleItem {
-	if o == nil {
+func (i *InboundRuleGetResponse) GetRuleItem() *shared.RuleItem {
+	if i == nil {
 		return nil
 	}
-	return o.RuleItem
+	return i.RuleItem
 }
 
-func (o *InboundRuleGetResponse) GetError() *shared.Error {
-	if o == nil {
+func (i *InboundRuleGetResponse) GetError() *shared.Error {
+	if i == nil {
 		return nil
 	}
-	return o.Error
+	return i.Error
 }

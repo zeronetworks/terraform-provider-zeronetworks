@@ -6,9 +6,9 @@ type ReactivePolicyItem struct {
 	Item *ReactivePolicy `json:"item,omitempty"`
 }
 
-func (o *ReactivePolicyItem) GetItem() *ReactivePolicy {
-	if o == nil {
+func (r *ReactivePolicyItem) GetItem() *ReactivePolicy {
+	if r == nil {
 		return nil
 	}
-	return o.Item
+	return r.Item
 }

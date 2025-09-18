@@ -39,107 +39,107 @@ type RuleBody struct {
 	Context *int      `json:"context,omitempty"`
 }
 
-func (o *RuleBody) GetAction() RuleAction {
-	if o == nil {
+func (r *RuleBody) GetAction() RuleAction {
+	if r == nil {
 		return RuleAction(0)
 	}
-	return o.Action
+	return r.Action
 }
 
-func (o *RuleBody) GetChangeTicket() *string {
-	if o == nil {
+func (r *RuleBody) GetChangeTicket() *string {
+	if r == nil {
 		return nil
 	}
-	return o.ChangeTicket
+	return r.ChangeTicket
 }
 
-func (o *RuleBody) GetDescription() *string {
-	if o == nil {
+func (r *RuleBody) GetDescription() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Description
+	return r.Description
 }
 
-func (o *RuleBody) GetExcludedLocalIdsList() []string {
-	if o == nil {
+func (r *RuleBody) GetExcludedLocalIdsList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ExcludedLocalIdsList
+	return r.ExcludedLocalIdsList
 }
 
-func (o *RuleBody) GetExpiresAt() *int64 {
-	if o == nil {
+func (r *RuleBody) GetExpiresAt() *int64 {
+	if r == nil {
 		return nil
 	}
-	return o.ExpiresAt
+	return r.ExpiresAt
 }
 
-func (o *RuleBody) GetIPSecOpt() *IPSecOpt {
-	if o == nil {
+func (r *RuleBody) GetIPSecOpt() *IPSecOpt {
+	if r == nil {
 		return nil
 	}
-	return o.IPSecOpt
+	return r.IPSecOpt
 }
 
-func (o *RuleBody) GetName() *string {
-	if o == nil {
+func (r *RuleBody) GetName() *string {
+	if r == nil {
 		return nil
 	}
-	return o.Name
+	return r.Name
 }
 
-func (o *RuleBody) GetLocalEntityID() string {
-	if o == nil {
+func (r *RuleBody) GetLocalEntityID() string {
+	if r == nil {
 		return ""
 	}
-	return o.LocalEntityID
+	return r.LocalEntityID
 }
 
-func (o *RuleBody) GetLocalProcessesList() []string {
-	if o == nil {
+func (r *RuleBody) GetLocalProcessesList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.LocalProcessesList
+	return r.LocalProcessesList
 }
 
-func (o *RuleBody) GetServicesList() []string {
-	if o == nil {
+func (r *RuleBody) GetServicesList() []string {
+	if r == nil {
 		return nil
 	}
-	return o.ServicesList
+	return r.ServicesList
 }
 
-func (o *RuleBody) GetPortsList() []PortsList {
-	if o == nil {
+func (r *RuleBody) GetPortsList() []PortsList {
+	if r == nil {
 		return []PortsList{}
 	}
-	return o.PortsList
+	return r.PortsList
 }
 
-func (o *RuleBody) GetRemoteEntityIdsList() []string {
-	if o == nil {
+func (r *RuleBody) GetRemoteEntityIdsList() []string {
+	if r == nil {
 		return []string{}
 	}
-	return o.RemoteEntityIdsList
+	return r.RemoteEntityIdsList
 }
 
-func (o *RuleBody) GetSrcUsersList() []SrcUsersList {
-	if o == nil {
+func (r *RuleBody) GetSrcUsersList() []SrcUsersList {
+	if r == nil {
 		return nil
 	}
-	return o.SrcUsersList
+	return r.SrcUsersList
 }
 
-func (o *RuleBody) GetState() RuleState {
-	if o == nil {
+func (r *RuleBody) GetState() RuleState {
+	if r == nil {
 		return RuleState(0)
 	}
-	return o.State
+	return r.State
 }
 
-func (o *RuleBody) GetContext() *int {
-	if o == nil {
+func (r *RuleBody) GetContext() *int {
+	if r == nil {
 		return nil
 	}
-	return o.Context
+	return r.Context
 }

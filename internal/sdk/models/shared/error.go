@@ -8,16 +8,16 @@ type Error struct {
 	Message *string `json:"message,omitempty"`
 }
 
-func (o *Error) GetError() *string {
-	if o == nil {
+func (e *Error) GetError() *string {
+	if e == nil {
 		return nil
 	}
-	return o.Error
+	return e.Error
 }
 
-func (o *Error) GetMessage() *string {
-	if o == nil {
+func (e *Error) GetMessage() *string {
+	if e == nil {
 		return nil
 	}
-	return o.Message
+	return e.Message
 }
