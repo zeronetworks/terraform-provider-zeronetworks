@@ -1,0 +1,39 @@
+configVersion: 2.0.0
+generation:
+  sdkClassName: ZeroNetworks
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: true
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+  sdkHooksConfigAccess: true
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
+terraform:
+  version: 1.0.0
+  additionalDataSources: []
+  additionalDependencies: {}
+  additionalEphemeralResources: []
+  additionalProviderAttributes:
+    httpHeaders: ""
+    tlsSkipVerify: ""
+  additionalResources: []
+  allowUnknownFieldsInWeakUnions: false
+  author: zeronetworks
+  baseErrorName: ZeroNetworksError
+  defaultErrorName: APIError
+  enableTypeDeduplication: false
+  environmentVariables: []
+  packageName: zeronetworks

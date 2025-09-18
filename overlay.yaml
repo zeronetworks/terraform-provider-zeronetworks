@@ -1,0 +1,201 @@
+overlay: 1.0.0
+x-speakeasy-jsonpath: rfc9535
+info:
+  title: Overlay
+  version: 0.0.0
+extends: file:///Volumes/Repos/zero-core/ts/api/docs/openapi.yaml
+actions:
+  - target: $["servers"][*]
+    remove: true
+  - target: $["servers"]
+    update:
+      - url: https://portal.zeronetworks.com/v1/api
+        description: Customer URL
+        variables:
+          CustomerURL:
+            description: this value is per customer / partner
+            default: portal
+  - target: $["paths"]["/assets/searchId"]["get"]
+    update:
+      x-speakeasy-entity-operation: AssetId#get
+  - target: $["components"]["schemas"]["assetIdSearch"]
+    update:
+        x-speakeasy-entity: AssetId
+  - target: $["paths"]["/protection/reactive-policies/inbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: InboundMFAPolicy#create
+  - target: $["paths"]["/protection/reactive-policies/inbound/{reactivePolicyId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: InboundMFAPolicy#get
+  - target: $["paths"]["/protection/reactive-policies/inbound/{reactivePolicyId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: InboundMFAPolicy#update
+  - target: $["paths"]["/protection/reactive-policies/inbound/{reactivePolicyId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: InboundMFAPolicy#delete
+  - target: $["paths"]["/protection/reactive-policies/outbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: OutboundMFAPolicy#create
+  - target: $["paths"]["/protection/reactive-policies/outbound/{reactivePolicyId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: OutboundMFAPolicy#get
+  - target: $["paths"]["/protection/reactive-policies/outbound/{reactivePolicyId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: OutboundMFAPolicy#update
+  - target: $["paths"]["/protection/reactive-policies/outbound/{reactivePolicyId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: OutboundMFAPolicy#delete
+  - target: $["paths"]["/protection/rpc-rules"]["post"]
+    update:
+      x-speakeasy-entity-operation: RPCRule#create
+  - target: $["paths"]["/protection/rpc-rules/{ruleId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: RPCRule#get
+  - target: $["paths"]["/protection/rpc-rules/{ruleId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: RPCRule#update
+  - target: $["paths"]["/protection/rpc-rules/{ruleId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: RPCRule#delete
+  - target: $["paths"]["/protection/rules/inbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: InboundRule#create
+  - target: $["paths"]["/protection/rules/inbound/{ruleId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: InboundRule#get
+  - target: $["paths"]["/protection/rules/inbound/{ruleId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: InboundRule#update
+  - target: $["paths"]["/protection/rules/inbound/{ruleId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: InboundRule#delete
+  - target: $["paths"]["/protection/rules/outbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: OutboundRule#create
+  - target: $["paths"]["/protection/rules/outbound/{ruleId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: OutboundRule#get
+  - target: $["paths"]["/protection/rules/outbound/{ruleId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: OutboundRule#update
+  - target: $["paths"]["/protection/rules/outbound/{ruleId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: OutboundRule#delete
+  - target: $["components"]["parameters"]["reactivePolicyIdParameter"]
+    update:
+      x-speakeasy-name-override: id
+  - target: $["components"]["parameters"]["ruleIdParameter"]
+    update:
+      x-speakeasy-name-override: id
+  - target: $["components"]["schemas"]["assetSearchResponse"]
+    update:
+      x-speakeasy-entity: AssetId
+  - target: $["components"]["schemas"]["reactivePolicy"]
+    update:
+      x-speakeasy-entity: 
+        - InboundMFAPolicy
+        - OutboundMFAPolicy
+  - target: $["components"]["schemas"]["reactivePolicyInboundBody"]
+    update:
+      x-speakeasy-entity: InboundMFAPolicy
+  - target: $["components"]["schemas"]["reactivePolicyOutboundBody"]
+    update:
+      x-speakeasy-entity: OutboundMFAPolicy
+  - target: $["components"]["schemas"]["rpcRule"]
+    update:
+      x-speakeasy-entity: RPCRule
+  - target: $["components"]["schemas"]["rpcRuleBody"]
+    update:
+      x-speakeasy-entity: RPCRule
+  - target: $["components"]["schemas"]["rule"]
+    update:
+      x-speakeasy-entity:
+        - InboundRule
+        - OutboundRule
+      example:
+        id: 6a4a42aa-c207-4860-8b32-a8e186f8af80
+        localEntityId: g:t:01085899
+        action: 1
+        createdBy:
+          createdBy:
+            id: u:a:2IzNIRlf
+            name: nicholas
+          userRole: 1
+          enforcementSource: 4
+        description: DCs
+        direction: 1
+        parentId: ''
+        parentType: 0
+        portsList:
+          - ports: 53,88,135,389,445,464,636,3268-3269,49152-65535
+            protocolType: 6
+          - ports: '53,67,88,123,138,389,464'
+            protocolType: 17
+        remoteEntityIdsList:
+          - b:110001
+        state: 1
+        createdAt: 1661349648315
+        updatedAt: 1684409059065
+        localProcessesList:
+          - "*"
+        servicesList: []
+        excludedLocalIdsList: []
+        updatedBy:
+          id: ''
+          name: ''
+        approvedBy:
+          id: ''
+          name: ''
+        ruleClass: 3
+        ipSecOpt: 1
+        srcUsersList: []
+        multipleLocalEntityIdsList: []
+        parentSwitchRuleId: ''
+        parentSwitchRuleType: 0
+        name: ''
+        changeTicket: ''
+        context: 0
+        aeOverridden: false
+        localEntityInfos:
+          - id: g:t:01085899
+            name: Domain controllers
+            domain: tag
+            hasNetworkProtectionPolicy: false
+            hasIdentityProtectionPolicy: false
+            guid: 978f7753-650a-4ef1-aeeb-d2ceee64855b
+            sid: ''
+        remoteEntityInfos:
+          - id: b:110001
+            name: Any asset
+        excludedEntityInfos: []
+        activitiesCount: 498871
+        srcUserInfos: []
+  - target: $["components"]["schemas"]["ruleBody"]
+    update:
+      x-speakeasy-entity:
+        - InboundRule
+        - OutboundRule
+      example:
+        remoteEntityIdsList:
+          - g:s:14085899
+        localEntityId: a:a:rHXNGBbN
+        excludedLocalIdsList: []
+        portsList:
+          - ports: '67'
+            protocolType: 6
+        ipSecOpt: 1
+        description: ''
+        state: 1
+        action: 1
+        localProcessesList:
+          - "*"
+        servicesList: []
+        srcUsersList: []
+        name: ''
+        changeTicket: ''
+  - target: $["components"]["schemas"]["ruleBody"]["properties"]["expiresAt"]
+    update:
+      x-speakeasy-param-optional: true
+  #Must BE LAST
+  - target: $['paths'][*][?!@['x-speakeasy-entity-operation']]
+    remove: true

@@ -1,0 +1,18 @@
+workflowVersion: 1.0.0
+speakeasyVersion: latest
+sources:
+    Zero Networks:
+        inputs:
+            - location: openapi.yaml
+        overlays:
+            - location: overlay.yaml
+        registry:
+            location: registry.speakeasyapi.dev/zeronetworks/zeronetworks/zero-networks
+targets:
+    zero-networks:
+        target: terraform
+        source: Zero Networks
+        publish:
+            terraform:
+                gpgPrivateKey: $terraform_gpg_private_key
+                gpgPassPhrase: $terraform_gpg_passphrase
