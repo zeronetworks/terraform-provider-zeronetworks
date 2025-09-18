@@ -23,6 +23,7 @@ func NewRPCRuleDataSource() datasource.DataSource {
 
 // RPCRuleDataSource is the data source implementation.
 type RPCRuleDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 
@@ -44,7 +45,7 @@ type RPCRuleDataSourceModel struct {
 	OpNumbersList        []types.Int64         `tfsdk:"op_numbers_list"`
 	ParentID             types.String          `tfsdk:"parent_id"`
 	ParentType           types.Int32           `tfsdk:"parent_type"`
-	ProtocolsList        []types.Int32         `tfsdk:"protocols_list"`
+	ProtocolsList        []types.Int64         `tfsdk:"protocols_list"`
 	RemoteAssetIdsList   []types.String        `tfsdk:"remote_asset_ids_list"`
 	RemoteAssetInfos     []tfTypes.IDNamePair1 `tfsdk:"remote_asset_infos"`
 	RuleClass            types.Int32           `tfsdk:"rule_class"`
@@ -197,7 +198,7 @@ func (r *RPCRuleDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 			},
 			"protocols_list": schema.ListAttribute{
 				Computed:    true,
-				ElementType: types.Int32Type,
+				ElementType: types.Int64Type,
 				MarkdownDescription: `* NULL - Any` + "\n" +
 					`* '1' - Rules RPC over SMB` + "\n" +
 					`* '2' - Rules RPC over TCP`,

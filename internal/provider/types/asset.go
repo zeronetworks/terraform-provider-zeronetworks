@@ -9,12 +9,9 @@ import (
 type Asset struct {
 	AssetStatus              types.Int64    `tfsdk:"asset_status"`
 	AssetType                types.Int32    `tfsdk:"asset_type"`
-	AssignedDeployment       *IDNamePair1   `tfsdk:"assigned_deployment"`
 	AssignedDeploymentID     types.String   `tfsdk:"assigned_deployment_id"`
 	BreakGlassActivated      types.Bool     `tfsdk:"break_glass_activated"`
-	CloudConnectorVersion    types.String   `tfsdk:"cloud_connector_version"`
 	Domain                   types.String   `tfsdk:"domain"`
-	EnvironmentGroup         *IDNamePair1   `tfsdk:"environment_group"`
 	ExternalDeviceID         types.String   `tfsdk:"external_device_id"`
 	Fqdn                     types.String   `tfsdk:"fqdn"`
 	HasDNS                   types.Bool     `tfsdk:"has_dns"`
@@ -36,7 +33,6 @@ type Asset struct {
 	OtLocattion              *OtLocation    `tfsdk:"ot_locattion"`
 	OutboundRestriction      types.Int64    `tfsdk:"outbound_restriction"`
 	PasswordUpdateTime       types.Int64    `tfsdk:"password_update_time"`
-	PreferredDeployment      *IDNamePair1   `tfsdk:"preferred_deployment"`
 	PreferredDeploymentID    types.String   `tfsdk:"preferred_deployment_id"`
 	PrincipalName            types.String   `tfsdk:"principal_name"`
 	ProtectAt                types.Int64    `tfsdk:"protect_at"`
@@ -48,6 +44,5 @@ type Asset struct {
 	RPCProtectedAt           types.Int64    `tfsdk:"rpc_protected_at"`
 	RPCProtectionState       types.Int64    `tfsdk:"rpc_protection_state"`
 	Source                   types.Int32    `tfsdk:"source"`
-	State                    *AssetState    `tfsdk:"state"`
 	SwitchLocationOverridden types.Bool     `tfsdk:"switch_location_overridden"`
 }

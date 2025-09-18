@@ -12,3 +12,7 @@ targets:
     zero-networks:
         target: terraform
         source: Zero Networks
+        publish:
+            terraform:
+                gpgPrivateKey: $terraform_gpg_private_key
+                gpgPassPhrase: $terraform_gpg_passphrase

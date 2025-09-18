@@ -15,12 +15,12 @@ resource "zeronetworks_rpc_rule" "my_rpcrule" {
     7
   ]
   protocols_list = [
-    1
+    5
   ]
   remote_asset_ids_list = [
     "..."
   ]
-  state = 1
+  state = 3
   user_ids_list = [
     "..."
   ]

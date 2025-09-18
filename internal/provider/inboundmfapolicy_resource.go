@@ -28,6 +28,7 @@ func NewInboundMFAPolicyResource() resource.Resource {
 
 // InboundMFAPolicyResource defines the resource implementation.
 type InboundMFAPolicyResource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 

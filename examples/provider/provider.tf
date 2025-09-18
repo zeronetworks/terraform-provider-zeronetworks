@@ -2,7 +2,7 @@ terraform {
   required_providers {
     zeronetworks = {
       source  = "speakeasy/zeronetworks"
-      version = "0.2.9"
+      version = "0.10.0"
     }
   }
 }

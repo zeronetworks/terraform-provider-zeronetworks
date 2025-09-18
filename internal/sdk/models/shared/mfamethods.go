@@ -13,6 +13,7 @@ import (
 // * '4' - Browser
 // * '5' - No MFA
 // * '6' - MicrosoftAuthenticator
+// * '7' - Okta
 type MfaMethods int
 
 const (
@@ -22,6 +23,7 @@ const (
 	MfaMethodsFour  MfaMethods = 4
 	MfaMethodsFive  MfaMethods = 5
 	MfaMethodsSix   MfaMethods = 6
+	MfaMethodsSeven MfaMethods = 7
 )
 
 func (e MfaMethods) ToPointer() *MfaMethods {
@@ -44,6 +46,8 @@ func (e *MfaMethods) UnmarshalJSON(data []byte) error {
 	case 5:
 		fallthrough
 	case 6:
+		fallthrough
+	case 7:
 		*e = MfaMethods(v)
 		return nil
 	default:

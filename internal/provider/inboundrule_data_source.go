@@ -23,6 +23,7 @@ func NewInboundRuleDataSource() datasource.DataSource {
 
 // InboundRuleDataSource is the data source implementation.
 type InboundRuleDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 
@@ -46,6 +47,7 @@ type InboundRuleDataSourceModel struct {
 	ExpiresAt                  types.Int64               `tfsdk:"expires_at"`
 	ID                         types.String              `tfsdk:"id"`
 	IPSecOpt                   types.Int32               `tfsdk:"ip_sec_opt"`
+	IsRejectOnLinux            types.Bool                `tfsdk:"is_reject_on_linux"`
 	LocalEntityID              types.String              `tfsdk:"local_entity_id"`
 	LocalEntityInfos           []tfTypes.LocalEntityInfo `tfsdk:"local_entity_infos"`
 	LocalProcessesList         []types.String            `tfsdk:"local_processes_list"`
@@ -228,6 +230,9 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 					`* '3' - Authenticated and integrity-protected connections` + "\n" +
 					`* '4' - Encrypted connections and dynamically negotiate encryption (inbound rule only)` + "\n" +
 					`* '5' - Encrypted connections`,
+			},
+			"is_reject_on_linux": schema.BoolAttribute{
+				Computed: true,
 			},
 			"local_entity_id": schema.StringAttribute{
 				Computed: true,
@@ -439,43 +444,14 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 										`  * '178' - WIRELESS PHONE GATEWAY` + "\n" +
 										`  * '1001' - OTHER OT`,
 								},
-								"assigned_deployment": schema.SingleNestedAttribute{
-									Computed: true,
-									Attributes: map[string]schema.Attribute{
-										"id": schema.StringAttribute{
-											Computed:    true,
-											Description: `EntityId`,
-										},
-										"name": schema.StringAttribute{
-											Computed:    true,
-											Description: `Entity Name`,
-										},
-									},
-								},
 								"assigned_deployment_id": schema.StringAttribute{
 									Computed: true,
 								},
 								"break_glass_activated": schema.BoolAttribute{
 									Computed: true,
 								},
-								"cloud_connector_version": schema.StringAttribute{
-									Computed: true,
-								},
 								"domain": schema.StringAttribute{
 									Computed: true,
-								},
-								"environment_group": schema.SingleNestedAttribute{
-									Computed: true,
-									Attributes: map[string]schema.Attribute{
-										"id": schema.StringAttribute{
-											Computed:    true,
-											Description: `EntityId`,
-										},
-										"name": schema.StringAttribute{
-											Computed:    true,
-											Description: `Entity Name`,
-										},
-									},
 								},
 								"external_device_id": schema.StringAttribute{
 									Computed: true,
@@ -629,19 +605,6 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 									Computed:    true,
 									Description: `Epoch Millis`,
 								},
-								"preferred_deployment": schema.SingleNestedAttribute{
-									Computed: true,
-									Attributes: map[string]schema.Attribute{
-										"id": schema.StringAttribute{
-											Computed:    true,
-											Description: `EntityId`,
-										},
-										"name": schema.StringAttribute{
-											Computed:    true,
-											Description: `Entity Name`,
-										},
-									},
-								},
 								"preferred_deployment_id": schema.StringAttribute{
 									Computed: true,
 								},
@@ -728,52 +691,49 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 										`  * '29' - Claroty OT` + "\n" +
 										`  * '30' - Manual Mac`,
 								},
-								"state": schema.SingleNestedAttribute{
-									Computed: true,
-									Attributes: map[string]schema.Attribute{
-										"asset_id": schema.StringAttribute{
-											Computed: true,
-										},
-										"identity_protection_state": schema.Int64Attribute{
-											Computed: true,
-										},
-										"is_asset_connected": schema.BoolAttribute{
-											Computed: true,
-										},
-										"last_connected_at": schema.Int64Attribute{
-											Computed:    true,
-											Description: `Epoch Millis`,
-										},
-										"protected_at": schema.Int64Attribute{
-											Computed:    true,
-											Description: `Epoch Millis`,
-										},
-										"protection_state": schema.Int64Attribute{
-											Computed: true,
-										},
-										"rpc_protection_state": schema.Int64Attribute{
-											Computed: true,
-										},
-									},
-								},
 								"switch_location_overridden": schema.BoolAttribute{
 									Computed: true,
 								},
 							},
 						},
-						"group_basic_info": schema.SingleNestedAttribute{
+						"group": schema.SingleNestedAttribute{
 							Computed: true,
 							Attributes: map[string]schema.Attribute{
+								"added_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"added_by": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed: true,
+										},
+										"name": schema.StringAttribute{
+											Computed: true,
+										},
+									},
+								},
+								"created_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"description": schema.StringAttribute{
+									Computed: true,
+								},
+								"direct_members_count": schema.Int64Attribute{
+									Computed: true,
+								},
 								"domain": schema.StringAttribute{
+									Computed: true,
+								},
+								"external_id": schema.StringAttribute{
 									Computed: true,
 								},
 								"guid": schema.StringAttribute{
 									Computed: true,
 								},
-								"has_identity_protection_policy": schema.BoolAttribute{
-									Computed: true,
-								},
-								"has_network_protection_policy": schema.BoolAttribute{
+								"has_protection_policy": schema.BoolAttribute{
 									Computed: true,
 								},
 								"id": schema.StringAttribute{
@@ -782,8 +742,18 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 								"name": schema.StringAttribute{
 									Computed: true,
 								},
+								"principal_name": schema.StringAttribute{
+									Computed: true,
+								},
+								"role": schema.Int32Attribute{
+									Computed: true,
+								},
 								"sid": schema.StringAttribute{
 									Computed: true,
+								},
+								"updated_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
 								},
 							},
 						},

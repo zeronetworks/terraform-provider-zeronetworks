@@ -11,13 +11,13 @@ import (
 type LocalEntityInfoType string
 
 const (
-	LocalEntityInfoTypeAsset          LocalEntityInfoType = "asset"
-	LocalEntityInfoTypeGroupBasicInfo LocalEntityInfoType = "groupBasicInfo"
+	LocalEntityInfoTypeAsset LocalEntityInfoType = "asset"
+	LocalEntityInfoTypeGroup LocalEntityInfoType = "group"
 )
 
 type LocalEntityInfo struct {
-	Asset          *Asset          `queryParam:"inline"`
-	GroupBasicInfo *GroupBasicInfo `queryParam:"inline"`
+	Asset *Asset `queryParam:"inline" name:"localEntityInfo"`
+	Group *Group `queryParam:"inline" name:"localEntityInfo"`
 
 	Type LocalEntityInfoType
 }
@@ -31,28 +31,28 @@ func CreateLocalEntityInfoAsset(asset Asset) LocalEntityInfo {
 	}
 }
 
-func CreateLocalEntityInfoGroupBasicInfo(groupBasicInfo GroupBasicInfo) LocalEntityInfo {
-	typ := LocalEntityInfoTypeGroupBasicInfo
+func CreateLocalEntityInfoGroup(group Group) LocalEntityInfo {
+	typ := LocalEntityInfoTypeGroup
 
 	return LocalEntityInfo{
-		GroupBasicInfo: &groupBasicInfo,
-		Type:           typ,
+		Group: &group,
+		Type:  typ,
 	}
 }
 
 func (u *LocalEntityInfo) UnmarshalJSON(data []byte) error {
 
-	var groupBasicInfo GroupBasicInfo = GroupBasicInfo{}
-	if err := utils.UnmarshalJSON(data, &groupBasicInfo, "", true, true); err == nil {
-		u.GroupBasicInfo = &groupBasicInfo
-		u.Type = LocalEntityInfoTypeGroupBasicInfo
+	var asset Asset = Asset{}
+	if err := utils.UnmarshalJSON(data, &asset, "", true, nil); err == nil {
+		u.Asset = &asset
+		u.Type = LocalEntityInfoTypeAsset
 		return nil
 	}
 
-	var asset Asset = Asset{}
-	if err := utils.UnmarshalJSON(data, &asset, "", true, true); err == nil {
-		u.Asset = &asset
-		u.Type = LocalEntityInfoTypeAsset
+	var group Group = Group{}
+	if err := utils.UnmarshalJSON(data, &group, "", true, nil); err == nil {
+		u.Group = &group
+		u.Type = LocalEntityInfoTypeGroup
 		return nil
 	}
 
@@ -64,8 +64,8 @@ func (u LocalEntityInfo) MarshalJSON() ([]byte, error) {
 		return utils.MarshalJSON(u.Asset, "", true)
 	}
 
-	if u.GroupBasicInfo != nil {
-		return utils.MarshalJSON(u.GroupBasicInfo, "", true)
+	if u.Group != nil {
+		return utils.MarshalJSON(u.Group, "", true)
 	}
 
 	return nil, errors.New("could not marshal union type LocalEntityInfo: all fields are null")
@@ -153,8 +153,9 @@ type Rule struct {
 	//
 	State *RuleState `json:"state,omitempty"`
 	// Epoch Millis
-	UpdatedAt *int64      `json:"updatedAt,omitempty"`
-	UpdatedBy *IDNamePair `json:"updatedBy,omitempty"`
+	UpdatedAt       *int64      `json:"updatedAt,omitempty"`
+	UpdatedBy       *IDNamePair `json:"updatedBy,omitempty"`
+	IsRejectOnLinux *bool       `json:"isRejectOnLinux,omitempty"`
 }
 
 func (o *Rule) GetAction() *RuleAction {
@@ -414,4 +415,11 @@ func (o *Rule) GetUpdatedBy() *IDNamePair {
 		return nil
 	}
 	return o.UpdatedBy
+}
+
+func (o *Rule) GetIsRejectOnLinux() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsRejectOnLinux
 }

@@ -2,9 +2,24 @@
 
 package shared
 
+import (
+	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+)
+
 type AddedBy struct {
 	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
+}
+
+func (a AddedBy) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *AddedBy) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *AddedBy) GetID() *string {
@@ -21,18 +36,19 @@ func (o *AddedBy) GetName() *string {
 	return o.Name
 }
 
-type CustomGroup struct {
+type Group struct {
 	// Epoch Millis
 	CreatedAt           *int64  `json:"createdAt,omitempty"`
 	Description         *string `json:"description,omitempty"`
 	DirectMembersCount  *int64  `json:"directMembersCount,omitempty"`
 	Domain              *string `json:"domain,omitempty"`
+	ExternalID          *string `json:"externalId,omitempty"`
 	GUID                *string `json:"guid,omitempty"`
 	HasProtectionPolicy *bool   `json:"hasProtectionPolicy,omitempty"`
 	ID                  *string `json:"id,omitempty"`
 	Name                *string `json:"name,omitempty"`
 	PrincipalName       *string `json:"principalName,omitempty"`
-	Role                *int64  `json:"role,omitempty"`
+	Role                *int    `json:"role,omitempty"`
 	Sid                 *string `json:"sid,omitempty"`
 	// Epoch Millis
 	UpdatedAt *int64 `json:"updatedAt,omitempty"`
@@ -41,98 +57,116 @@ type CustomGroup struct {
 	AddedBy *AddedBy `json:"addedBy,omitempty"`
 }
 
-func (o *CustomGroup) GetCreatedAt() *int64 {
+func (g Group) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
+}
+
+func (g *Group) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (o *Group) GetCreatedAt() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.CreatedAt
 }
 
-func (o *CustomGroup) GetDescription() *string {
+func (o *Group) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Description
 }
 
-func (o *CustomGroup) GetDirectMembersCount() *int64 {
+func (o *Group) GetDirectMembersCount() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.DirectMembersCount
 }
 
-func (o *CustomGroup) GetDomain() *string {
+func (o *Group) GetDomain() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Domain
 }
 
-func (o *CustomGroup) GetGUID() *string {
+func (o *Group) GetExternalID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ExternalID
+}
+
+func (o *Group) GetGUID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.GUID
 }
 
-func (o *CustomGroup) GetHasProtectionPolicy() *bool {
+func (o *Group) GetHasProtectionPolicy() *bool {
 	if o == nil {
 		return nil
 	}
 	return o.HasProtectionPolicy
 }
 
-func (o *CustomGroup) GetID() *string {
+func (o *Group) GetID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.ID
 }
 
-func (o *CustomGroup) GetName() *string {
+func (o *Group) GetName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Name
 }
 
-func (o *CustomGroup) GetPrincipalName() *string {
+func (o *Group) GetPrincipalName() *string {
 	if o == nil {
 		return nil
 	}
 	return o.PrincipalName
 }
 
-func (o *CustomGroup) GetRole() *int64 {
+func (o *Group) GetRole() *int {
 	if o == nil {
 		return nil
 	}
 	return o.Role
 }
 
-func (o *CustomGroup) GetSid() *string {
+func (o *Group) GetSid() *string {
 	if o == nil {
 		return nil
 	}
 	return o.Sid
 }
 
-func (o *CustomGroup) GetUpdatedAt() *int64 {
+func (o *Group) GetUpdatedAt() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.UpdatedAt
 }
 
-func (o *CustomGroup) GetAddedAt() *int64 {
+func (o *Group) GetAddedAt() *int64 {
 	if o == nil {
 		return nil
 	}
 	return o.AddedAt
 }
 
-func (o *CustomGroup) GetAddedBy() *AddedBy {
+func (o *Group) GetAddedBy() *AddedBy {
 	if o == nil {
 		return nil
 	}

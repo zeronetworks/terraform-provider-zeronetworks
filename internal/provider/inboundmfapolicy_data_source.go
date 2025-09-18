@@ -23,6 +23,7 @@ func NewInboundMFAPolicyDataSource() datasource.DataSource {
 
 // InboundMFAPolicyDataSource is the data source implementation.
 type InboundMFAPolicyDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 

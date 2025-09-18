@@ -2,7 +2,7 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 1.0.8 and generator version 2.639.2
+// Generated from OpenAPI doc version 1.0.9 and generator version 2.695.0
 
 import (
 	"context"
@@ -53,20 +53,16 @@ type ZeroNetworks struct {
 	SDKVersion string
 	// API calls related to Assets.
 	Assets *Assets
-	// API calls related to Custom Groups.
-	GroupsCustom *GroupsCustom
-	// API calls related to a specific Group.
-	Group *Group
-	// API calls related to RPC Rules
-	RulesRPC *RulesRPC
-	// API calls related to Outbound MFA policies.
-	MFAOutbound *MFAOutbound
 	// API calls related to Inbound MFA policies.
 	MFAInbound *MFAInbound
-	// API calls related to Outbound rules.
-	RulesOutbound *RulesOutbound
+	// API calls related to Outbound MFA policies.
+	MFAOutbound *MFAOutbound
+	// API calls related to RPC Rules
+	RulesRPC *RulesRPC
 	// API calls related to Inbound rules.
 	RulesInbound *RulesInbound
+	// API calls related to Outbound rules.
+	RulesOutbound *RulesOutbound
 
 	sdkConfiguration config.SDKConfiguration
 	hooks            *hooks.Hooks
@@ -155,9 +151,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *ZeroNetworks {
 	sdk := &ZeroNetworks{
-		SDKVersion: "0.2.9",
+		SDKVersion: "0.10.0",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 0.2.9 2.639.2 1.0.8 github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 0.10.0 2.695.0 1.0.9 github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{
@@ -184,13 +180,11 @@ func New(opts ...SDKOption) *ZeroNetworks {
 	}
 
 	sdk.Assets = newAssets(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.GroupsCustom = newGroupsCustom(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.Group = newGroup(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.RulesRPC = newRulesRPC(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.MFAOutbound = newMFAOutbound(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MFAInbound = newMFAInbound(sdk, sdk.sdkConfiguration, sdk.hooks)
-	sdk.RulesOutbound = newRulesOutbound(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.MFAOutbound = newMFAOutbound(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.RulesRPC = newRulesRPC(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.RulesInbound = newRulesInbound(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.RulesOutbound = newRulesOutbound(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

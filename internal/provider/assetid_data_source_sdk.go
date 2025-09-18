@@ -10,6 +10,16 @@ import (
 	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
+func (r *AssetIDDataSourceModel) RefreshFromSharedAssetIDSearch(ctx context.Context, resp *shared.AssetIDSearch) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		r.AssetID = types.StringPointerValue(resp.AssetID)
+	}
+
+	return diags
+}
+
 func (r *AssetIDDataSourceModel) ToOperationsAssetsSearchRequest(ctx context.Context) (*operations.AssetsSearchRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
@@ -24,14 +34,4 @@ func (r *AssetIDDataSourceModel) ToOperationsAssetsSearchRequest(ctx context.Con
 	}
 
 	return &out, diags
-}
-
-func (r *AssetIDDataSourceModel) RefreshFromSharedAssetIDSearch(ctx context.Context, resp *shared.AssetIDSearch) diag.Diagnostics {
-	var diags diag.Diagnostics
-
-	if resp != nil {
-		r.AssetID = types.StringPointerValue(resp.AssetID)
-	}
-
-	return diags
 }

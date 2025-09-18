@@ -29,8 +29,14 @@ type RuleBody struct {
 	SrcUsersList        []SrcUsersList `json:"srcUsersList,omitempty"`
 	// * '1' - Enabled
 	// * '2' - Disabled
+	// * '3' - Deleted By User
+	// * '4' - Pending Review
+	// * '5' - Pending Review Auto
+	// * '6' - Rejected by User
+	// * '7' - Excluded by User
 	//
-	State RuleStateBody `json:"state"`
+	State   RuleState `json:"state"`
+	Context *int      `json:"context,omitempty"`
 }
 
 func (o *RuleBody) GetAction() RuleAction {
@@ -124,9 +130,16 @@ func (o *RuleBody) GetSrcUsersList() []SrcUsersList {
 	return o.SrcUsersList
 }
 
-func (o *RuleBody) GetState() RuleStateBody {
+func (o *RuleBody) GetState() RuleState {
 	if o == nil {
-		return RuleStateBody(0)
+		return RuleState(0)
 	}
 	return o.State
+}
+
+func (o *RuleBody) GetContext() *int {
+	if o == nil {
+		return nil
+	}
+	return o.Context
 }

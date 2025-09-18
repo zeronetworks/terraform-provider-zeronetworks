@@ -22,7 +22,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 terraform:
-  version: 0.2.9
+  version: 1.0.0
   additionalDataSources: []
   additionalDependencies: {}
   additionalEphemeralResources: []
@@ -31,7 +31,7 @@ terraform:
     tlsSkipVerify: ""
   additionalResources: []
   allowUnknownFieldsInWeakUnions: false
-  author: speakeasy
+  author: zeronetworks
   baseErrorName: ZeroNetworksError
   defaultErrorName: APIError
   enableTypeDeduplication: false

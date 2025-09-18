@@ -5,6 +5,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 // IssueCode - * '0' - Unspecified
@@ -231,6 +232,17 @@ type HealthIssue struct {
 	//
 	IssueCode *IssueCode `json:"issueCode,omitempty"`
 	Details   *string    `json:"details,omitempty"`
+}
+
+func (h HealthIssue) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HealthIssue) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *HealthIssue) GetIssueCode() *IssueCode {

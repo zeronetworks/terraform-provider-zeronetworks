@@ -32,9 +32,9 @@ type RPCRule struct {
 	// * '1' - Rules RPC over SMB
 	// * '2' - Rules RPC over TCP
 	//
-	ProtocolsList      []*RPCProtocolsList `json:"protocolsList,omitempty"`
-	RemoteAssetIdsList []string            `json:"remoteAssetIdsList,omitempty"`
-	RemoteAssetInfos   []IDNamePair        `json:"remoteAssetInfos,omitempty"`
+	ProtocolsList      []int64      `json:"protocolsList,omitempty"`
+	RemoteAssetIdsList []string     `json:"remoteAssetIdsList,omitempty"`
+	RemoteAssetInfos   []IDNamePair `json:"remoteAssetInfos,omitempty"`
 	// * '1' - Trivial
 	// * '2' - Permissive
 	// * '3' - Privileged
@@ -172,7 +172,7 @@ func (o *RPCRule) GetParentType() *int {
 	return o.ParentType
 }
 
-func (o *RPCRule) GetProtocolsList() []*RPCProtocolsList {
+func (o *RPCRule) GetProtocolsList() []int64 {
 	if o == nil {
 		return nil
 	}

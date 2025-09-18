@@ -16,6 +16,7 @@ OutboundRule Resource
 resource "zeronetworks_outbound_rule" "my_outboundrule" {
   action        = 2
   change_ticket = "...my_change_ticket..."
+  context       = 4
   description   = "...my_description..."
   excluded_local_ids_list = [
     "..."
@@ -45,7 +46,7 @@ resource "zeronetworks_outbound_rule" "my_outboundrule" {
       sid = "...my_sid..."
     }
   ]
-  state = 1
+  state = 4
 }
 ```
 
@@ -63,11 +64,17 @@ must be one of ["1", "2"]
 - `remote_entity_ids_list` (List of String)
 - `state` (Number) * '1' - Enabled
 * '2' - Disabled
-must be one of ["1", "2"]
+* '3' - Deleted By User
+* '4' - Pending Review
+* '5' - Pending Review Auto
+* '6' - Rejected by User
+* '7' - Excluded by User
+must be one of ["1", "2", "3", "4", "5", "6", "7"]
 
 ### Optional
 
 - `change_ticket` (String)
+- `context` (Number)
 - `description` (String)
 - `excluded_local_ids_list` (List of String)
 - `expires_at` (Number) Epoch Millis
@@ -88,7 +95,6 @@ must be one of ["1", "2", "3", "4", "5"]
 - `ae_overridden` (Boolean)
 - `approved_at` (Number) Epoch Millis
 - `approved_by` (Attributes) (see [below for nested schema](#nestedatt--approved_by))
-- `context` (Number)
 - `created_at` (Number) Epoch Millis
 - `created_by` (Attributes) (see [below for nested schema](#nestedatt--created_by))
 - `deleted_at` (Number) Epoch Millis
@@ -99,6 +105,7 @@ must be one of ["1", "2", "3", "4", "5"]
 must be one of ["1", "2", "3"]
 - `excluded_entity_infos` (Attributes List) (see [below for nested schema](#nestedatt--excluded_entity_infos))
 - `id` (String) The id of the rule
+- `is_reject_on_linux` (Boolean)
 - `local_entity_infos` (Attributes List) (see [below for nested schema](#nestedatt--local_entity_infos))
 - `multiple_local_entity_ids_list` (List of String)
 - `parent_id` (String)
@@ -480,7 +487,7 @@ Read-Only:
 Read-Only:
 
 - `asset` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset))
-- `group_basic_info` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group_basic_info))
+- `group` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group))
 
 <a id="nestedatt--local_entity_infos--asset"></a>
 ### Nested Schema for `local_entity_infos.asset`
@@ -683,12 +690,9 @@ must be one of ["1", "2", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14"]
   * '178' - WIRELESS PHONE GATEWAY
   * '1001' - OTHER OT
 must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "140", "141", "142", "143", "144", "145", "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "1001"]
-- `assigned_deployment` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--assigned_deployment))
 - `assigned_deployment_id` (String)
 - `break_glass_activated` (Boolean)
-- `cloud_connector_version` (String)
 - `domain` (String)
-- `environment_group` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--environment_group))
 - `external_device_id` (String)
 - `fqdn` (String)
 - `has_dns` (Boolean)
@@ -716,7 +720,6 @@ must be one of ["1", "2", "3", "4", "5", "6"]
 - `ot_locattion` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--ot_locattion))
 - `outbound_restriction` (Number)
 - `password_update_time` (Number) Epoch Millis
-- `preferred_deployment` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--preferred_deployment))
 - `preferred_deployment_id` (String)
 - `principal_name` (String)
 - `protect_at` (Number) Epoch Millis
@@ -777,26 +780,7 @@ must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "1
   * '29' - Claroty OT
   * '30' - Manual Mac
 must be one of ["2", "3", "6", "7", "8", "9", "10", "11", "12", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
-- `state` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--state))
 - `switch_location_overridden` (Boolean)
-
-<a id="nestedatt--local_entity_infos--asset--assigned_deployment"></a>
-### Nested Schema for `local_entity_infos.asset.assigned_deployment`
-
-Read-Only:
-
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
-
-<a id="nestedatt--local_entity_infos--asset--environment_group"></a>
-### Nested Schema for `local_entity_infos.asset.environment_group`
-
-Read-Only:
-
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
 
 <a id="nestedatt--local_entity_infos--asset--health_state"></a>
 ### Nested Schema for `local_entity_infos.asset.health_state`
@@ -873,42 +857,36 @@ Read-Only:
 - `switch_id` (String)
 
 
-<a id="nestedatt--local_entity_infos--asset--preferred_deployment"></a>
-### Nested Schema for `local_entity_infos.asset.preferred_deployment`
+
+<a id="nestedatt--local_entity_infos--group"></a>
+### Nested Schema for `local_entity_infos.group`
 
 Read-Only:
 
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
-
-<a id="nestedatt--local_entity_infos--asset--state"></a>
-### Nested Schema for `local_entity_infos.asset.state`
-
-Read-Only:
-
-- `asset_id` (String)
-- `identity_protection_state` (Number)
-- `is_asset_connected` (Boolean)
-- `last_connected_at` (Number) Epoch Millis
-- `protected_at` (Number) Epoch Millis
-- `protection_state` (Number)
-- `rpc_protection_state` (Number)
-
-
-
-<a id="nestedatt--local_entity_infos--group_basic_info"></a>
-### Nested Schema for `local_entity_infos.group_basic_info`
-
-Read-Only:
-
+- `added_at` (Number) Epoch Millis
+- `added_by` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group--added_by))
+- `created_at` (Number) Epoch Millis
+- `description` (String)
+- `direct_members_count` (Number)
 - `domain` (String)
+- `external_id` (String)
 - `guid` (String)
-- `has_identity_protection_policy` (Boolean)
-- `has_network_protection_policy` (Boolean)
+- `has_protection_policy` (Boolean)
 - `id` (String)
 - `name` (String)
+- `principal_name` (String)
+- `role` (Number)
 - `sid` (String)
+- `updated_at` (Number) Epoch Millis
+
+<a id="nestedatt--local_entity_infos--group--added_by"></a>
+### Nested Schema for `local_entity_infos.group.added_by`
+
+Read-Only:
+
+- `id` (String)
+- `name` (String)
+
 
 
 
@@ -941,6 +919,17 @@ Read-Only:
 ## Import
 
 Import is supported using the following syntax:
+
+In Terraform v1.5.0 and later, the [`import` block](https://developer.hashicorp.com/terraform/language/import) can be used with the `id` attribute, for example:
+
+```terraform
+import {
+  to = zeronetworks_outbound_rule.my_zeronetworks_outbound_rule
+  id = "d37077dc-0660-454d-81a0-f52f491fd5b8"
+}
+```
+
+The [`terraform import` command](https://developer.hashicorp.com/terraform/cli/commands/import) can be used, for example:
 
 ```shell
 terraform import zeronetworks_outbound_rule.my_zeronetworks_outbound_rule "d37077dc-0660-454d-81a0-f52f491fd5b8"

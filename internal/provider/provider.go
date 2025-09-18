@@ -27,8 +27,9 @@ type ZeronetworksProvider struct {
 
 // ZeronetworksProviderModel describes the provider data model.
 type ZeronetworksProviderModel struct {
-	APIKey    types.String `tfsdk:"api_key"`
-	ServerURL types.String `tfsdk:"server_url"`
+	APIKey      types.String `tfsdk:"api_key"`
+	CustomerURL types.String `tfsdk:"customer_url"`
+	ServerURL   types.String `tfsdk:"server_url"`
 }
 
 func (p *ZeronetworksProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
@@ -40,8 +41,13 @@ func (p *ZeronetworksProvider) Schema(ctx context.Context, req provider.SchemaRe
 	resp.Schema = schema.Schema{
 		Attributes: map[string]schema.Attribute{
 			"api_key": schema.StringAttribute{
-				Required:  true,
-				Sensitive: true,
+				MarkdownDescription: `API Key.`,
+				Required:            true,
+				Sensitive:           true,
+			},
+			"customer_url": schema.StringAttribute{
+				MarkdownDescription: `this value is per customer / partner (defaults to portal)`,
+				Optional:            true,
 			},
 			"server_url": schema.StringAttribute{
 				Description: `Server URL (defaults to https://portal.zeronetworks.com/v1/api)`,
@@ -61,10 +67,20 @@ func (p *ZeronetworksProvider) Configure(ctx context.Context, req provider.Confi
 		return
 	}
 
-	ServerURL := data.ServerURL.ValueString()
+	serverUrl := data.ServerURL.ValueString()
 
-	if ServerURL == "" {
-		ServerURL = "https://portal.zeronetworks.com/v1/api"
+	if serverUrl == "" {
+		serverUrl = "https://portal.zeronetworks.com/v1/api"
+	}
+
+	serverUrlParams := make(map[string]string)
+
+	if data.CustomerURL.ValueString() != "" {
+		serverUrlParams["CustomerURL"] = data.CustomerURL.ValueString()
+	}
+
+	if _, ok := serverUrlParams["CustomerURL"]; !ok {
+		serverUrlParams["CustomerURL"] = "portal"
 	}
 
 	security := shared.Security{}
@@ -89,12 +105,12 @@ func (p *ZeronetworksProvider) Configure(ctx context.Context, req provider.Confi
 	httpClient.Transport = NewProviderHTTPTransport(providerHTTPTransportOpts)
 
 	opts := []sdk.SDKOption{
-		sdk.WithServerURL(ServerURL),
+		sdk.WithTemplatedServerURL(serverUrl, serverUrlParams),
 		sdk.WithSecurity(security),
 		sdk.WithClient(httpClient),
 	}
-	client := sdk.New(opts...)
 
+	client := sdk.New(opts...)
 	resp.DataSourceData = client
 	resp.EphemeralResourceData = client
 	resp.ResourceData = client
@@ -102,7 +118,6 @@ func (p *ZeronetworksProvider) Configure(ctx context.Context, req provider.Confi
 
 func (p *ZeronetworksProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewCustomGroupResource,
 		NewInboundMFAPolicyResource,
 		NewInboundRuleResource,
 		NewOutboundMFAPolicyResource,
@@ -114,7 +129,6 @@ func (p *ZeronetworksProvider) Resources(ctx context.Context) []func() resource.
 func (p *ZeronetworksProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
 		NewAssetIDDataSource,
-		NewCustomGroupDataSource,
 		NewInboundMFAPolicyDataSource,
 		NewInboundRuleDataSource,
 		NewOutboundMFAPolicyDataSource,

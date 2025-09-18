@@ -30,6 +30,7 @@ Zero Networks: APIs for Zero Networks
 * [zeronetworks](#zeronetworks)
   * [🏗 **Welcome to your new Terraform Provider!** 🏗](#welcome-to-your-new-terraform-provider)
   * [Installation](#installation)
+  * [Authentication](#authentication)
   * [Available Resources and Data Sources](#available-resources-and-data-sources)
   * [Testing the provider locally](#testing-the-provider-locally)
 * [Development](#development)
@@ -47,7 +48,7 @@ terraform {
   required_providers {
     zeronetworks = {
       source  = "speakeasy/zeronetworks"
-      version = "0.2.9"
+      version = "0.10.0"
     }
   }
 }
@@ -58,12 +59,23 @@ provider "zeronetworks" {
 ```
 <!-- End Installation [installation] -->
 
+<!-- Start Authentication [security] -->
+## Authentication
+
+This provider supports authentication configuration via provider configuration.
+
+Available configuration:
+
+| Provider Attribute | Description |
+|---|---|
+| `api_key` | API Key. |
+<!-- End Authentication [security] -->
+
 <!-- Start Available Resources and Data Sources [operations] -->
 ## Available Resources and Data Sources
 
 ### Resources
 
-* [zeronetworks_custom_group](docs/resources/custom_group.md)
 * [zeronetworks_inbound_mfa_policy](docs/resources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/resources/inbound_rule.md)
 * [zeronetworks_outbound_mfa_policy](docs/resources/outbound_mfa_policy.md)
@@ -72,7 +84,6 @@ provider "zeronetworks" {
 ### Data Sources
 
 * [zeronetworks_asset_id](docs/data-sources/asset_id.md)
-* [zeronetworks_custom_group](docs/data-sources/custom_group.md)
 * [zeronetworks_inbound_mfa_policy](docs/data-sources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/data-sources/inbound_rule.md)
 * [zeronetworks_outbound_mfa_policy](docs/data-sources/outbound_mfa_policy.md)

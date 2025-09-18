@@ -2,6 +2,10 @@
 
 package shared
 
+import (
+	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+)
+
 type Asset struct {
 	// Possible asset status:
 	//   * '0' - Unknown
@@ -189,7 +193,6 @@ type Asset struct {
 	BreakGlassActivated     *bool       `json:"breakGlassActivated,omitempty"`
 	Domain                  *string     `json:"domain,omitempty"`
 	ID                      *string     `json:"id,omitempty"`
-	IsQuarantined           *bool       `json:"isQuarantined,omitempty"`
 	IdentityProtectionState *int64      `json:"identityProtectionState,omitempty"`
 	Name                    *string     `json:"name,omitempty"`
 	OtLocattion             *OtLocation `json:"otLocattion,omitempty"`
@@ -229,15 +232,12 @@ type Asset struct {
 	//   * '13' - Stalked Externally
 	//   * '14' - Lightweight Agent
 	//
-	AssetStatus           *AssetStatus `json:"assetStatus,omitempty"`
-	AssignedDeployment    *IDNamePair  `json:"assignedDeployment,omitempty"`
-	AssignedDeploymentID  *string      `json:"assignedDeploymentId,omitempty"`
-	CloudConnectorVersion *string      `json:"cloudConnectorVersion,omitempty"`
-	EnvironmentGroup      *IDNamePair  `json:"environmentGroup,omitempty"`
-	ExternalDeviceID      *string      `json:"externalDeviceId,omitempty"`
-	Fqdn                  *string      `json:"fqdn,omitempty"`
-	HasDNS                *bool        `json:"hasDns,omitempty"`
-	HealthState           *HealthState `json:"healthState,omitempty"`
+	AssetStatus          *AssetStatus `json:"assetStatus,omitempty"`
+	AssignedDeploymentID *string      `json:"assignedDeploymentId,omitempty"`
+	ExternalDeviceID     *string      `json:"externalDeviceId,omitempty"`
+	Fqdn                 *string      `json:"fqdn,omitempty"`
+	HasDNS               *bool        `json:"hasDns,omitempty"`
+	HealthState          *HealthState `json:"healthState,omitempty"`
 	// Epoch Millis
 	IdentityProtectAt *int64 `json:"identityProtectAt,omitempty"`
 	// Epoch Millis
@@ -261,16 +261,16 @@ type Asset struct {
 	OsType              *int64  `json:"osType,omitempty"`
 	OutboundRestriction *int64  `json:"outboundRestriction,omitempty"`
 	// Epoch Millis
-	PasswordUpdateTime    *int64      `json:"passwordUpdateTime,omitempty"`
-	PreferredDeployment   *IDNamePair `json:"preferredDeployment,omitempty"`
-	PreferredDeploymentID *string     `json:"preferredDeploymentId,omitempty"`
-	PrincipalName         *string     `json:"principalName,omitempty"`
+	PasswordUpdateTime    *int64  `json:"passwordUpdateTime,omitempty"`
+	PreferredDeploymentID *string `json:"preferredDeploymentId,omitempty"`
+	PrincipalName         *string `json:"principalName,omitempty"`
 	// Epoch Millis
 	ProtectAt *int64 `json:"protectAt,omitempty"`
 	// Epoch Millis
-	ProtectedAt  *int64 `json:"protectedAt,omitempty"`
-	PurdueLevel  *int64 `json:"purdueLevel,omitempty"`
-	RPCMonitored *bool  `json:"rpcMonitored,omitempty"`
+	ProtectedAt   *int64 `json:"protectedAt,omitempty"`
+	PurdueLevel   *int64 `json:"purdueLevel,omitempty"`
+	IsQuarantined *bool  `json:"isQuarantined,omitempty"`
+	RPCMonitored  *bool  `json:"rpcMonitored,omitempty"`
 	// Epoch Millis
 	RPCProtectAt *int64 `json:"rpcProtectAt,omitempty"`
 	// Epoch Millis
@@ -306,9 +306,19 @@ type Asset struct {
 	//   * '29' - Claroty OT
 	//   * '30' - Manual Mac
 	//
-	Source                   *Source     `json:"source,omitempty"`
-	State                    *AssetState `json:"state,omitempty"`
-	SwitchLocationOverridden *bool       `json:"switchLocationOverridden,omitempty"`
+	Source                   *Source `json:"source,omitempty"`
+	SwitchLocationOverridden *bool   `json:"switchLocationOverridden,omitempty"`
+}
+
+func (a Asset) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(a, "", false)
+}
+
+func (a *Asset) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *Asset) GetAssetType() *AssetType {
@@ -337,13 +347,6 @@ func (o *Asset) GetID() *string {
 		return nil
 	}
 	return o.ID
-}
-
-func (o *Asset) GetIsQuarantined() *bool {
-	if o == nil {
-		return nil
-	}
-	return o.IsQuarantined
 }
 
 func (o *Asset) GetIdentityProtectionState() *int64 {
@@ -388,32 +391,11 @@ func (o *Asset) GetAssetStatus() *AssetStatus {
 	return o.AssetStatus
 }
 
-func (o *Asset) GetAssignedDeployment() *IDNamePair {
-	if o == nil {
-		return nil
-	}
-	return o.AssignedDeployment
-}
-
 func (o *Asset) GetAssignedDeploymentID() *string {
 	if o == nil {
 		return nil
 	}
 	return o.AssignedDeploymentID
-}
-
-func (o *Asset) GetCloudConnectorVersion() *string {
-	if o == nil {
-		return nil
-	}
-	return o.CloudConnectorVersion
-}
-
-func (o *Asset) GetEnvironmentGroup() *IDNamePair {
-	if o == nil {
-		return nil
-	}
-	return o.EnvironmentGroup
 }
 
 func (o *Asset) GetExternalDeviceID() *string {
@@ -528,13 +510,6 @@ func (o *Asset) GetPasswordUpdateTime() *int64 {
 	return o.PasswordUpdateTime
 }
 
-func (o *Asset) GetPreferredDeployment() *IDNamePair {
-	if o == nil {
-		return nil
-	}
-	return o.PreferredDeployment
-}
-
 func (o *Asset) GetPreferredDeploymentID() *string {
 	if o == nil {
 		return nil
@@ -570,6 +545,13 @@ func (o *Asset) GetPurdueLevel() *int64 {
 	return o.PurdueLevel
 }
 
+func (o *Asset) GetIsQuarantined() *bool {
+	if o == nil {
+		return nil
+	}
+	return o.IsQuarantined
+}
+
 func (o *Asset) GetRPCMonitored() *bool {
 	if o == nil {
 		return nil
@@ -596,13 +578,6 @@ func (o *Asset) GetSource() *Source {
 		return nil
 	}
 	return o.Source
-}
-
-func (o *Asset) GetState() *AssetState {
-	if o == nil {
-		return nil
-	}
-	return o.State
 }
 
 func (o *Asset) GetSwitchLocationOverridden() *bool {

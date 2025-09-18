@@ -30,12 +30,12 @@ resource "zeronetworks_rpc_rule" "my_rpcrule" {
     7
   ]
   protocols_list = [
-    1
+    5
   ]
   remote_asset_ids_list = [
     "..."
   ]
-  state = 1
+  state = 3
   user_ids_list = [
     "..."
   ]
@@ -63,7 +63,12 @@ must be one of ["1", "2"]
 - `remote_asset_ids_list` (List of String)
 - `state` (Number) * '1' - Enabled
 * '2' - Disabled
-must be one of ["1", "2"]
+* '3' - Deleted By User
+* '4' - Pending Review
+* '5' - Pending Review Auto
+* '6' - Rejected by User
+* '7' - Excluded by User
+must be one of ["1", "2", "3", "4", "5", "6", "7"]
 - `user_ids_list` (List of String)
 
 ### Optional
@@ -185,6 +190,17 @@ Read-Only:
 ## Import
 
 Import is supported using the following syntax:
+
+In Terraform v1.5.0 and later, the [`import` block](https://developer.hashicorp.com/terraform/language/import) can be used with the `id` attribute, for example:
+
+```terraform
+import {
+  to = zeronetworks_rpc_rule.my_zeronetworks_rpc_rule
+  id = "d37077dc-0660-454d-81a0-f52f491fd5b8"
+}
+```
+
+The [`terraform import` command](https://developer.hashicorp.com/terraform/cli/commands/import) can be used, for example:
 
 ```shell
 terraform import zeronetworks_rpc_rule.my_zeronetworks_rpc_rule "d37077dc-0660-454d-81a0-f52f491fd5b8"

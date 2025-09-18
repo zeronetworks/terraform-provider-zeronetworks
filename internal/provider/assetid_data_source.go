@@ -22,6 +22,7 @@ func NewAssetIDDataSource() datasource.DataSource {
 
 // AssetIDDataSource is the data source implementation.
 type AssetIDDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 

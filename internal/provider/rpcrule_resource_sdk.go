@@ -12,125 +12,6 @@ import (
 	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
-func (r *RPCRuleResourceModel) ToSharedRPCRuleBody(ctx context.Context) (*shared.RPCRuleBody, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	action := shared.RuleAction(r.Action.ValueInt32())
-	changeTicket := new(string)
-	if !r.ChangeTicket.IsUnknown() && !r.ChangeTicket.IsNull() {
-		*changeTicket = r.ChangeTicket.ValueString()
-	} else {
-		changeTicket = nil
-	}
-	var description string
-	description = r.Description.ValueString()
-
-	excludedAssetIdsList := make([]string, 0, len(r.ExcludedAssetIdsList))
-	for _, excludedAssetIdsListItem := range r.ExcludedAssetIdsList {
-		excludedAssetIdsList = append(excludedAssetIdsList, excludedAssetIdsListItem.ValueString())
-	}
-	expiresAt := new(int64)
-	if !r.ExpiresAt.IsUnknown() && !r.ExpiresAt.IsNull() {
-		*expiresAt = r.ExpiresAt.ValueInt64()
-	} else {
-		expiresAt = nil
-	}
-	interfaceUuidsList := make([]string, 0, len(r.InterfaceUuidsList))
-	for _, interfaceUuidsListItem := range r.InterfaceUuidsList {
-		interfaceUuidsList = append(interfaceUuidsList, interfaceUuidsListItem.ValueString())
-	}
-	var localAssetID string
-	localAssetID = r.LocalAssetID.ValueString()
-
-	name := new(string)
-	if !r.Name.IsUnknown() && !r.Name.IsNull() {
-		*name = r.Name.ValueString()
-	} else {
-		name = nil
-	}
-	opNumbersList := make([]int64, 0, len(r.OpNumbersList))
-	for _, opNumbersListItem := range r.OpNumbersList {
-		opNumbersList = append(opNumbersList, opNumbersListItem.ValueInt64())
-	}
-	protocolsList := make([]*shared.RPCProtocolsList, 0, len(r.ProtocolsList))
-	for _, protocolsListItem := range r.ProtocolsList {
-		protocolsList = append(protocolsList, (*shared.RPCProtocolsList)(typeconvert.Int32PointerToIntPointer(protocolsListItem.ValueInt32Pointer())))
-	}
-	remoteAssetIdsList := make([]string, 0, len(r.RemoteAssetIdsList))
-	for _, remoteAssetIdsListItem := range r.RemoteAssetIdsList {
-		remoteAssetIdsList = append(remoteAssetIdsList, remoteAssetIdsListItem.ValueString())
-	}
-	state := shared.RuleStateBody(r.State.ValueInt32())
-	userIdsList := make([]string, 0, len(r.UserIdsList))
-	for _, userIdsListItem := range r.UserIdsList {
-		userIdsList = append(userIdsList, userIdsListItem.ValueString())
-	}
-	out := shared.RPCRuleBody{
-		Action:               action,
-		ChangeTicket:         changeTicket,
-		Description:          description,
-		ExcludedAssetIdsList: excludedAssetIdsList,
-		ExpiresAt:            expiresAt,
-		InterfaceUuidsList:   interfaceUuidsList,
-		LocalAssetID:         localAssetID,
-		Name:                 name,
-		OpNumbersList:        opNumbersList,
-		ProtocolsList:        protocolsList,
-		RemoteAssetIdsList:   remoteAssetIdsList,
-		State:                state,
-		UserIdsList:          userIdsList,
-	}
-
-	return &out, diags
-}
-
-func (r *RPCRuleResourceModel) ToOperationsRPCRuleUpdateRequest(ctx context.Context) (*operations.RPCRuleUpdateRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	rpcRuleBody, rpcRuleBodyDiags := r.ToSharedRPCRuleBody(ctx)
-	diags.Append(rpcRuleBodyDiags...)
-
-	if diags.HasError() {
-		return nil, diags
-	}
-
-	out := operations.RPCRuleUpdateRequest{
-		ID:          id,
-		RPCRuleBody: *rpcRuleBody,
-	}
-
-	return &out, diags
-}
-
-func (r *RPCRuleResourceModel) ToOperationsRPCRuleGetRequest(ctx context.Context) (*operations.RPCRuleGetRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	out := operations.RPCRuleGetRequest{
-		ID: id,
-	}
-
-	return &out, diags
-}
-
-func (r *RPCRuleResourceModel) ToOperationsRPCRuleDeleteRequest(ctx context.Context) (*operations.RPCRuleDeleteRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	out := operations.RPCRuleDeleteRequest{
-		ID: id,
-	}
-
-	return &out, diags
-}
-
 func (r *RPCRuleResourceModel) RefreshFromSharedRPCRule(ctx context.Context, resp *shared.RPCRule) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -171,19 +52,14 @@ func (r *RPCRuleResourceModel) RefreshFromSharedRPCRule(ctx context.Context, res
 			r.ExcludedAssetIdsList = append(r.ExcludedAssetIdsList, types.StringValue(v))
 		}
 		r.ExcludedAssetInfos = []tfTypes.IDNamePair1{}
-		if len(r.ExcludedAssetInfos) > len(resp.ExcludedAssetInfos) {
-			r.ExcludedAssetInfos = r.ExcludedAssetInfos[:len(resp.ExcludedAssetInfos)]
-		}
-		for excludedAssetInfosCount, excludedAssetInfosItem := range resp.ExcludedAssetInfos {
+
+		for _, excludedAssetInfosItem := range resp.ExcludedAssetInfos {
 			var excludedAssetInfos tfTypes.IDNamePair1
+
 			excludedAssetInfos.ID = types.StringPointerValue(excludedAssetInfosItem.ID)
 			excludedAssetInfos.Name = types.StringPointerValue(excludedAssetInfosItem.Name)
-			if excludedAssetInfosCount+1 > len(r.ExcludedAssetInfos) {
-				r.ExcludedAssetInfos = append(r.ExcludedAssetInfos, excludedAssetInfos)
-			} else {
-				r.ExcludedAssetInfos[excludedAssetInfosCount].ID = excludedAssetInfos.ID
-				r.ExcludedAssetInfos[excludedAssetInfosCount].Name = excludedAssetInfos.Name
-			}
+
+			r.ExcludedAssetInfos = append(r.ExcludedAssetInfos, excludedAssetInfos)
 		}
 		r.ExpiresAt = types.Int64PointerValue(resp.ExpiresAt)
 		r.ID = types.StringPointerValue(resp.ID)
@@ -206,28 +82,23 @@ func (r *RPCRuleResourceModel) RefreshFromSharedRPCRule(ctx context.Context, res
 		}
 		r.ParentID = types.StringPointerValue(resp.ParentID)
 		r.ParentType = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer(resp.ParentType))
-		r.ProtocolsList = make([]types.Int32, 0, len(resp.ProtocolsList))
+		r.ProtocolsList = make([]types.Int64, 0, len(resp.ProtocolsList))
 		for _, v := range resp.ProtocolsList {
-			r.ProtocolsList = append(r.ProtocolsList, types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer((*int)(v))))
+			r.ProtocolsList = append(r.ProtocolsList, types.Int64Value(v))
 		}
 		r.RemoteAssetIdsList = make([]types.String, 0, len(resp.RemoteAssetIdsList))
 		for _, v := range resp.RemoteAssetIdsList {
 			r.RemoteAssetIdsList = append(r.RemoteAssetIdsList, types.StringValue(v))
 		}
 		r.RemoteAssetInfos = []tfTypes.IDNamePair1{}
-		if len(r.RemoteAssetInfos) > len(resp.RemoteAssetInfos) {
-			r.RemoteAssetInfos = r.RemoteAssetInfos[:len(resp.RemoteAssetInfos)]
-		}
-		for remoteAssetInfosCount, remoteAssetInfosItem := range resp.RemoteAssetInfos {
+
+		for _, remoteAssetInfosItem := range resp.RemoteAssetInfos {
 			var remoteAssetInfos tfTypes.IDNamePair1
+
 			remoteAssetInfos.ID = types.StringPointerValue(remoteAssetInfosItem.ID)
 			remoteAssetInfos.Name = types.StringPointerValue(remoteAssetInfosItem.Name)
-			if remoteAssetInfosCount+1 > len(r.RemoteAssetInfos) {
-				r.RemoteAssetInfos = append(r.RemoteAssetInfos, remoteAssetInfos)
-			} else {
-				r.RemoteAssetInfos[remoteAssetInfosCount].ID = remoteAssetInfos.ID
-				r.RemoteAssetInfos[remoteAssetInfosCount].Name = remoteAssetInfos.Name
-			}
+
+			r.RemoteAssetInfos = append(r.RemoteAssetInfos, remoteAssetInfos)
 		}
 		if resp.RuleClass != nil {
 			r.RuleClass = types.Int32Value(int32(*resp.RuleClass))
@@ -252,21 +123,135 @@ func (r *RPCRuleResourceModel) RefreshFromSharedRPCRule(ctx context.Context, res
 			r.UserIdsList = append(r.UserIdsList, types.StringValue(v))
 		}
 		r.UserInfos = []tfTypes.IDNamePair1{}
-		if len(r.UserInfos) > len(resp.UserInfos) {
-			r.UserInfos = r.UserInfos[:len(resp.UserInfos)]
-		}
-		for userInfosCount, userInfosItem := range resp.UserInfos {
+
+		for _, userInfosItem := range resp.UserInfos {
 			var userInfos tfTypes.IDNamePair1
+
 			userInfos.ID = types.StringPointerValue(userInfosItem.ID)
 			userInfos.Name = types.StringPointerValue(userInfosItem.Name)
-			if userInfosCount+1 > len(r.UserInfos) {
-				r.UserInfos = append(r.UserInfos, userInfos)
-			} else {
-				r.UserInfos[userInfosCount].ID = userInfos.ID
-				r.UserInfos[userInfosCount].Name = userInfos.Name
-			}
+
+			r.UserInfos = append(r.UserInfos, userInfos)
 		}
 	}
 
 	return diags
+}
+
+func (r *RPCRuleResourceModel) ToOperationsRPCRuleDeleteRequest(ctx context.Context) (*operations.RPCRuleDeleteRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.RPCRuleDeleteRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *RPCRuleResourceModel) ToOperationsRPCRuleGetRequest(ctx context.Context) (*operations.RPCRuleGetRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.RPCRuleGetRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *RPCRuleResourceModel) ToOperationsRPCRuleUpdateRequest(ctx context.Context) (*operations.RPCRuleUpdateRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	rpcRuleBody, rpcRuleBodyDiags := r.ToSharedRPCRuleBody(ctx)
+	diags.Append(rpcRuleBodyDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	out := operations.RPCRuleUpdateRequest{
+		ID:          id,
+		RPCRuleBody: *rpcRuleBody,
+	}
+
+	return &out, diags
+}
+
+func (r *RPCRuleResourceModel) ToSharedRPCRuleBody(ctx context.Context) (*shared.RPCRuleBody, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	action := shared.RuleAction(r.Action.ValueInt32())
+	changeTicket := new(string)
+	if !r.ChangeTicket.IsUnknown() && !r.ChangeTicket.IsNull() {
+		*changeTicket = r.ChangeTicket.ValueString()
+	} else {
+		changeTicket = nil
+	}
+	var description string
+	description = r.Description.ValueString()
+
+	excludedAssetIdsList := make([]string, 0, len(r.ExcludedAssetIdsList))
+	for _, excludedAssetIdsListItem := range r.ExcludedAssetIdsList {
+		excludedAssetIdsList = append(excludedAssetIdsList, excludedAssetIdsListItem.ValueString())
+	}
+	expiresAt := new(int64)
+	if !r.ExpiresAt.IsUnknown() && !r.ExpiresAt.IsNull() {
+		*expiresAt = r.ExpiresAt.ValueInt64()
+	} else {
+		expiresAt = nil
+	}
+	interfaceUuidsList := make([]string, 0, len(r.InterfaceUuidsList))
+	for _, interfaceUuidsListItem := range r.InterfaceUuidsList {
+		interfaceUuidsList = append(interfaceUuidsList, interfaceUuidsListItem.ValueString())
+	}
+	var localAssetID string
+	localAssetID = r.LocalAssetID.ValueString()
+
+	name := new(string)
+	if !r.Name.IsUnknown() && !r.Name.IsNull() {
+		*name = r.Name.ValueString()
+	} else {
+		name = nil
+	}
+	opNumbersList := make([]int64, 0, len(r.OpNumbersList))
+	for _, opNumbersListItem := range r.OpNumbersList {
+		opNumbersList = append(opNumbersList, opNumbersListItem.ValueInt64())
+	}
+	protocolsList := make([]int64, 0, len(r.ProtocolsList))
+	for _, protocolsListItem := range r.ProtocolsList {
+		protocolsList = append(protocolsList, protocolsListItem.ValueInt64())
+	}
+	remoteAssetIdsList := make([]string, 0, len(r.RemoteAssetIdsList))
+	for _, remoteAssetIdsListItem := range r.RemoteAssetIdsList {
+		remoteAssetIdsList = append(remoteAssetIdsList, remoteAssetIdsListItem.ValueString())
+	}
+	state := shared.RuleState(r.State.ValueInt32())
+	userIdsList := make([]string, 0, len(r.UserIdsList))
+	for _, userIdsListItem := range r.UserIdsList {
+		userIdsList = append(userIdsList, userIdsListItem.ValueString())
+	}
+	out := shared.RPCRuleBody{
+		Action:               action,
+		ChangeTicket:         changeTicket,
+		Description:          description,
+		ExcludedAssetIdsList: excludedAssetIdsList,
+		ExpiresAt:            expiresAt,
+		InterfaceUuidsList:   interfaceUuidsList,
+		LocalAssetID:         localAssetID,
+		Name:                 name,
+		OpNumbersList:        opNumbersList,
+		ProtocolsList:        protocolsList,
+		RemoteAssetIdsList:   remoteAssetIdsList,
+		State:                state,
+		UserIdsList:          userIdsList,
+	}
+
+	return &out, diags
 }

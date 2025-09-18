@@ -1,43 +1,44 @@
 lockVersion: 2.0.0
 id: 1b1ea54c-df12-489c-b709-cd18064f581d
 management:
-  docChecksum: 22b1b74f309103284ab96a5c855d0c21
-  docVersion: 1.0.8
-  speakeasyVersion: 1.570.3
-  generationVersion: 2.639.2
-  releaseVersion: 0.2.9
-  configChecksum: 57b0194ed9c1acf64cc404c1c4182bb3
+  docChecksum: f1191587360892c62335299518901b9e
+  docVersion: 1.0.9
+  speakeasyVersion: 1.612.0
+  generationVersion: 2.695.0
+  releaseVersion: 0.10.0
+  configChecksum: f7b6081ff212df81b6bfbe49808b4298
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.41.12
-    globalSecurity: 2.81.12
-    globalServerURLs: 2.82.2
+    core: 3.44.1
+    globalSecurity: 2.82.0
+    globalServerURLs: 2.83.0
     nameOverrides: 2.81.3
-    nullables: 0.0.0
     unions: 2.81.17
 generatedFiles:
   - .gitattributes
   - USAGE.md
   - examples/README.md
   - examples/data-sources/zeronetworks_asset_id/data-source.tf
-  - examples/data-sources/zeronetworks_custom_group/data-source.tf
   - examples/data-sources/zeronetworks_inbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_inbound_rule/data-source.tf
   - examples/data-sources/zeronetworks_outbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_outbound_rule/data-source.tf
   - examples/data-sources/zeronetworks_rpc_rule/data-source.tf
   - examples/provider/provider.tf
-  - examples/resources/zeronetworks_custom_group/import.sh
-  - examples/resources/zeronetworks_custom_group/resource.tf
+  - examples/resources/zeronetworks_inbound_mfa_policy/import-by-string-id.tf
   - examples/resources/zeronetworks_inbound_mfa_policy/import.sh
   - examples/resources/zeronetworks_inbound_mfa_policy/resource.tf
+  - examples/resources/zeronetworks_inbound_rule/import-by-string-id.tf
   - examples/resources/zeronetworks_inbound_rule/import.sh
   - examples/resources/zeronetworks_inbound_rule/resource.tf
+  - examples/resources/zeronetworks_outbound_mfa_policy/import-by-string-id.tf
   - examples/resources/zeronetworks_outbound_mfa_policy/import.sh
   - examples/resources/zeronetworks_outbound_mfa_policy/resource.tf
+  - examples/resources/zeronetworks_outbound_rule/import-by-string-id.tf
   - examples/resources/zeronetworks_outbound_rule/import.sh
   - examples/resources/zeronetworks_outbound_rule/resource.tf
+  - examples/resources/zeronetworks_rpc_rule/import-by-string-id.tf
   - examples/resources/zeronetworks_rpc_rule/import.sh
   - examples/resources/zeronetworks_rpc_rule/resource.tf
   - go.mod
@@ -56,10 +57,6 @@ generatedFiles:
   - internal/planmodifiers/utils/state_check.go
   - internal/provider/assetid_data_source.go
   - internal/provider/assetid_data_source_sdk.go
-  - internal/provider/customgroup_data_source.go
-  - internal/provider/customgroup_data_source_sdk.go
-  - internal/provider/customgroup_resource.go
-  - internal/provider/customgroup_resource_sdk.go
   - internal/provider/inboundmfapolicy_data_source.go
   - internal/provider/inboundmfapolicy_data_source_sdk.go
   - internal/provider/inboundmfapolicy_resource.go
@@ -100,9 +97,8 @@ generatedFiles:
   - internal/provider/typeconvert/int.go
   - internal/provider/types/added_by.go
   - internal/provider/types/asset.go
-  - internal/provider/types/asset_state.go
   - internal/provider/types/created_by.go
-  - internal/provider/types/group_basic_info.go
+  - internal/provider/types/group.go
   - internal/provider/types/health_issue.go
   - internal/provider/types/health_state.go
   - internal/provider/types/id_name_pair.go
@@ -117,8 +113,6 @@ generatedFiles:
   - internal/provider/utils.go
   - internal/sdk/.gitattributes
   - internal/sdk/assets.go
-  - internal/sdk/group.go
-  - internal/sdk/groupscustom.go
   - internal/sdk/internal/config/sdkconfiguration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/internal/utils/contenttype.go
@@ -136,10 +130,6 @@ generatedFiles:
   - internal/sdk/mfaoutbound.go
   - internal/sdk/models/errors/apierror.go
   - internal/sdk/models/operations/assetssearch.go
-  - internal/sdk/models/operations/customgroupget.go
-  - internal/sdk/models/operations/customgroupscreate.go
-  - internal/sdk/models/operations/customgroupsdelete.go
-  - internal/sdk/models/operations/customgroupsupdate.go
   - internal/sdk/models/operations/inboundruledelete.go
   - internal/sdk/models/operations/inboundruleget.go
   - internal/sdk/models/operations/inboundrulescreate.go
@@ -163,16 +153,12 @@ generatedFiles:
   - internal/sdk/models/operations/rpcruleupdate.go
   - internal/sdk/models/shared/asset.go
   - internal/sdk/models/shared/assetidsearch.go
-  - internal/sdk/models/shared/assetstate.go
   - internal/sdk/models/shared/assetstatus.go
   - internal/sdk/models/shared/assettype.go
   - internal/sdk/models/shared/createdby.go
-  - internal/sdk/models/shared/customgroup.go
-  - internal/sdk/models/shared/customgroupbody.go
-  - internal/sdk/models/shared/customgroupresponse.go
   - internal/sdk/models/shared/enforcementsource.go
   - internal/sdk/models/shared/error.go
-  - internal/sdk/models/shared/groupbasicinfo.go
+  - internal/sdk/models/shared/group.go
   - internal/sdk/models/shared/healthissue.go
   - internal/sdk/models/shared/healthstate.go
   - internal/sdk/models/shared/identityprotectioncategory.go
@@ -190,7 +176,6 @@ generatedFiles:
   - internal/sdk/models/shared/reactivepolicyoutboundbody.go
   - internal/sdk/models/shared/reactivepolicyresponse.go
   - internal/sdk/models/shared/reactivepolicystate.go
-  - internal/sdk/models/shared/rpcprotocolslist.go
   - internal/sdk/models/shared/rpcrule.go
   - internal/sdk/models/shared/rpcrulebody.go
   - internal/sdk/models/shared/rpcruleresponse.go
@@ -204,7 +189,6 @@ generatedFiles:
   - internal/sdk/models/shared/ruleresponse.go
   - internal/sdk/models/shared/rulereviewreason.go
   - internal/sdk/models/shared/rulestate.go
-  - internal/sdk/models/shared/rulestatebody.go
   - internal/sdk/models/shared/security.go
   - internal/sdk/models/shared/source.go
   - internal/sdk/models/shared/srcuserslist.go
@@ -27329,7 +27313,7 @@ examples:
           ruleId: "d37077dc-0660-454d-81a0-f52f491fd5b8"
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"addedBy": {"name": "User Name"}}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -27356,7 +27340,7 @@ examples:
         application/json: {"action": 1, "changeTicket": "", "description": "", "excludedLocalIdsList": [], "ipSecOpt": 1, "name": "", "localEntityId": "a:a:rHXNGBbN", "localProcessesList": ["*"], "servicesList": [], "portsList": [{"ports": "67", "protocolType": 6}], "remoteEntityIdsList": ["g:s:14085899"], "srcUsersList": [], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"fqdn": "laptoppc.domain.local", "ipV4Addresses": ["1.1.1.1"], "operatingSystem": "Windows 10 Pro"}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -27405,7 +27389,7 @@ examples:
         application/json: {"action": 1, "changeTicket": "", "description": "", "excludedLocalIdsList": [], "ipSecOpt": 1, "name": "", "localEntityId": "a:a:rHXNGBbN", "localProcessesList": ["*"], "servicesList": [], "portsList": [{"ports": "67", "protocolType": 6}], "remoteEntityIdsList": ["g:s:14085899"], "srcUsersList": [], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"fqdn": "laptoppc.domain.local", "ipV4Addresses": ["1.1.1.1"], "operatingSystem": "Windows 10 Pro"}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -28898,7 +28882,7 @@ examples:
         application/json: {"additionalPortsList": [{}], "dstEntityInfo": {"id": "<id>"}, "dstPort": "<value>", "fallbackToLoggedOnUser": false, "mfaMethods": [3], "overrideBuiltins": true, "protocolType": 183056, "ruleDuration": 4, "srcEntityInfos": [{"id": "<id>"}], "srcProcessNames": [], "srcUserInfos": [], "state": 2}
       responses:
         "200":
-          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":
@@ -29035,7 +29019,7 @@ examples:
           reactivePolicyId: "aaae3397-b969-4d1f-8b20-21fec67c6867"
       responses:
         "200":
-          application/json: {"items": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"items": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":
@@ -29049,7 +29033,7 @@ examples:
         application/json: {"additionalPortsList": [{}], "dstEntityInfo": {"id": "<id>"}, "dstPort": "<value>", "fallbackToLoggedOnUser": true, "mfaMethods": [6], "overrideBuiltins": false, "protocolType": 602852, "ruleDuration": 2, "srcEntityInfos": [{"id": "<id>"}], "srcProcessNames": ["<value 1>", "<value 2>"], "srcUserInfos": [{"id": "<id>"}], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":
@@ -29298,7 +29282,7 @@ examples:
         application/json: {"action": 1, "changeTicket": "", "description": "", "excludedLocalIdsList": [], "ipSecOpt": 1, "name": "", "localEntityId": "a:a:rHXNGBbN", "localProcessesList": ["*"], "servicesList": [], "portsList": [{"ports": "67", "protocolType": 6}], "remoteEntityIdsList": ["g:s:14085899"], "srcUsersList": [], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"addedBy": {"name": "User Name"}}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -29334,7 +29318,7 @@ examples:
           ruleId: "d37077dc-0660-454d-81a0-f52f491fd5b8"
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"addedBy": {"name": "User Name"}}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -29361,7 +29345,7 @@ examples:
         application/json: {"action": 1, "changeTicket": "", "description": "", "excludedLocalIdsList": [], "ipSecOpt": 1, "name": "", "localEntityId": "a:a:rHXNGBbN", "localProcessesList": ["*"], "servicesList": [], "portsList": [{"ports": "67", "protocolType": 6}], "remoteEntityIdsList": ["g:s:14085899"], "srcUsersList": [], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"domain": "tag", "guid": "978f7753-650a-4ef1-aeeb-d2ceee64855b", "hasNetworkProtectionPolicy": false, "hasIdentityProtectionPolicy": false, "id": "g:t:01085899", "name": "Domain controllers", "sid": ""}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
+          application/json: {"item": {"action": 1, "aeOverridden": false, "activitiesCount": 498871, "approvedBy": {"id": "", "name": ""}, "createdAt": 1661349648315, "createdBy": {"createdBy": {"id": "u:a:2IzNIRlf", "name": "nicholas"}, "enforcementSource": 4, "userRole": 1}, "changeTicket": "", "context": 0, "description": "DCs", "direction": 1, "excludedEntityInfos": [], "excludedLocalIdsList": [], "id": "6a4a42aa-c207-4860-8b32-a8e186f8af80", "ipSecOpt": 1, "localEntityId": "g:t:01085899", "localProcessesList": ["*"], "localEntityInfos": [{"addedBy": {"name": "User Name"}}], "multipleLocalEntityIdsList": [], "name": "", "parentId": "", "parentSwitchRuleId": "", "parentSwitchRuleType": 0, "parentType": 0, "portsList": [{"ports": "53,88,135,389,445,464,636,3268-3269,49152-65535", "protocolType": 6}, {"ports": "53,67,88,123,138,389,464", "protocolType": 17}], "remoteEntityIdsList": ["b:110001"], "remoteEntityInfos": [{"id": "b:110001", "name": "Any asset"}], "servicesList": [], "srcUsersList": [], "state": 1, "updatedAt": 1684409059065, "updatedBy": {"id": "", "name": ""}}}
         "400":
           application/json: {}
         "500":
@@ -29489,7 +29473,7 @@ examples:
         application/json: {"additionalPortsList": [{}], "dstEntityInfo": {"id": "<id>"}, "dstPort": "<value>", "dstProcessNames": ["<value 1>", "<value 2>"], "fallbackToLoggedOnUser": true, "mfaMethods": [], "overrideBuiltins": false, "protocolType": 369819, "ruleDuration": 3, "srcEntityInfos": [{"id": "<id>"}], "srcProcessNames": ["<value 1>"], "srcUserInfos": [], "state": 1}
       responses:
         "200":
-          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":
@@ -29523,7 +29507,7 @@ examples:
           reactivePolicyId: "ca4bdda5-1788-4d8a-a3bf-cc4a62cc6675"
       responses:
         "200":
-          application/json: {"items": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"items": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":
@@ -29537,7 +29521,7 @@ examples:
         application/json: {"additionalPortsList": [{}], "dstEntityInfo": {"id": "<id>"}, "dstPort": "<value>", "dstProcessNames": [], "fallbackToLoggedOnUser": false, "mfaMethods": [], "overrideBuiltins": true, "protocolType": 227196, "ruleDuration": 5, "srcEntityInfos": [], "srcProcessNames": [], "srcUserInfos": [{"id": "<id>"}], "state": 2}
       responses:
         "200":
-          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "4f6b945e-eb2e-4abe-8295-a409164a9f05", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
+          application/json: {"item": {"createdByName": "User Name", "dstPort": "3389", "dstProcessNames": ["c:\\test.exe"], "id": "00000000-0000-0000-0000-000000000000", "srcProcessNames": ["system"], "updatedByName": "User Name"}}
         "400":
           application/json: {}
         "500":

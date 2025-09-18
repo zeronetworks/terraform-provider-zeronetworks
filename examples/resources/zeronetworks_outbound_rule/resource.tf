@@ -1,6 +1,7 @@
 resource "zeronetworks_outbound_rule" "my_outboundrule" {
   action        = 2
   change_ticket = "...my_change_ticket..."
+  context       = 4
   description   = "...my_description..."
   excluded_local_ids_list = [
     "..."
@@ -30,5 +31,5 @@ resource "zeronetworks_outbound_rule" "my_outboundrule" {
       sid = "...my_sid..."
     }
   ]
-  state = 1
+  state = 4
 }

@@ -12,6 +12,164 @@ import (
 	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
+func (r *OutboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx context.Context, resp *shared.ReactivePolicy) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		r.AdditionalPortsList = []tfTypes.PortsList{}
+
+		for _, additionalPortsListItem := range resp.AdditionalPortsList {
+			var additionalPortsList tfTypes.PortsList
+
+			additionalPortsList.Ports = types.StringPointerValue(additionalPortsListItem.Ports)
+			if additionalPortsListItem.ProtocolType != nil {
+				additionalPortsList.ProtocolType = types.Int32Value(int32(*additionalPortsListItem.ProtocolType))
+			} else {
+				additionalPortsList.ProtocolType = types.Int32Null()
+			}
+
+			r.AdditionalPortsList = append(r.AdditionalPortsList, additionalPortsList)
+		}
+		r.ChangeTicket = types.StringPointerValue(resp.ChangeTicket)
+		r.Context = types.Int64PointerValue(resp.Context)
+		r.CreatedAt = types.Int64PointerValue(resp.CreatedAt)
+		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
+		r.CreatedByName = types.StringPointerValue(resp.CreatedByName)
+		r.Description = types.StringPointerValue(resp.Description)
+		if resp.DstEntityInfo != nil {
+			r.DstEntityInfo.ID = types.StringPointerValue(resp.DstEntityInfo.ID)
+			r.DstEntityInfo.Name = types.StringPointerValue(resp.DstEntityInfo.Name)
+		}
+		r.DstPort = types.StringPointerValue(resp.DstPort)
+		r.DstProcessNames = make([]types.String, 0, len(resp.DstProcessNames))
+		for _, v := range resp.DstProcessNames {
+			r.DstProcessNames = append(r.DstProcessNames, types.StringValue(v))
+		}
+		if resp.EnforcementSource != nil {
+			r.EnforcementSource = types.Int32Value(int32(*resp.EnforcementSource))
+		} else {
+			r.EnforcementSource = types.Int32Null()
+		}
+		r.ExcludedSrcEntityInfos = []tfTypes.IDNamePair{}
+
+		for _, excludedSrcEntityInfosItem := range resp.ExcludedSrcEntityInfos {
+			var excludedSrcEntityInfos tfTypes.IDNamePair
+
+			excludedSrcEntityInfos.ID = types.StringPointerValue(excludedSrcEntityInfosItem.ID)
+			excludedSrcEntityInfos.Name = types.StringPointerValue(excludedSrcEntityInfosItem.Name)
+
+			r.ExcludedSrcEntityInfos = append(r.ExcludedSrcEntityInfos, excludedSrcEntityInfos)
+		}
+		r.ExcludedSrcProcesses = make([]types.String, 0, len(resp.ExcludedSrcProcesses))
+		for _, v := range resp.ExcludedSrcProcesses {
+			r.ExcludedSrcProcesses = append(r.ExcludedSrcProcesses, types.StringValue(v))
+		}
+		r.FallbackToLoggedOnUser = types.BoolPointerValue(resp.FallbackToLoggedOnUser)
+		r.ID = types.StringPointerValue(resp.ID)
+		r.IdentityProtectionCategoryList = make([]types.Int32, 0, len(resp.IdentityProtectionCategoryList))
+		for _, v := range resp.IdentityProtectionCategoryList {
+			r.IdentityProtectionCategoryList = append(r.IdentityProtectionCategoryList, types.Int32Value(int32(int(v))))
+		}
+		r.MfaMethods = make([]types.Int32, 0, len(resp.MfaMethods))
+		for _, v := range resp.MfaMethods {
+			r.MfaMethods = append(r.MfaMethods, types.Int32Value(int32(int(v))))
+		}
+		r.Name = types.StringPointerValue(resp.Name)
+		r.OverrideBuiltins = types.BoolPointerValue(resp.OverrideBuiltins)
+		r.ProtocolType = types.Int64PointerValue(typeconvert.IntPointerToInt64Pointer((*int)(resp.ProtocolType)))
+		r.RestrictLoginToOriginatingUser = types.BoolPointerValue(resp.RestrictLoginToOriginatingUser)
+		r.RestrictToOriginatedUser = types.BoolPointerValue(resp.RestrictToOriginatedUser)
+		if resp.RuleDuration != nil {
+			r.RuleDuration = types.Int32Value(int32(*resp.RuleDuration))
+		} else {
+			r.RuleDuration = types.Int32Null()
+		}
+		r.SrcEntityInfos = []tfTypes.IDNamePair{}
+
+		for _, srcEntityInfosItem := range resp.SrcEntityInfos {
+			var srcEntityInfos tfTypes.IDNamePair
+
+			srcEntityInfos.ID = types.StringPointerValue(srcEntityInfosItem.ID)
+			srcEntityInfos.Name = types.StringPointerValue(srcEntityInfosItem.Name)
+
+			r.SrcEntityInfos = append(r.SrcEntityInfos, srcEntityInfos)
+		}
+		r.SrcProcessNames = make([]types.String, 0, len(resp.SrcProcessNames))
+		for _, v := range resp.SrcProcessNames {
+			r.SrcProcessNames = append(r.SrcProcessNames, types.StringValue(v))
+		}
+		r.SrcUserInfos = []tfTypes.IDNamePair{}
+
+		for _, srcUserInfosItem := range resp.SrcUserInfos {
+			var srcUserInfos tfTypes.IDNamePair
+
+			srcUserInfos.ID = types.StringPointerValue(srcUserInfosItem.ID)
+			srcUserInfos.Name = types.StringPointerValue(srcUserInfosItem.Name)
+
+			r.SrcUserInfos = append(r.SrcUserInfos, srcUserInfos)
+		}
+		if resp.State != nil {
+			r.State = types.Int32Value(int32(*resp.State))
+		} else {
+			r.State = types.Int32Null()
+		}
+		r.UpdatedAt = types.Int64PointerValue(resp.UpdatedAt)
+		r.UpdatedBy = types.StringPointerValue(resp.UpdatedBy)
+		r.UpdatedByName = types.StringPointerValue(resp.UpdatedByName)
+		r.UseDefaultIdp = types.BoolPointerValue(resp.UseDefaultIdp)
+		r.UseOccasionalMfa = types.BoolPointerValue(resp.UseOccasionalMfa)
+	}
+
+	return diags
+}
+
+func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesDeleteRequest(ctx context.Context) (*operations.MFAOutboundPoliciesDeleteRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.MFAOutboundPoliciesDeleteRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesGetRequest(ctx context.Context) (*operations.MFAOutboundPoliciesGetRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.MFAOutboundPoliciesGetRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesUpdateRequest(ctx context.Context) (*operations.MFAOutboundPoliciesUpdateRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	reactivePolicyOutboundBody, reactivePolicyOutboundBodyDiags := r.ToSharedReactivePolicyOutboundBody(ctx)
+	diags.Append(reactivePolicyOutboundBodyDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	out := operations.MFAOutboundPoliciesUpdateRequest{
+		ID:                         id,
+		ReactivePolicyOutboundBody: *reactivePolicyOutboundBody,
+	}
+
+	return &out, diags
+}
+
 func (r *OutboundMFAPolicyResourceModel) ToSharedReactivePolicyOutboundBody(ctx context.Context) (*shared.ReactivePolicyOutboundBody, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
@@ -165,182 +323,4 @@ func (r *OutboundMFAPolicyResourceModel) ToSharedReactivePolicyOutboundBody(ctx 
 	}
 
 	return &out, diags
-}
-
-func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesUpdateRequest(ctx context.Context) (*operations.MFAOutboundPoliciesUpdateRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	reactivePolicyOutboundBody, reactivePolicyOutboundBodyDiags := r.ToSharedReactivePolicyOutboundBody(ctx)
-	diags.Append(reactivePolicyOutboundBodyDiags...)
-
-	if diags.HasError() {
-		return nil, diags
-	}
-
-	out := operations.MFAOutboundPoliciesUpdateRequest{
-		ID:                         id,
-		ReactivePolicyOutboundBody: *reactivePolicyOutboundBody,
-	}
-
-	return &out, diags
-}
-
-func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesGetRequest(ctx context.Context) (*operations.MFAOutboundPoliciesGetRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	out := operations.MFAOutboundPoliciesGetRequest{
-		ID: id,
-	}
-
-	return &out, diags
-}
-
-func (r *OutboundMFAPolicyResourceModel) ToOperationsMFAOutboundPoliciesDeleteRequest(ctx context.Context) (*operations.MFAOutboundPoliciesDeleteRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	out := operations.MFAOutboundPoliciesDeleteRequest{
-		ID: id,
-	}
-
-	return &out, diags
-}
-
-func (r *OutboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx context.Context, resp *shared.ReactivePolicy) diag.Diagnostics {
-	var diags diag.Diagnostics
-
-	if resp != nil {
-		r.AdditionalPortsList = []tfTypes.PortsList{}
-		if len(r.AdditionalPortsList) > len(resp.AdditionalPortsList) {
-			r.AdditionalPortsList = r.AdditionalPortsList[:len(resp.AdditionalPortsList)]
-		}
-		for additionalPortsListCount, additionalPortsListItem := range resp.AdditionalPortsList {
-			var additionalPortsList tfTypes.PortsList
-			additionalPortsList.Ports = types.StringPointerValue(additionalPortsListItem.Ports)
-			if additionalPortsListItem.ProtocolType != nil {
-				additionalPortsList.ProtocolType = types.Int32Value(int32(*additionalPortsListItem.ProtocolType))
-			} else {
-				additionalPortsList.ProtocolType = types.Int32Null()
-			}
-			if additionalPortsListCount+1 > len(r.AdditionalPortsList) {
-				r.AdditionalPortsList = append(r.AdditionalPortsList, additionalPortsList)
-			} else {
-				r.AdditionalPortsList[additionalPortsListCount].Ports = additionalPortsList.Ports
-				r.AdditionalPortsList[additionalPortsListCount].ProtocolType = additionalPortsList.ProtocolType
-			}
-		}
-		r.ChangeTicket = types.StringPointerValue(resp.ChangeTicket)
-		r.Context = types.Int64PointerValue(resp.Context)
-		r.CreatedAt = types.Int64PointerValue(resp.CreatedAt)
-		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
-		r.CreatedByName = types.StringPointerValue(resp.CreatedByName)
-		r.Description = types.StringPointerValue(resp.Description)
-		if resp.DstEntityInfo != nil {
-			r.DstEntityInfo.ID = types.StringPointerValue(resp.DstEntityInfo.ID)
-			r.DstEntityInfo.Name = types.StringPointerValue(resp.DstEntityInfo.Name)
-		}
-		r.DstPort = types.StringPointerValue(resp.DstPort)
-		r.DstProcessNames = make([]types.String, 0, len(resp.DstProcessNames))
-		for _, v := range resp.DstProcessNames {
-			r.DstProcessNames = append(r.DstProcessNames, types.StringValue(v))
-		}
-		if resp.EnforcementSource != nil {
-			r.EnforcementSource = types.Int32Value(int32(*resp.EnforcementSource))
-		} else {
-			r.EnforcementSource = types.Int32Null()
-		}
-		r.ExcludedSrcEntityInfos = []tfTypes.IDNamePair{}
-		if len(r.ExcludedSrcEntityInfos) > len(resp.ExcludedSrcEntityInfos) {
-			r.ExcludedSrcEntityInfos = r.ExcludedSrcEntityInfos[:len(resp.ExcludedSrcEntityInfos)]
-		}
-		for excludedSrcEntityInfosCount, excludedSrcEntityInfosItem := range resp.ExcludedSrcEntityInfos {
-			var excludedSrcEntityInfos tfTypes.IDNamePair
-			excludedSrcEntityInfos.ID = types.StringPointerValue(excludedSrcEntityInfosItem.ID)
-			excludedSrcEntityInfos.Name = types.StringPointerValue(excludedSrcEntityInfosItem.Name)
-			if excludedSrcEntityInfosCount+1 > len(r.ExcludedSrcEntityInfos) {
-				r.ExcludedSrcEntityInfos = append(r.ExcludedSrcEntityInfos, excludedSrcEntityInfos)
-			} else {
-				r.ExcludedSrcEntityInfos[excludedSrcEntityInfosCount].ID = excludedSrcEntityInfos.ID
-				r.ExcludedSrcEntityInfos[excludedSrcEntityInfosCount].Name = excludedSrcEntityInfos.Name
-			}
-		}
-		r.ExcludedSrcProcesses = make([]types.String, 0, len(resp.ExcludedSrcProcesses))
-		for _, v := range resp.ExcludedSrcProcesses {
-			r.ExcludedSrcProcesses = append(r.ExcludedSrcProcesses, types.StringValue(v))
-		}
-		r.FallbackToLoggedOnUser = types.BoolPointerValue(resp.FallbackToLoggedOnUser)
-		r.ID = types.StringPointerValue(resp.ID)
-		r.IdentityProtectionCategoryList = make([]types.Int32, 0, len(resp.IdentityProtectionCategoryList))
-		for _, v := range resp.IdentityProtectionCategoryList {
-			r.IdentityProtectionCategoryList = append(r.IdentityProtectionCategoryList, types.Int32Value(int32(int(v))))
-		}
-		r.MfaMethods = make([]types.Int32, 0, len(resp.MfaMethods))
-		for _, v := range resp.MfaMethods {
-			r.MfaMethods = append(r.MfaMethods, types.Int32Value(int32(int(v))))
-		}
-		r.Name = types.StringPointerValue(resp.Name)
-		r.OverrideBuiltins = types.BoolPointerValue(resp.OverrideBuiltins)
-		r.ProtocolType = types.Int64PointerValue(typeconvert.IntPointerToInt64Pointer((*int)(resp.ProtocolType)))
-		r.RestrictLoginToOriginatingUser = types.BoolPointerValue(resp.RestrictLoginToOriginatingUser)
-		r.RestrictToOriginatedUser = types.BoolPointerValue(resp.RestrictToOriginatedUser)
-		if resp.RuleDuration != nil {
-			r.RuleDuration = types.Int32Value(int32(*resp.RuleDuration))
-		} else {
-			r.RuleDuration = types.Int32Null()
-		}
-		r.SrcEntityInfos = []tfTypes.IDNamePair{}
-		if len(r.SrcEntityInfos) > len(resp.SrcEntityInfos) {
-			r.SrcEntityInfos = r.SrcEntityInfos[:len(resp.SrcEntityInfos)]
-		}
-		for srcEntityInfosCount, srcEntityInfosItem := range resp.SrcEntityInfos {
-			var srcEntityInfos tfTypes.IDNamePair
-			srcEntityInfos.ID = types.StringPointerValue(srcEntityInfosItem.ID)
-			srcEntityInfos.Name = types.StringPointerValue(srcEntityInfosItem.Name)
-			if srcEntityInfosCount+1 > len(r.SrcEntityInfos) {
-				r.SrcEntityInfos = append(r.SrcEntityInfos, srcEntityInfos)
-			} else {
-				r.SrcEntityInfos[srcEntityInfosCount].ID = srcEntityInfos.ID
-				r.SrcEntityInfos[srcEntityInfosCount].Name = srcEntityInfos.Name
-			}
-		}
-		r.SrcProcessNames = make([]types.String, 0, len(resp.SrcProcessNames))
-		for _, v := range resp.SrcProcessNames {
-			r.SrcProcessNames = append(r.SrcProcessNames, types.StringValue(v))
-		}
-		r.SrcUserInfos = []tfTypes.IDNamePair{}
-		if len(r.SrcUserInfos) > len(resp.SrcUserInfos) {
-			r.SrcUserInfos = r.SrcUserInfos[:len(resp.SrcUserInfos)]
-		}
-		for srcUserInfosCount, srcUserInfosItem := range resp.SrcUserInfos {
-			var srcUserInfos tfTypes.IDNamePair
-			srcUserInfos.ID = types.StringPointerValue(srcUserInfosItem.ID)
-			srcUserInfos.Name = types.StringPointerValue(srcUserInfosItem.Name)
-			if srcUserInfosCount+1 > len(r.SrcUserInfos) {
-				r.SrcUserInfos = append(r.SrcUserInfos, srcUserInfos)
-			} else {
-				r.SrcUserInfos[srcUserInfosCount].ID = srcUserInfos.ID
-				r.SrcUserInfos[srcUserInfosCount].Name = srcUserInfos.Name
-			}
-		}
-		if resp.State != nil {
-			r.State = types.Int32Value(int32(*resp.State))
-		} else {
-			r.State = types.Int32Null()
-		}
-		r.UpdatedAt = types.Int64PointerValue(resp.UpdatedAt)
-		r.UpdatedBy = types.StringPointerValue(resp.UpdatedBy)
-		r.UpdatedByName = types.StringPointerValue(resp.UpdatedByName)
-		r.UseDefaultIdp = types.BoolPointerValue(resp.UseDefaultIdp)
-		r.UseOccasionalMfa = types.BoolPointerValue(resp.UseOccasionalMfa)
-	}
-
-	return diags
 }

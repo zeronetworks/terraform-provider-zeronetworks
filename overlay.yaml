@@ -21,45 +21,6 @@ actions:
   - target: $["components"]["schemas"]["assetIdSearch"]
     update:
         x-speakeasy-entity: AssetId
-  - target: $["paths"]["/groups/custom"]["post"]
-    update:
-      x-speakeasy-entity-operation: CustomGroup#create
-  - target: $["paths"]["/groups/custom/{groupId}"]
-    update:
-      get:
-        operationId: CustomGroup_Get
-        summary: Get a group
-        description: Returns the properties of an group.
-        parameters:
-          - $ref: '#/components/parameters/groupIdParameter'
-        responses:
-          '200':
-            description: OK
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/customGroupResponse'
-          '400':
-            $ref: '#/components/responses/400'
-          '401':
-            $ref: '#/components/responses/401'
-          '403':
-            $ref: '#/components/responses/403'
-          '404':
-            $ref: '#/components/responses/404'
-          '500':
-            $ref: '#/components/responses/500'
-        security:
-          - api_key: []
-        tags:
-          - Group
-        x-speakeasy-entity-operation: CustomGroup#get
-  - target: $["paths"]["/groups/custom/{groupId}"]["put"]
-    update:
-      x-speakeasy-entity-operation: CustomGroup#update
-  - target: $["paths"]["/groups/custom/{groupId}"]["delete"]
-    update:
-      x-speakeasy-entity-operation: CustomGroup#delete
   - target: $["paths"]["/protection/reactive-policies/inbound"]["post"]
     update:
       x-speakeasy-entity-operation: InboundMFAPolicy#create
@@ -120,9 +81,6 @@ actions:
   - target: $["paths"]["/protection/rules/outbound/{ruleId}"]["delete"]
     update:
       x-speakeasy-entity-operation: OutboundRule#delete
-  - target: $["components"]["parameters"]["groupIdParameter"]
-    update:
-      x-speakeasy-name-override: id
   - target: $["components"]["parameters"]["reactivePolicyIdParameter"]
     update:
       x-speakeasy-name-override: id
@@ -132,12 +90,6 @@ actions:
   - target: $["components"]["schemas"]["assetSearchResponse"]
     update:
       x-speakeasy-entity: AssetId
-  - target: $["components"]["schemas"]["customGroupBody"]
-    update:
-      x-speakeasy-entity: CustomGroup
-  - target: $["components"]["schemas"]["customGroup"]
-    update:
-      x-speakeasy-entity: CustomGroup
   - target: $["components"]["schemas"]["reactivePolicy"]
     update:
       x-speakeasy-entity: 

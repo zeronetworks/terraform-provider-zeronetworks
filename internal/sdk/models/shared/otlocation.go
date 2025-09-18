@@ -2,10 +2,25 @@
 
 package shared
 
+import (
+	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
+)
+
 type OtLocation struct {
 	InterfaceName *string `json:"interfaceName,omitempty"`
 	Name          *string `json:"name,omitempty"`
 	SwitchID      *string `json:"switchId,omitempty"`
+}
+
+func (o OtLocation) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(o, "", false)
+}
+
+func (o *OtLocation) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &o, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *OtLocation) GetInterfaceName() *string {

@@ -26,6 +26,7 @@ func NewRPCRuleResource() resource.Resource {
 
 // RPCRuleResource defines the resource implementation.
 type RPCRuleResource struct {
+	// Provider configured SDK client.
 	client *sdk.ZeroNetworks
 }
 
@@ -47,7 +48,7 @@ type RPCRuleResourceModel struct {
 	OpNumbersList        []types.Int64         `tfsdk:"op_numbers_list"`
 	ParentID             types.String          `tfsdk:"parent_id"`
 	ParentType           types.Int32           `tfsdk:"parent_type"`
-	ProtocolsList        []types.Int32         `tfsdk:"protocols_list"`
+	ProtocolsList        []types.Int64         `tfsdk:"protocols_list"`
 	RemoteAssetIdsList   []types.String        `tfsdk:"remote_asset_ids_list"`
 	RemoteAssetInfos     []tfTypes.IDNamePair1 `tfsdk:"remote_asset_infos"`
 	RuleClass            types.Int32           `tfsdk:"rule_class"`
@@ -238,7 +239,7 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 			},
 			"protocols_list": schema.ListAttribute{
 				Required:    true,
-				ElementType: types.Int32Type,
+				ElementType: types.Int64Type,
 				MarkdownDescription: `* NULL - Any` + "\n" +
 					`* '1' - Rules RPC over SMB` + "\n" +
 					`* '2' - Rules RPC over TCP`,
@@ -288,9 +289,22 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 				Required: true,
 				MarkdownDescription: `* '1' - Enabled` + "\n" +
 					`* '2' - Disabled` + "\n" +
-					`must be one of ["1", "2"]`,
+					`* '3' - Deleted By User` + "\n" +
+					`* '4' - Pending Review` + "\n" +
+					`* '5' - Pending Review Auto` + "\n" +
+					`* '6' - Rejected by User` + "\n" +
+					`* '7' - Excluded by User` + "\n" +
+					`must be one of ["1", "2", "3", "4", "5", "6", "7"]`,
 				Validators: []validator.Int32{
-					int32validator.OneOf(1, 2),
+					int32validator.OneOf(
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+					),
 				},
 			},
 			"updated_at": schema.Int64Attribute{

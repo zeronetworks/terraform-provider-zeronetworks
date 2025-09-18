@@ -3,6 +3,6 @@
 package types
 
 type LocalEntityInfo struct {
-	Asset          *Asset          `queryParam:"inline" tfsdk:"asset" tfPlanOnly:"true"`
-	GroupBasicInfo *GroupBasicInfo `queryParam:"inline" tfsdk:"group_basic_info" tfPlanOnly:"true"`
+	Asset *Asset `queryParam:"inline" tfsdk:"asset" tfPlanOnly:"true"`
+	Group *Group `queryParam:"inline" tfsdk:"group" tfPlanOnly:"true"`
 }

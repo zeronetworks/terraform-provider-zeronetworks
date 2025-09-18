@@ -5,6 +5,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
 // HealthStatus - * '0' - Unspecified
@@ -66,6 +67,17 @@ type HealthState struct {
 	//
 	HealthStatus     *HealthStatus `json:"healthStatus,omitempty"`
 	HealthIssuesList []HealthIssue `json:"healthIssuesList,omitempty"`
+}
+
+func (h HealthState) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(h, "", false)
+}
+
+func (h *HealthState) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &h, "", false, nil); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (o *HealthState) GetHealthStatus() *HealthStatus {

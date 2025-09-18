@@ -24,13 +24,18 @@ type RPCRuleBody struct {
 	// * '1' - Rules RPC over SMB
 	// * '2' - Rules RPC over TCP
 	//
-	ProtocolsList      []*RPCProtocolsList `json:"protocolsList"`
-	RemoteAssetIdsList []string            `json:"remoteAssetIdsList"`
+	ProtocolsList      []int64  `json:"protocolsList"`
+	RemoteAssetIdsList []string `json:"remoteAssetIdsList"`
 	// * '1' - Enabled
 	// * '2' - Disabled
+	// * '3' - Deleted By User
+	// * '4' - Pending Review
+	// * '5' - Pending Review Auto
+	// * '6' - Rejected by User
+	// * '7' - Excluded by User
 	//
-	State       RuleStateBody `json:"state"`
-	UserIdsList []string      `json:"userIdsList"`
+	State       RuleState `json:"state"`
+	UserIdsList []string  `json:"userIdsList"`
 }
 
 func (o *RPCRuleBody) GetAction() RuleAction {
@@ -96,9 +101,9 @@ func (o *RPCRuleBody) GetOpNumbersList() []int64 {
 	return o.OpNumbersList
 }
 
-func (o *RPCRuleBody) GetProtocolsList() []*RPCProtocolsList {
+func (o *RPCRuleBody) GetProtocolsList() []int64 {
 	if o == nil {
-		return []*RPCProtocolsList{}
+		return []int64{}
 	}
 	return o.ProtocolsList
 }
@@ -110,9 +115,9 @@ func (o *RPCRuleBody) GetRemoteAssetIdsList() []string {
 	return o.RemoteAssetIdsList
 }
 
-func (o *RPCRuleBody) GetState() RuleStateBody {
+func (o *RPCRuleBody) GetState() RuleState {
 	if o == nil {
-		return RuleStateBody(0)
+		return RuleState(0)
 	}
 	return o.State
 }

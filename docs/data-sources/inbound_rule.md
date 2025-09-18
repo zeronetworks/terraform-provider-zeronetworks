@@ -52,6 +52,7 @@ data "zeronetworks_inbound_rule" "my_inboundrule" {
 * '3' - Authenticated and integrity-protected connections
 * '4' - Encrypted connections and dynamically negotiate encryption (inbound rule only)
 * '5' - Encrypted connections
+- `is_reject_on_linux` (Boolean)
 - `local_entity_id` (String)
 - `local_entity_infos` (Attributes List) (see [below for nested schema](#nestedatt--local_entity_infos))
 - `local_processes_list` (List of String)
@@ -169,7 +170,7 @@ Read-Only:
 Read-Only:
 
 - `asset` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset))
-- `group_basic_info` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group_basic_info))
+- `group` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group))
 
 <a id="nestedatt--local_entity_infos--asset"></a>
 ### Nested Schema for `local_entity_infos.asset`
@@ -370,12 +371,9 @@ Read-Only:
   * '177' - WIRELESS PHONE
   * '178' - WIRELESS PHONE GATEWAY
   * '1001' - OTHER OT
-- `assigned_deployment` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--assigned_deployment))
 - `assigned_deployment_id` (String)
 - `break_glass_activated` (Boolean)
-- `cloud_connector_version` (String)
 - `domain` (String)
-- `environment_group` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--environment_group))
 - `external_device_id` (String)
 - `fqdn` (String)
 - `has_dns` (Boolean)
@@ -402,7 +400,6 @@ Read-Only:
 - `ot_locattion` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--ot_locattion))
 - `outbound_restriction` (Number)
 - `password_update_time` (Number) Epoch Millis
-- `preferred_deployment` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--preferred_deployment))
 - `preferred_deployment_id` (String)
 - `principal_name` (String)
 - `protect_at` (Number) Epoch Millis
@@ -461,26 +458,7 @@ Read-Only:
   * '28' - Conditional
   * '29' - Claroty OT
   * '30' - Manual Mac
-- `state` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--asset--state))
 - `switch_location_overridden` (Boolean)
-
-<a id="nestedatt--local_entity_infos--asset--assigned_deployment"></a>
-### Nested Schema for `local_entity_infos.asset.assigned_deployment`
-
-Read-Only:
-
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
-
-<a id="nestedatt--local_entity_infos--asset--environment_group"></a>
-### Nested Schema for `local_entity_infos.asset.environment_group`
-
-Read-Only:
-
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
 
 <a id="nestedatt--local_entity_infos--asset--health_state"></a>
 ### Nested Schema for `local_entity_infos.asset.health_state`
@@ -555,42 +533,36 @@ Read-Only:
 - `switch_id` (String)
 
 
-<a id="nestedatt--local_entity_infos--asset--preferred_deployment"></a>
-### Nested Schema for `local_entity_infos.asset.preferred_deployment`
+
+<a id="nestedatt--local_entity_infos--group"></a>
+### Nested Schema for `local_entity_infos.group`
 
 Read-Only:
 
-- `id` (String) EntityId
-- `name` (String) Entity Name
-
-
-<a id="nestedatt--local_entity_infos--asset--state"></a>
-### Nested Schema for `local_entity_infos.asset.state`
-
-Read-Only:
-
-- `asset_id` (String)
-- `identity_protection_state` (Number)
-- `is_asset_connected` (Boolean)
-- `last_connected_at` (Number) Epoch Millis
-- `protected_at` (Number) Epoch Millis
-- `protection_state` (Number)
-- `rpc_protection_state` (Number)
-
-
-
-<a id="nestedatt--local_entity_infos--group_basic_info"></a>
-### Nested Schema for `local_entity_infos.group_basic_info`
-
-Read-Only:
-
+- `added_at` (Number) Epoch Millis
+- `added_by` (Attributes) (see [below for nested schema](#nestedatt--local_entity_infos--group--added_by))
+- `created_at` (Number) Epoch Millis
+- `description` (String)
+- `direct_members_count` (Number)
 - `domain` (String)
+- `external_id` (String)
 - `guid` (String)
-- `has_identity_protection_policy` (Boolean)
-- `has_network_protection_policy` (Boolean)
+- `has_protection_policy` (Boolean)
 - `id` (String)
 - `name` (String)
+- `principal_name` (String)
+- `role` (Number)
 - `sid` (String)
+- `updated_at` (Number) Epoch Millis
+
+<a id="nestedatt--local_entity_infos--group--added_by"></a>
+### Nested Schema for `local_entity_infos.group.added_by`
+
+Read-Only:
+
+- `id` (String)
+- `name` (String)
+
 
 
 

@@ -11,41 +11,23 @@ import (
 	"github.com/speakeasy/terraform-provider-zeronetworks/internal/sdk/models/shared"
 )
 
-func (r *OutboundMFAPolicyDataSourceModel) ToOperationsMFAOutboundPoliciesGetRequest(ctx context.Context) (*operations.MFAOutboundPoliciesGetRequest, diag.Diagnostics) {
-	var diags diag.Diagnostics
-
-	var id string
-	id = r.ID.ValueString()
-
-	out := operations.MFAOutboundPoliciesGetRequest{
-		ID: id,
-	}
-
-	return &out, diags
-}
-
 func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicy(ctx context.Context, resp *shared.ReactivePolicy) diag.Diagnostics {
 	var diags diag.Diagnostics
 
 	if resp != nil {
 		r.AdditionalPortsList = []tfTypes.PortsList{}
-		if len(r.AdditionalPortsList) > len(resp.AdditionalPortsList) {
-			r.AdditionalPortsList = r.AdditionalPortsList[:len(resp.AdditionalPortsList)]
-		}
-		for additionalPortsListCount, additionalPortsListItem := range resp.AdditionalPortsList {
+
+		for _, additionalPortsListItem := range resp.AdditionalPortsList {
 			var additionalPortsList tfTypes.PortsList
+
 			additionalPortsList.Ports = types.StringPointerValue(additionalPortsListItem.Ports)
 			if additionalPortsListItem.ProtocolType != nil {
 				additionalPortsList.ProtocolType = types.Int32Value(int32(*additionalPortsListItem.ProtocolType))
 			} else {
 				additionalPortsList.ProtocolType = types.Int32Null()
 			}
-			if additionalPortsListCount+1 > len(r.AdditionalPortsList) {
-				r.AdditionalPortsList = append(r.AdditionalPortsList, additionalPortsList)
-			} else {
-				r.AdditionalPortsList[additionalPortsListCount].Ports = additionalPortsList.Ports
-				r.AdditionalPortsList[additionalPortsListCount].ProtocolType = additionalPortsList.ProtocolType
-			}
+
+			r.AdditionalPortsList = append(r.AdditionalPortsList, additionalPortsList)
 		}
 		r.ChangeTicket = types.StringPointerValue(resp.ChangeTicket)
 		r.Context = types.Int64PointerValue(resp.Context)
@@ -71,19 +53,14 @@ func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicy(ctx c
 			r.EnforcementSource = types.Int32Null()
 		}
 		r.ExcludedSrcEntityInfos = []tfTypes.IDNamePair1{}
-		if len(r.ExcludedSrcEntityInfos) > len(resp.ExcludedSrcEntityInfos) {
-			r.ExcludedSrcEntityInfos = r.ExcludedSrcEntityInfos[:len(resp.ExcludedSrcEntityInfos)]
-		}
-		for excludedSrcEntityInfosCount, excludedSrcEntityInfosItem := range resp.ExcludedSrcEntityInfos {
+
+		for _, excludedSrcEntityInfosItem := range resp.ExcludedSrcEntityInfos {
 			var excludedSrcEntityInfos tfTypes.IDNamePair1
+
 			excludedSrcEntityInfos.ID = types.StringPointerValue(excludedSrcEntityInfosItem.ID)
 			excludedSrcEntityInfos.Name = types.StringPointerValue(excludedSrcEntityInfosItem.Name)
-			if excludedSrcEntityInfosCount+1 > len(r.ExcludedSrcEntityInfos) {
-				r.ExcludedSrcEntityInfos = append(r.ExcludedSrcEntityInfos, excludedSrcEntityInfos)
-			} else {
-				r.ExcludedSrcEntityInfos[excludedSrcEntityInfosCount].ID = excludedSrcEntityInfos.ID
-				r.ExcludedSrcEntityInfos[excludedSrcEntityInfosCount].Name = excludedSrcEntityInfos.Name
-			}
+
+			r.ExcludedSrcEntityInfos = append(r.ExcludedSrcEntityInfos, excludedSrcEntityInfos)
 		}
 		r.ExcludedSrcProcesses = make([]types.String, 0, len(resp.ExcludedSrcProcesses))
 		for _, v := range resp.ExcludedSrcProcesses {
@@ -114,38 +91,28 @@ func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicy(ctx c
 			r.RuleDuration = types.Int32Null()
 		}
 		r.SrcEntityInfos = []tfTypes.IDNamePair1{}
-		if len(r.SrcEntityInfos) > len(resp.SrcEntityInfos) {
-			r.SrcEntityInfos = r.SrcEntityInfos[:len(resp.SrcEntityInfos)]
-		}
-		for srcEntityInfosCount, srcEntityInfosItem := range resp.SrcEntityInfos {
+
+		for _, srcEntityInfosItem := range resp.SrcEntityInfos {
 			var srcEntityInfos tfTypes.IDNamePair1
+
 			srcEntityInfos.ID = types.StringPointerValue(srcEntityInfosItem.ID)
 			srcEntityInfos.Name = types.StringPointerValue(srcEntityInfosItem.Name)
-			if srcEntityInfosCount+1 > len(r.SrcEntityInfos) {
-				r.SrcEntityInfos = append(r.SrcEntityInfos, srcEntityInfos)
-			} else {
-				r.SrcEntityInfos[srcEntityInfosCount].ID = srcEntityInfos.ID
-				r.SrcEntityInfos[srcEntityInfosCount].Name = srcEntityInfos.Name
-			}
+
+			r.SrcEntityInfos = append(r.SrcEntityInfos, srcEntityInfos)
 		}
 		r.SrcProcessNames = make([]types.String, 0, len(resp.SrcProcessNames))
 		for _, v := range resp.SrcProcessNames {
 			r.SrcProcessNames = append(r.SrcProcessNames, types.StringValue(v))
 		}
 		r.SrcUserInfos = []tfTypes.IDNamePair1{}
-		if len(r.SrcUserInfos) > len(resp.SrcUserInfos) {
-			r.SrcUserInfos = r.SrcUserInfos[:len(resp.SrcUserInfos)]
-		}
-		for srcUserInfosCount, srcUserInfosItem := range resp.SrcUserInfos {
+
+		for _, srcUserInfosItem := range resp.SrcUserInfos {
 			var srcUserInfos tfTypes.IDNamePair1
+
 			srcUserInfos.ID = types.StringPointerValue(srcUserInfosItem.ID)
 			srcUserInfos.Name = types.StringPointerValue(srcUserInfosItem.Name)
-			if srcUserInfosCount+1 > len(r.SrcUserInfos) {
-				r.SrcUserInfos = append(r.SrcUserInfos, srcUserInfos)
-			} else {
-				r.SrcUserInfos[srcUserInfosCount].ID = srcUserInfos.ID
-				r.SrcUserInfos[srcUserInfosCount].Name = srcUserInfos.Name
-			}
+
+			r.SrcUserInfos = append(r.SrcUserInfos, srcUserInfos)
 		}
 		if resp.State != nil {
 			r.State = types.Int32Value(int32(*resp.State))
@@ -160,4 +127,17 @@ func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicy(ctx c
 	}
 
 	return diags
+}
+
+func (r *OutboundMFAPolicyDataSourceModel) ToOperationsMFAOutboundPoliciesGetRequest(ctx context.Context) (*operations.MFAOutboundPoliciesGetRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.MFAOutboundPoliciesGetRequest{
+		ID: id,
+	}
+
+	return &out, diags
 }
