@@ -1,5 +1,5 @@
 resource "zeronetworks_rpc_rule" "my_rpcrule" {
-  action        = 1
+  action        = 2
   change_ticket = "...my_change_ticket..."
   description   = "...my_description..."
   excluded_asset_ids_list = [

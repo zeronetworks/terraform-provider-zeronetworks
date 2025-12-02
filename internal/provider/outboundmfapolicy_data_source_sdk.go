@@ -129,6 +129,21 @@ func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicy(ctx c
 	return diags
 }
 
+func (r *OutboundMFAPolicyDataSourceModel) RefreshFromSharedReactivePolicyResponse(ctx context.Context, resp *shared.ReactivePolicyResponse) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedReactivePolicy(ctx, resp.Items)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
 func (r *OutboundMFAPolicyDataSourceModel) ToOperationsMFAOutboundPoliciesGetRequest(ctx context.Context) (*operations.MFAOutboundPoliciesGetRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 

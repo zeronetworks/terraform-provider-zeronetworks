@@ -1,9 +1,9 @@
-speakeasyVersion: 1.619.0
+speakeasyVersion: 1.666.2
 sources:
     Zero Networks:
         sourceNamespace: zero-networks
-        sourceRevisionDigest: sha256:52c09c4320768a4916eadbd8add7de3e6c7c49aa2e3c3b75fedf9fc699a0bd94
-        sourceBlobDigest: sha256:5200b8192d8c60754a61ee1d5ab40def09ce0985c4740b09fe981292b3f1ef1a
+        sourceRevisionDigest: sha256:1e4920c75675fbc689347ab10c5c2ba442ff4fbcdeb3e00eb290a71c97ab0988
+        sourceBlobDigest: sha256:d78939af8b81fb3b7344f89cd6532ab6df8b743fe852d6be6ed9f374b304c60f
         tags:
             - latest
             - 1.0.9
@@ -11,8 +11,8 @@ targets:
     zero-networks:
         source: Zero Networks
         sourceNamespace: zero-networks
-        sourceRevisionDigest: sha256:52c09c4320768a4916eadbd8add7de3e6c7c49aa2e3c3b75fedf9fc699a0bd94
-        sourceBlobDigest: sha256:5200b8192d8c60754a61ee1d5ab40def09ce0985c4740b09fe981292b3f1ef1a
+        sourceRevisionDigest: sha256:1e4920c75675fbc689347ab10c5c2ba442ff4fbcdeb3e00eb290a71c97ab0988
+        sourceBlobDigest: sha256:d78939af8b81fb3b7344f89cd6532ab6df8b743fe852d6be6ed9f374b304c60f
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

@@ -60,8 +60,8 @@ type InboundRuleDataSourceModel struct {
 	PortsList                  []tfTypes.PortsList       `tfsdk:"ports_list"`
 	RemoteEntityIdsList        []types.String            `tfsdk:"remote_entity_ids_list"`
 	RemoteEntityInfos          []tfTypes.IDNamePair1     `tfsdk:"remote_entity_infos"`
-	RuleReview                 *tfTypes.RuleReviewReason `tfsdk:"rule_review"`
 	Ruleclass                  types.Int32               `tfsdk:"ruleclass"`
+	RuleReview                 *tfTypes.RuleReviewReason `tfsdk:"rule_review"`
 	ServicesList               []types.String            `tfsdk:"services_list"`
 	SrcUsersList               []tfTypes.SrcUsersList    `tfsdk:"src_users_list"`
 	State                      types.Int32               `tfsdk:"state"`
@@ -83,7 +83,8 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 			"action": schema.Int32Attribute{
 				Computed: true,
 				MarkdownDescription: `* 1 - Allow` + "\n" +
-					`* 2 - Block`,
+					`* 2 - Block` + "\n" +
+					`* 3 - Force Block`,
 			},
 			"activities_count": schema.Int32Attribute{
 				Computed: true,
@@ -453,6 +454,14 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 								"domain": schema.StringAttribute{
 									Computed: true,
 								},
+								"enforcement_method": schema.Int64Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible values:` + "\n" +
+										`  * '1' - Linux IP Tables` + "\n" +
+										`  * '2' - Linux NF Tables` + "\n" +
+										`  * '3' - Windows Firewall` + "\n" +
+										`  * '4' - Windows WFP`,
+								},
 								"external_device_id": schema.StringAttribute{
 									Computed: true,
 								},
@@ -564,6 +573,9 @@ func (r *InboundRuleDataSource) Schema(ctx context.Context, req datasource.Schem
 								"ip_v6_addresses": schema.ListAttribute{
 									Computed:    true,
 									ElementType: types.StringType,
+								},
+								"is_ip_sec_configured": schema.BoolAttribute{
+									Computed: true,
 								},
 								"is_quarantined": schema.BoolAttribute{
 									Computed: true,
@@ -1213,11 +1225,11 @@ func (r *InboundRuleDataSource) Read(ctx context.Context, req datasource.ReadReq
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RuleItem != nil && res.RuleItem.Item != nil) {
+	if !(res.RuleItem != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRule(ctx, res.RuleItem.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return

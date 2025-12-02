@@ -62,7 +62,7 @@ func (s *RulesRPC) RPCRulesCreate(ctx context.Context, request shared.RPCRuleBod
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "RPCRules_Create",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
@@ -247,7 +247,7 @@ func (s *RulesRPC) RPCRuleGet(ctx context.Context, request operations.RPCRuleGet
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "RPCRule_Get",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -425,7 +425,7 @@ func (s *RulesRPC) RPCRuleUpdate(ctx context.Context, request operations.RPCRule
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "RPCRule_Update",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RPCRuleBody", "json", `request:"mediaType=application/json"`)
@@ -610,7 +610,7 @@ func (s *RulesRPC) RPCRuleDelete(ctx context.Context, request operations.RPCRule
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "RPCRule_Delete",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 

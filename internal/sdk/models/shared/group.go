@@ -6,34 +6,34 @@ import (
 	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
-type AddedBy struct {
+type GroupAddedBy struct {
 	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-func (a AddedBy) MarshalJSON() ([]byte, error) {
-	return utils.MarshalJSON(a, "", false)
+func (g GroupAddedBy) MarshalJSON() ([]byte, error) {
+	return utils.MarshalJSON(g, "", false)
 }
 
-func (a *AddedBy) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &a, "", false, nil); err != nil {
+func (g *GroupAddedBy) UnmarshalJSON(data []byte) error {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (a *AddedBy) GetID() *string {
-	if a == nil {
+func (g *GroupAddedBy) GetID() *string {
+	if g == nil {
 		return nil
 	}
-	return a.ID
+	return g.ID
 }
 
-func (a *AddedBy) GetName() *string {
-	if a == nil {
+func (g *GroupAddedBy) GetName() *string {
+	if g == nil {
 		return nil
 	}
-	return a.Name
+	return g.Name
 }
 
 type Group struct {
@@ -53,8 +53,8 @@ type Group struct {
 	// Epoch Millis
 	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Epoch Millis
-	AddedAt *int64   `json:"addedAt,omitempty"`
-	AddedBy *AddedBy `json:"addedBy,omitempty"`
+	AddedAt *int64        `json:"addedAt,omitempty"`
+	AddedBy *GroupAddedBy `json:"addedBy,omitempty"`
 }
 
 func (g Group) MarshalJSON() ([]byte, error) {
@@ -166,7 +166,7 @@ func (g *Group) GetAddedAt() *int64 {
 	return g.AddedAt
 }
 
-func (g *Group) GetAddedBy() *AddedBy {
+func (g *Group) GetAddedBy() *GroupAddedBy {
 	if g == nil {
 		return nil
 	}

@@ -36,7 +36,7 @@ terraform {
   required_providers {
     zeronetworks = {
       source  = "zeronetworks/zeronetworks"
-      version = "1.0.1"
+      version = "1.1.19"
     }
   }
 }
@@ -64,6 +64,8 @@ Available configuration:
 
 ### Resources
 
+* [zeronetworks_custom_group](docs/resources/custom_group.md)
+* [zeronetworks_custom_group_members](docs/resources/custom_group_members.md)
 * [zeronetworks_inbound_mfa_policy](docs/resources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/resources/inbound_rule.md)
 * [zeronetworks_outbound_mfa_policy](docs/resources/outbound_mfa_policy.md)
@@ -72,6 +74,8 @@ Available configuration:
 ### Data Sources
 
 * [zeronetworks_asset_id](docs/data-sources/asset_id.md)
+* [zeronetworks_custom_group](docs/data-sources/custom_group.md)
+* [zeronetworks_custom_group_members](docs/data-sources/custom_group_members.md)
 * [zeronetworks_inbound_mfa_policy](docs/data-sources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/data-sources/inbound_rule.md)
 * [zeronetworks_outbound_mfa_policy](docs/data-sources/outbound_mfa_policy.md)

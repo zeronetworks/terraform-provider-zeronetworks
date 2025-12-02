@@ -275,6 +275,13 @@ type Asset struct {
 	RPCProtectAt *int64 `json:"rpcProtectAt,omitempty"`
 	// Epoch Millis
 	RPCProtectedAt *int64 `json:"rpcProtectedAt,omitempty"`
+	// Possible values:
+	//   * '1' - Linux IP Tables
+	//   * '2' - Linux NF Tables
+	//   * '3' - Windows Firewall
+	//   * '4' - Windows WFP
+	//
+	EnforcementMethod *EnforcementMethod `json:"enforcementMethod,omitempty"`
 	// Possible asset sources:
 	//   * '1' - Access portal
 	//   * '2' - SSP
@@ -308,6 +315,7 @@ type Asset struct {
 	//
 	Source                   *Source `json:"source,omitempty"`
 	SwitchLocationOverridden *bool   `json:"switchLocationOverridden,omitempty"`
+	IsIPSecConfigured        *bool   `json:"isIpSecConfigured,omitempty"`
 }
 
 func (a Asset) MarshalJSON() ([]byte, error) {
@@ -573,6 +581,13 @@ func (a *Asset) GetRPCProtectedAt() *int64 {
 	return a.RPCProtectedAt
 }
 
+func (a *Asset) GetEnforcementMethod() *EnforcementMethod {
+	if a == nil {
+		return nil
+	}
+	return a.EnforcementMethod
+}
+
 func (a *Asset) GetSource() *Source {
 	if a == nil {
 		return nil
@@ -585,4 +600,11 @@ func (a *Asset) GetSwitchLocationOverridden() *bool {
 		return nil
 	}
 	return a.SwitchLocationOverridden
+}
+
+func (a *Asset) GetIsIPSecConfigured() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.IsIPSecConfigured
 }

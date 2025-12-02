@@ -9,11 +9,13 @@ import (
 
 // RuleAction - * 1 - Allow
 // * 2 - Block
+// * 3 - Force Block
 type RuleAction int
 
 const (
-	RuleActionOne RuleAction = 1
-	RuleActionTwo RuleAction = 2
+	RuleActionOne   RuleAction = 1
+	RuleActionTwo   RuleAction = 2
+	RuleActionThree RuleAction = 3
 )
 
 func (e RuleAction) ToPointer() *RuleAction {
@@ -28,6 +30,8 @@ func (e *RuleAction) UnmarshalJSON(data []byte) error {
 	case 1:
 		fallthrough
 	case 2:
+		fallthrough
+	case 3:
 		*e = RuleAction(v)
 		return nil
 	default:

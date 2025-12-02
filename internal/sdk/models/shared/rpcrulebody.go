@@ -5,6 +5,7 @@ package shared
 type RPCRuleBody struct {
 	// * 1 - Allow
 	// * 2 - Block
+	// * 3 - Force Block
 	//
 	Action               RuleAction `json:"action"`
 	ChangeTicket         *string    `json:"changeTicket,omitempty"`

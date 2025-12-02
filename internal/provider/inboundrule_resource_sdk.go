@@ -114,6 +114,11 @@ func (r *InboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, re
 				localEntityInfos.Asset.AssignedDeploymentID = types.StringPointerValue(localEntityInfosItem.Asset.AssignedDeploymentID)
 				localEntityInfos.Asset.BreakGlassActivated = types.BoolPointerValue(localEntityInfosItem.Asset.BreakGlassActivated)
 				localEntityInfos.Asset.Domain = types.StringPointerValue(localEntityInfosItem.Asset.Domain)
+				if localEntityInfosItem.Asset.EnforcementMethod != nil {
+					localEntityInfos.Asset.EnforcementMethod = types.Int64Value(int64(*localEntityInfosItem.Asset.EnforcementMethod))
+				} else {
+					localEntityInfos.Asset.EnforcementMethod = types.Int64Null()
+				}
 				localEntityInfos.Asset.ExternalDeviceID = types.StringPointerValue(localEntityInfosItem.Asset.ExternalDeviceID)
 				localEntityInfos.Asset.Fqdn = types.StringPointerValue(localEntityInfosItem.Asset.Fqdn)
 				localEntityInfos.Asset.HasDNS = types.BoolPointerValue(localEntityInfosItem.Asset.HasDNS)
@@ -159,6 +164,7 @@ func (r *InboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, re
 				for _, v := range localEntityInfosItem.Asset.IPV6Addresses {
 					localEntityInfos.Asset.IPV6Addresses = append(localEntityInfos.Asset.IPV6Addresses, types.StringValue(v))
 				}
+				localEntityInfos.Asset.IsIPSecConfigured = types.BoolPointerValue(localEntityInfosItem.Asset.IsIPSecConfigured)
 				localEntityInfos.Asset.IsQuarantined = types.BoolPointerValue(localEntityInfosItem.Asset.IsQuarantined)
 				localEntityInfos.Asset.LastLogon = types.Int64PointerValue(localEntityInfosItem.Asset.LastLogon)
 				localEntityInfos.Asset.Manufacturer = types.StringPointerValue(localEntityInfosItem.Asset.Manufacturer)
@@ -202,7 +208,7 @@ func (r *InboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, re
 				if localEntityInfosItem.Group.AddedBy == nil {
 					localEntityInfos.Group.AddedBy = nil
 				} else {
-					localEntityInfos.Group.AddedBy = &tfTypes.AddedBy{}
+					localEntityInfos.Group.AddedBy = &tfTypes.GroupAddedBy{}
 					localEntityInfos.Group.AddedBy.ID = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.ID)
 					localEntityInfos.Group.AddedBy.Name = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.Name)
 				}
@@ -308,6 +314,36 @@ func (r *InboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, re
 	return diags
 }
 
+func (r *InboundRuleResourceModel) RefreshFromSharedRuleItem(ctx context.Context, resp *shared.RuleItem) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedRule(ctx, resp.Item)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
+func (r *InboundRuleResourceModel) RefreshFromSharedRuleResponse(ctx context.Context, resp *shared.RuleResponse) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedRule(ctx, resp.Item)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
 func (r *InboundRuleResourceModel) ToOperationsInboundRuleDeleteRequest(ctx context.Context) (*operations.InboundRuleDeleteRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
@@ -359,6 +395,12 @@ func (r *InboundRuleResourceModel) ToSharedRuleBody(ctx context.Context) (*share
 	var diags diag.Diagnostics
 
 	action := shared.RuleAction(r.Action.ValueInt32())
+	reviewMode := new(shared.RuleReviewMode)
+	if !r.ReviewMode.IsUnknown() && !r.ReviewMode.IsNull() {
+		*reviewMode = shared.RuleReviewMode(r.ReviewMode.ValueInt32())
+	} else {
+		reviewMode = nil
+	}
 	changeTicket := new(string)
 	if !r.ChangeTicket.IsUnknown() && !r.ChangeTicket.IsNull() {
 		*changeTicket = r.ChangeTicket.ValueString()
@@ -372,8 +414,8 @@ func (r *InboundRuleResourceModel) ToSharedRuleBody(ctx context.Context) (*share
 		description = nil
 	}
 	excludedLocalIdsList := make([]string, 0, len(r.ExcludedLocalIdsList))
-	for _, excludedLocalIdsListItem := range r.ExcludedLocalIdsList {
-		excludedLocalIdsList = append(excludedLocalIdsList, excludedLocalIdsListItem.ValueString())
+	for excludedLocalIdsListIndex := range r.ExcludedLocalIdsList {
+		excludedLocalIdsList = append(excludedLocalIdsList, r.ExcludedLocalIdsList[excludedLocalIdsListIndex].ValueString())
 	}
 	expiresAt := new(int64)
 	if !r.ExpiresAt.IsUnknown() && !r.ExpiresAt.IsNull() {
@@ -397,24 +439,24 @@ func (r *InboundRuleResourceModel) ToSharedRuleBody(ctx context.Context) (*share
 	localEntityID = r.LocalEntityID.ValueString()
 
 	localProcessesList := make([]string, 0, len(r.LocalProcessesList))
-	for _, localProcessesListItem := range r.LocalProcessesList {
-		localProcessesList = append(localProcessesList, localProcessesListItem.ValueString())
+	for localProcessesListIndex := range r.LocalProcessesList {
+		localProcessesList = append(localProcessesList, r.LocalProcessesList[localProcessesListIndex].ValueString())
 	}
 	servicesList := make([]string, 0, len(r.ServicesList))
-	for _, servicesListItem := range r.ServicesList {
-		servicesList = append(servicesList, servicesListItem.ValueString())
+	for servicesListIndex := range r.ServicesList {
+		servicesList = append(servicesList, r.ServicesList[servicesListIndex].ValueString())
 	}
 	portsList := make([]shared.PortsList, 0, len(r.PortsList))
-	for _, portsListItem := range r.PortsList {
+	for portsListIndex := range r.PortsList {
 		ports := new(string)
-		if !portsListItem.Ports.IsUnknown() && !portsListItem.Ports.IsNull() {
-			*ports = portsListItem.Ports.ValueString()
+		if !r.PortsList[portsListIndex].Ports.IsUnknown() && !r.PortsList[portsListIndex].Ports.IsNull() {
+			*ports = r.PortsList[portsListIndex].Ports.ValueString()
 		} else {
 			ports = nil
 		}
 		protocolType := new(shared.Protocol)
-		if !portsListItem.ProtocolType.IsUnknown() && !portsListItem.ProtocolType.IsNull() {
-			*protocolType = shared.Protocol(portsListItem.ProtocolType.ValueInt32())
+		if !r.PortsList[portsListIndex].ProtocolType.IsUnknown() && !r.PortsList[portsListIndex].ProtocolType.IsNull() {
+			*protocolType = shared.Protocol(r.PortsList[portsListIndex].ProtocolType.ValueInt32())
 		} else {
 			protocolType = nil
 		}
@@ -424,20 +466,20 @@ func (r *InboundRuleResourceModel) ToSharedRuleBody(ctx context.Context) (*share
 		})
 	}
 	remoteEntityIdsList := make([]string, 0, len(r.RemoteEntityIdsList))
-	for _, remoteEntityIdsListItem := range r.RemoteEntityIdsList {
-		remoteEntityIdsList = append(remoteEntityIdsList, remoteEntityIdsListItem.ValueString())
+	for remoteEntityIdsListIndex := range r.RemoteEntityIdsList {
+		remoteEntityIdsList = append(remoteEntityIdsList, r.RemoteEntityIdsList[remoteEntityIdsListIndex].ValueString())
 	}
 	srcUsersList := make([]shared.SrcUsersList, 0, len(r.SrcUsersList))
-	for _, srcUsersListItem := range r.SrcUsersList {
+	for srcUsersListIndex := range r.SrcUsersList {
 		id := new(string)
-		if !srcUsersListItem.ID.IsUnknown() && !srcUsersListItem.ID.IsNull() {
-			*id = srcUsersListItem.ID.ValueString()
+		if !r.SrcUsersList[srcUsersListIndex].ID.IsUnknown() && !r.SrcUsersList[srcUsersListIndex].ID.IsNull() {
+			*id = r.SrcUsersList[srcUsersListIndex].ID.ValueString()
 		} else {
 			id = nil
 		}
 		sid := new(string)
-		if !srcUsersListItem.Sid.IsUnknown() && !srcUsersListItem.Sid.IsNull() {
-			*sid = srcUsersListItem.Sid.ValueString()
+		if !r.SrcUsersList[srcUsersListIndex].Sid.IsUnknown() && !r.SrcUsersList[srcUsersListIndex].Sid.IsNull() {
+			*sid = r.SrcUsersList[srcUsersListIndex].Sid.ValueString()
 		} else {
 			sid = nil
 		}
@@ -455,6 +497,7 @@ func (r *InboundRuleResourceModel) ToSharedRuleBody(ctx context.Context) (*share
 	}
 	out := shared.RuleBody{
 		Action:               action,
+		ReviewMode:           reviewMode,
 		ChangeTicket:         changeTicket,
 		Description:          description,
 		ExcludedLocalIdsList: excludedLocalIdsList,

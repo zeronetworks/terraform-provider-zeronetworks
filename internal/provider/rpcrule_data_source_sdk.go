@@ -137,6 +137,21 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 	return diags
 }
 
+func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRuleResponse(ctx context.Context, resp *shared.RPCRuleResponse) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedRPCRule(ctx, resp.Item)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
 func (r *RPCRuleDataSourceModel) ToOperationsRPCRuleGetRequest(ctx context.Context) (*operations.RPCRuleGetRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 

@@ -1,5 +1,5 @@
 resource "zeronetworks_outbound_rule" "my_outboundrule" {
-  action        = 2
+  action        = 3
   change_ticket = "...my_change_ticket..."
   context       = 4
   description   = "...my_description..."
@@ -22,6 +22,7 @@ resource "zeronetworks_outbound_rule" "my_outboundrule" {
   remote_entity_ids_list = [
     "..."
   ]
+  review_mode = 1
   services_list = [
     "..."
   ]

@@ -16,8 +16,8 @@ const (
 )
 
 type LocalEntityInfo struct {
-	Asset *Asset `queryParam:"inline" name:"localEntityInfo"`
-	Group *Group `queryParam:"inline" name:"localEntityInfo"`
+	Asset *Asset `queryParam:"inline,name=localEntityInfo"`
+	Group *Group `queryParam:"inline,name=localEntityInfo"`
 
 	Type LocalEntityInfoType
 }
@@ -42,17 +42,43 @@ func CreateLocalEntityInfoGroup(group Group) LocalEntityInfo {
 
 func (u *LocalEntityInfo) UnmarshalJSON(data []byte) error {
 
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
 	var asset Asset = Asset{}
 	if err := utils.UnmarshalJSON(data, &asset, "", true, nil); err == nil {
-		u.Asset = &asset
-		u.Type = LocalEntityInfoTypeAsset
-		return nil
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  LocalEntityInfoTypeAsset,
+			Value: &asset,
+		})
 	}
 
 	var group Group = Group{}
 	if err := utils.UnmarshalJSON(data, &group, "", true, nil); err == nil {
-		u.Group = &group
-		u.Type = LocalEntityInfoTypeGroup
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  LocalEntityInfoTypeGroup,
+			Value: &group,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for LocalEntityInfo", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestCandidate(candidates)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for LocalEntityInfo", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(LocalEntityInfoType)
+	switch best.Type {
+	case LocalEntityInfoTypeAsset:
+		u.Asset = best.Value.(*Asset)
+		return nil
+	case LocalEntityInfoTypeGroup:
+		u.Group = best.Value.(*Group)
 		return nil
 	}
 
@@ -74,6 +100,7 @@ func (u LocalEntityInfo) MarshalJSON() ([]byte, error) {
 type Rule struct {
 	// * 1 - Allow
 	// * 2 - Block
+	// * 3 - Force Block
 	//
 	Action          *RuleAction `json:"action,omitempty"`
 	AeOverridden    *bool       `json:"aeOverridden,omitempty"`

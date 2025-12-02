@@ -70,7 +70,8 @@ func (r *RPCRuleDataSource) Schema(ctx context.Context, req datasource.SchemaReq
 			"action": schema.Int32Attribute{
 				Computed: true,
 				MarkdownDescription: `* 1 - Allow` + "\n" +
-					`* 2 - Block`,
+					`* 2 - Block` + "\n" +
+					`* 3 - Force Block`,
 			},
 			"change_ticket": schema.StringAttribute{
 				Computed: true,
@@ -342,11 +343,11 @@ func (r *RPCRuleDataSource) Read(ctx context.Context, req datasource.ReadRequest
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RPCRuleResponse != nil && res.RPCRuleResponse.Item != nil) {
+	if !(res.RPCRuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRPCRule(ctx, res.RPCRuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRPCRuleResponse(ctx, res.RPCRuleResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return

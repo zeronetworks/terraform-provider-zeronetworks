@@ -1,31 +1,39 @@
 lockVersion: 2.0.0
 id: 1b1ea54c-df12-489c-b709-cd18064f581d
 management:
-  docChecksum: f1191587360892c62335299518901b9e
+  docChecksum: 49588640fd8e139b2464d2d136ad9dcf
   docVersion: 1.0.9
-  speakeasyVersion: 1.619.0
-  generationVersion: 2.706.0
-  releaseVersion: 1.0.1
-  configChecksum: 632f3d980ac3a24e5fee2073b0d930f1
+  speakeasyVersion: 1.666.2
+  generationVersion: 2.768.1
+  releaseVersion: 1.1.19
+  configChecksum: 477a98dafbb1c81c2965737bf4cb6f8d
   published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
-    core: 3.45.0
+    core: 3.46.18
     globalSecurity: 2.82.1
     globalServerURLs: 2.83.0
     nameOverrides: 2.81.3
-    unions: 2.81.17
+    unions: 2.82.5
 generatedFiles:
   - .gitattributes
   - USAGE.md
   - examples/data-sources/zeronetworks_asset_id/data-source.tf
+  - examples/data-sources/zeronetworks_custom_group/data-source.tf
+  - examples/data-sources/zeronetworks_custom_group_members/data-source.tf
   - examples/data-sources/zeronetworks_inbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_inbound_rule/data-source.tf
   - examples/data-sources/zeronetworks_outbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_outbound_rule/data-source.tf
   - examples/data-sources/zeronetworks_rpc_rule/data-source.tf
   - examples/provider/provider.tf
+  - examples/resources/zeronetworks_custom_group/import-by-string-id.tf
+  - examples/resources/zeronetworks_custom_group/import.sh
+  - examples/resources/zeronetworks_custom_group/resource.tf
+  - examples/resources/zeronetworks_custom_group_members/import-by-string-id.tf
+  - examples/resources/zeronetworks_custom_group_members/import.sh
+  - examples/resources/zeronetworks_custom_group_members/resource.tf
   - examples/resources/zeronetworks_inbound_mfa_policy/import-by-string-id.tf
   - examples/resources/zeronetworks_inbound_mfa_policy/import.sh
   - examples/resources/zeronetworks_inbound_mfa_policy/resource.tf
@@ -57,6 +65,14 @@ generatedFiles:
   - internal/planmodifiers/utils/state_check.go
   - internal/provider/assetid_data_source.go
   - internal/provider/assetid_data_source_sdk.go
+  - internal/provider/customgroup_data_source.go
+  - internal/provider/customgroup_data_source_sdk.go
+  - internal/provider/customgroup_resource.go
+  - internal/provider/customgroup_resource_sdk.go
+  - internal/provider/customgroupmembers_data_source.go
+  - internal/provider/customgroupmembers_data_source_sdk.go
+  - internal/provider/customgroupmembers_resource.go
+  - internal/provider/customgroupmembers_resource_sdk.go
   - internal/provider/inboundmfapolicy_data_source.go
   - internal/provider/inboundmfapolicy_data_source_sdk.go
   - internal/provider/inboundmfapolicy_resource.go
@@ -95,10 +111,12 @@ generatedFiles:
   - internal/provider/typeconvert/date.go
   - internal/provider/typeconvert/datetime.go
   - internal/provider/typeconvert/int.go
-  - internal/provider/types/added_by.go
   - internal/provider/types/asset.go
+  - internal/provider/types/conditions.go
   - internal/provider/types/created_by.go
+  - internal/provider/types/custom_group_added_by.go
   - internal/provider/types/group.go
+  - internal/provider/types/group_added_by.go
   - internal/provider/types/health_issue.go
   - internal/provider/types/health_state.go
   - internal/provider/types/id_name_pair.go
@@ -113,6 +131,8 @@ generatedFiles:
   - internal/provider/utils.go
   - internal/sdk/.gitattributes
   - internal/sdk/assets.go
+  - internal/sdk/customgroup.go
+  - internal/sdk/groupscustom.go
   - internal/sdk/internal/config/sdkconfiguration.go
   - internal/sdk/internal/hooks/hooks.go
   - internal/sdk/internal/utils/contenttype.go
@@ -130,6 +150,13 @@ generatedFiles:
   - internal/sdk/mfaoutbound.go
   - internal/sdk/models/errors/apierror.go
   - internal/sdk/models/operations/assetssearch.go
+  - internal/sdk/models/operations/customgroupget.go
+  - internal/sdk/models/operations/customgroupmemberslist.go
+  - internal/sdk/models/operations/customgroupscreate.go
+  - internal/sdk/models/operations/customgroupsdelete.go
+  - internal/sdk/models/operations/customgroupsmembersadd.go
+  - internal/sdk/models/operations/customgroupsmembersdelete.go
+  - internal/sdk/models/operations/customgroupsupdate.go
   - internal/sdk/models/operations/inboundruledelete.go
   - internal/sdk/models/operations/inboundruleget.go
   - internal/sdk/models/operations/inboundrulescreate.go
@@ -156,9 +183,16 @@ generatedFiles:
   - internal/sdk/models/shared/assetstatus.go
   - internal/sdk/models/shared/assettype.go
   - internal/sdk/models/shared/createdby.go
+  - internal/sdk/models/shared/customgroup.go
+  - internal/sdk/models/shared/customgroupbody.go
+  - internal/sdk/models/shared/customgroupmembersbody.go
+  - internal/sdk/models/shared/customgroupresponse.go
+  - internal/sdk/models/shared/emptyresponse.go
+  - internal/sdk/models/shared/enforcementmethod.go
   - internal/sdk/models/shared/enforcementsource.go
   - internal/sdk/models/shared/error.go
   - internal/sdk/models/shared/group.go
+  - internal/sdk/models/shared/groupmemberslist.go
   - internal/sdk/models/shared/healthissue.go
   - internal/sdk/models/shared/healthstate.go
   - internal/sdk/models/shared/identityprotectioncategory.go
@@ -187,6 +221,7 @@ generatedFiles:
   - internal/sdk/models/shared/ruleduration.go
   - internal/sdk/models/shared/ruleitem.go
   - internal/sdk/models/shared/ruleresponse.go
+  - internal/sdk/models/shared/rulereviewmode.go
   - internal/sdk/models/shared/rulereviewreason.go
   - internal/sdk/models/shared/rulestate.go
   - internal/sdk/models/shared/security.go
@@ -202,7 +237,6 @@ generatedFiles:
   - internal/sdk/types/bigint.go
   - internal/sdk/types/date.go
   - internal/sdk/types/datetime.go
-  - internal/sdk/types/decimal.go
   - internal/sdk/types/pointers.go
   - internal/sdk/zeronetworks.go
   - internal/validators/DateValidator.go
@@ -14456,7 +14490,7 @@ examples:
   CustomGroups_Create:
     speakeasy-default-custom-groups-create:
       requestBody:
-        application/json: {"name": "<value>", "membersId": ["g:c:ab124as2"]}
+        application/json: {"name": "<value>", "membersId": ["g:c:ab124as2"], "conditions": {"osNamePatterns": ["Windows.*"], "assetTypes": [1, 2]}}
       responses:
         "200":
           application/json: {"entity": {"addedBy": {"name": "User Name"}}}
@@ -14560,7 +14594,7 @@ examples:
         path:
           groupId: "g:t:01445453"
       requestBody:
-        application/json: {"name": "<value>", "membersId": ["g:c:ab124as2"]}
+        application/json: {"name": "<value>", "membersId": ["g:c:ab124as2"], "conditions": {"osNamePatterns": ["Windows.*"], "assetTypes": [1, 2]}}
       responses:
         "200":
           application/json: {"entity": {"addedBy": {"name": "User Name"}}}
@@ -31464,6 +31498,18 @@ examples:
           application/json: {}
   Profile_GetEnvironments:
     speakeasy-default-profile-get-environments:
+      responses:
+        "200":
+          application/json: {}
+        "400":
+          application/json: {}
+        "500":
+          application/json: {}
+  CustomGroupMembers_List:
+    speakeasy-default-custom-group-members-list:
+      parameters:
+        path:
+          groupId: "g:t:01445453"
       responses:
         "200":
           application/json: {}

@@ -29,6 +29,7 @@ data "zeronetworks_rpc_rule" "my_rpcrule" {
 
 - `action` (Number) * 1 - Allow
 * 2 - Block
+* 3 - Force Block
 - `change_ticket` (String)
 - `created_at` (Number) Epoch Millis
 - `created_by` (Attributes) (see [below for nested schema](#nestedatt--created_by))

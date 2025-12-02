@@ -114,6 +114,11 @@ func (r *InboundRuleDataSourceModel) RefreshFromSharedRule(ctx context.Context, 
 				localEntityInfos.Asset.AssignedDeploymentID = types.StringPointerValue(localEntityInfosItem.Asset.AssignedDeploymentID)
 				localEntityInfos.Asset.BreakGlassActivated = types.BoolPointerValue(localEntityInfosItem.Asset.BreakGlassActivated)
 				localEntityInfos.Asset.Domain = types.StringPointerValue(localEntityInfosItem.Asset.Domain)
+				if localEntityInfosItem.Asset.EnforcementMethod != nil {
+					localEntityInfos.Asset.EnforcementMethod = types.Int64Value(int64(*localEntityInfosItem.Asset.EnforcementMethod))
+				} else {
+					localEntityInfos.Asset.EnforcementMethod = types.Int64Null()
+				}
 				localEntityInfos.Asset.ExternalDeviceID = types.StringPointerValue(localEntityInfosItem.Asset.ExternalDeviceID)
 				localEntityInfos.Asset.Fqdn = types.StringPointerValue(localEntityInfosItem.Asset.Fqdn)
 				localEntityInfos.Asset.HasDNS = types.BoolPointerValue(localEntityInfosItem.Asset.HasDNS)
@@ -159,6 +164,7 @@ func (r *InboundRuleDataSourceModel) RefreshFromSharedRule(ctx context.Context, 
 				for _, v := range localEntityInfosItem.Asset.IPV6Addresses {
 					localEntityInfos.Asset.IPV6Addresses = append(localEntityInfos.Asset.IPV6Addresses, types.StringValue(v))
 				}
+				localEntityInfos.Asset.IsIPSecConfigured = types.BoolPointerValue(localEntityInfosItem.Asset.IsIPSecConfigured)
 				localEntityInfos.Asset.IsQuarantined = types.BoolPointerValue(localEntityInfosItem.Asset.IsQuarantined)
 				localEntityInfos.Asset.LastLogon = types.Int64PointerValue(localEntityInfosItem.Asset.LastLogon)
 				localEntityInfos.Asset.Manufacturer = types.StringPointerValue(localEntityInfosItem.Asset.Manufacturer)
@@ -202,7 +208,7 @@ func (r *InboundRuleDataSourceModel) RefreshFromSharedRule(ctx context.Context, 
 				if localEntityInfosItem.Group.AddedBy == nil {
 					localEntityInfos.Group.AddedBy = nil
 				} else {
-					localEntityInfos.Group.AddedBy = &tfTypes.AddedBy{}
+					localEntityInfos.Group.AddedBy = &tfTypes.GroupAddedBy{}
 					localEntityInfos.Group.AddedBy.ID = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.ID)
 					localEntityInfos.Group.AddedBy.Name = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.Name)
 				}
@@ -303,6 +309,21 @@ func (r *InboundRuleDataSourceModel) RefreshFromSharedRule(ctx context.Context, 
 			r.UpdatedBy.ID = types.StringPointerValue(resp.UpdatedBy.ID)
 			r.UpdatedBy.Name = types.StringPointerValue(resp.UpdatedBy.Name)
 		}
+	}
+
+	return diags
+}
+
+func (r *InboundRuleDataSourceModel) RefreshFromSharedRuleItem(ctx context.Context, resp *shared.RuleItem) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedRule(ctx, resp.Item)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
 	}
 
 	return diags
