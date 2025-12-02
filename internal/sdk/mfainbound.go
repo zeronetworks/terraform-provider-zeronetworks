@@ -62,7 +62,7 @@ func (s *MFAInbound) MFAInboundPoliciesCreate(ctx context.Context, request share
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "MFAInboundPolicies_Create",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
@@ -245,7 +245,7 @@ func (s *MFAInbound) MFAInboundPoliciesGet(ctx context.Context, request operatio
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "MFAInboundPolicies_Get",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -423,7 +423,7 @@ func (s *MFAInbound) MFAInboundPoliciesUpdate(ctx context.Context, request opera
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "MFAInboundPolicies_Update",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "ReactivePolicyInboundBody", "json", `request:"mediaType=application/json"`)
@@ -608,7 +608,7 @@ func (s *MFAInbound) MFAInboundPoliciesDelete(ctx context.Context, request opera
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "MFAInboundPolicies_Delete",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 

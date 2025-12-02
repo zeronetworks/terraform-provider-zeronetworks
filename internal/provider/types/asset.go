@@ -12,6 +12,7 @@ type Asset struct {
 	AssignedDeploymentID     types.String   `tfsdk:"assigned_deployment_id"`
 	BreakGlassActivated      types.Bool     `tfsdk:"break_glass_activated"`
 	Domain                   types.String   `tfsdk:"domain"`
+	EnforcementMethod        types.Int64    `tfsdk:"enforcement_method"`
 	ExternalDeviceID         types.String   `tfsdk:"external_device_id"`
 	Fqdn                     types.String   `tfsdk:"fqdn"`
 	HasDNS                   types.Bool     `tfsdk:"has_dns"`
@@ -24,6 +25,7 @@ type Asset struct {
 	InactiveSince            types.Int64    `tfsdk:"inactive_since"`
 	IPV4Addresses            []types.String `tfsdk:"ip_v4_addresses"`
 	IPV6Addresses            []types.String `tfsdk:"ip_v6_addresses"`
+	IsIPSecConfigured        types.Bool     `tfsdk:"is_ip_sec_configured"`
 	IsQuarantined            types.Bool     `tfsdk:"is_quarantined"`
 	LastLogon                types.Int64    `tfsdk:"last_logon"`
 	Manufacturer             types.String   `tfsdk:"manufacturer"`

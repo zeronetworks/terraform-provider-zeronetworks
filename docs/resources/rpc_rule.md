@@ -14,7 +14,7 @@ RPCRule Resource
 
 ```terraform
 resource "zeronetworks_rpc_rule" "my_rpcrule" {
-  action        = 1
+  action        = 2
   change_ticket = "...my_change_ticket..."
   description   = "...my_description..."
   excluded_asset_ids_list = [
@@ -49,7 +49,8 @@ resource "zeronetworks_rpc_rule" "my_rpcrule" {
 
 - `action` (Number) * 1 - Allow
 * 2 - Block
-must be one of ["1", "2"]
+* 3 - Force Block
+must be one of ["1", "2", "3"]
 - `description` (String)
 - `excluded_asset_ids_list` (List of String)
 - `interface_uuids_list` (List of String) one of the following: 
@@ -94,7 +95,6 @@ must be one of ["1", "2", "3", "4", "5", "6", "7"]
 * '5' - System
 * '6' - Preventative
 * '8' - Dangerous
-must be one of ["1", "2", "3", "4", "5", "6", "8"]
 - `updated_at` (Number) Epoch Millis
 - `updated_by` (Attributes) (see [below for nested schema](#nestedatt--updated_by))
 - `user_infos` (Attributes List) (see [below for nested schema](#nestedatt--user_infos))
@@ -118,7 +118,6 @@ Read-Only:
 * '10' - DownloadPortal
 * '11' - ExternalAccessPortal
 * '12' - DayTwo
-must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 - `user_role` (Number) * '0' - Unspecified
 * '1' - Admin
 * '2' - Viewer
@@ -131,7 +130,6 @@ must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 * '9' - Asset Manager
 * '10' - Operator
 * '11' - Service Now Token
-must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
 
 <a id="nestedatt--created_by--created_by"></a>
 ### Nested Schema for `created_by.created_by`

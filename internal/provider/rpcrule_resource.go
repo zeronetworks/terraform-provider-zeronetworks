@@ -71,9 +71,10 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 				Required: true,
 				MarkdownDescription: `* 1 - Allow` + "\n" +
 					`* 2 - Block` + "\n" +
-					`must be one of ["1", "2"]`,
+					`* 3 - Force Block` + "\n" +
+					`must be one of ["1", "2", "3"]`,
 				Validators: []validator.Int32{
-					int32validator.OneOf(1, 2),
+					int32validator.OneOf(1, 2, 3),
 				},
 			},
 			"change_ticket": schema.StringAttribute{
@@ -116,24 +117,7 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 							`* '9' - System` + "\n" +
 							`* '10' - DownloadPortal` + "\n" +
 							`* '11' - ExternalAccessPortal` + "\n" +
-							`* '12' - DayTwo` + "\n" +
-							`must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]`,
-						Validators: []validator.Int32{
-							int32validator.OneOf(
-								1,
-								2,
-								3,
-								4,
-								5,
-								6,
-								7,
-								8,
-								9,
-								10,
-								11,
-								12,
-							),
-						},
+							`* '12' - DayTwo`,
 					},
 					"user_role": schema.Int32Attribute{
 						Computed: true,
@@ -148,24 +132,7 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 							`* '8' - JAMF Asset` + "\n" +
 							`* '9' - Asset Manager` + "\n" +
 							`* '10' - Operator` + "\n" +
-							`* '11' - Service Now Token` + "\n" +
-							`must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]`,
-						Validators: []validator.Int32{
-							int32validator.OneOf(
-								0,
-								1,
-								2,
-								3,
-								4,
-								5,
-								6,
-								7,
-								8,
-								9,
-								10,
-								11,
-							),
-						},
+							`* '11' - Service Now Token`,
 					},
 				},
 			},
@@ -271,19 +238,7 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 					`* '4' - Critical` + "\n" +
 					`* '5' - System` + "\n" +
 					`* '6' - Preventative` + "\n" +
-					`* '8' - Dangerous` + "\n" +
-					`must be one of ["1", "2", "3", "4", "5", "6", "8"]`,
-				Validators: []validator.Int32{
-					int32validator.OneOf(
-						1,
-						2,
-						3,
-						4,
-						5,
-						6,
-						8,
-					),
-				},
+					`* '8' - Dangerous`,
 			},
 			"state": schema.Int32Attribute{
 				Required: true,
@@ -403,15 +358,22 @@ func (r *RPCRuleResource) Create(ctx context.Context, req resource.CreateRequest
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
+	if res.StatusCode == 409 {
+		resp.Diagnostics.AddError(
+			"Resource Already Exists",
+			"When creating this resource, the API indicated that this resource already exists. You can bring the existing resource under management using Terraform import functionality or retry with a unique configuration.",
+		)
+		return
+	}
 	if res.StatusCode != 200 {
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RPCRuleResponse != nil && res.RPCRuleResponse.Item != nil) {
+	if !(res.RPCRuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRPCRule(ctx, res.RPCRuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRPCRuleResponse(ctx, res.RPCRuleResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -471,11 +433,11 @@ func (r *RPCRuleResource) Read(ctx context.Context, req resource.ReadRequest, re
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RPCRuleResponse != nil && res.RPCRuleResponse.Item != nil) {
+	if !(res.RPCRuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRPCRule(ctx, res.RPCRuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRPCRuleResponse(ctx, res.RPCRuleResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -521,11 +483,11 @@ func (r *RPCRuleResource) Update(ctx context.Context, req resource.UpdateRequest
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RPCRuleResponse != nil && res.RPCRuleResponse.Item != nil) {
+	if !(res.RPCRuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRPCRule(ctx, res.RPCRuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRPCRuleResponse(ctx, res.RPCRuleResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -577,7 +539,10 @@ func (r *RPCRuleResource) Delete(ctx context.Context, req resource.DeleteRequest
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode != 200 {
+	switch res.StatusCode {
+	case 200, 404:
+		break
+	default:
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}

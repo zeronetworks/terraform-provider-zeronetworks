@@ -667,24 +667,7 @@ func (r *OutboundMFAPolicyResource) Schema(ctx context.Context, req resource.Sch
 					`* '9' - System` + "\n" +
 					`* '10' - DownloadPortal` + "\n" +
 					`* '11' - ExternalAccessPortal` + "\n" +
-					`* '12' - DayTwo` + "\n" +
-					`must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]`,
-				Validators: []validator.Int32{
-					int32validator.OneOf(
-						1,
-						2,
-						3,
-						4,
-						5,
-						6,
-						7,
-						8,
-						9,
-						10,
-						11,
-						12,
-					),
-				},
+					`* '12' - DayTwo`,
 			},
 			"excluded_src_entity_infos": schema.ListNestedAttribute{
 				Computed: true,
@@ -910,11 +893,11 @@ func (r *OutboundMFAPolicyResource) Create(ctx context.Context, req resource.Cre
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.ReactivePolicyItem != nil && res.ReactivePolicyItem.Item != nil) {
+	if !(res.ReactivePolicyItem != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicy(ctx, res.ReactivePolicyItem.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicyItem(ctx, res.ReactivePolicyItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -974,11 +957,11 @@ func (r *OutboundMFAPolicyResource) Read(ctx context.Context, req resource.ReadR
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.ReactivePolicyResponse != nil && res.ReactivePolicyResponse.Items != nil) {
+	if !(res.ReactivePolicyResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicy(ctx, res.ReactivePolicyResponse.Items)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicyResponse(ctx, res.ReactivePolicyResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -1024,11 +1007,11 @@ func (r *OutboundMFAPolicyResource) Update(ctx context.Context, req resource.Upd
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.ReactivePolicyItem != nil && res.ReactivePolicyItem.Item != nil) {
+	if !(res.ReactivePolicyItem != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicy(ctx, res.ReactivePolicyItem.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicyItem(ctx, res.ReactivePolicyItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -1080,7 +1063,10 @@ func (r *OutboundMFAPolicyResource) Delete(ctx context.Context, req resource.Del
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode != 200 {
+	switch res.StatusCode {
+	case 200, 404:
+		break
+	default:
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}

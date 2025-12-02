@@ -14,7 +14,7 @@ InboundRule Resource
 
 ```terraform
 resource "zeronetworks_inbound_rule" "my_inboundrule" {
-  action        = 2
+  action        = 3
   change_ticket = "...my_change_ticket..."
   context       = 4
   description   = "...my_description..."
@@ -37,6 +37,7 @@ resource "zeronetworks_inbound_rule" "my_inboundrule" {
   remote_entity_ids_list = [
     "..."
   ]
+  review_mode = 2
   services_list = [
     "..."
   ]
@@ -57,7 +58,8 @@ resource "zeronetworks_inbound_rule" "my_inboundrule" {
 
 - `action` (Number) * 1 - Allow
 * 2 - Block
-must be one of ["1", "2"]
+* 3 - Force Block
+must be one of ["1", "2", "3"]
 - `local_entity_id` (String)
 - `local_processes_list` (List of String)
 - `ports_list` (Attributes List) (see [below for nested schema](#nestedatt--ports_list))
@@ -86,6 +88,10 @@ must be one of ["1", "2", "3", "4", "5", "6", "7"]
 * '5' - Encrypted connections
 must be one of ["1", "2", "3", "4", "5"]
 - `name` (String)
+- `review_mode` (Number) * 1 - Apply Immediately
+* 2 - Review
+* 3 - Conditional Review
+must be one of ["1", "2", "3"]
 - `services_list` (List of String)
 - `src_users_list` (Attributes List) (see [below for nested schema](#nestedatt--src_users_list))
 
@@ -102,7 +108,6 @@ must be one of ["1", "2", "3", "4", "5"]
 - `direction` (Number) * '1' - Inbound
 * '2' - Outbound
 * '3' - Both
-must be one of ["1", "2", "3"]
 - `excluded_entity_infos` (Attributes List) (see [below for nested schema](#nestedatt--excluded_entity_infos))
 - `id` (String) The id of the rule
 - `is_reject_on_linux` (Boolean)
@@ -131,7 +136,6 @@ reason: {
 * '5' - System
 * '6' - Preventative
 * '8' - Dangerous
-must be one of ["1", "2", "3", "4", "5", "6", "8"]
 - `updated_at` (Number) Epoch Millis
 - `updated_by` (Attributes) (see [below for nested schema](#nestedatt--updated_by))
 
@@ -438,7 +442,6 @@ Read-Only:
 * '10' - DownloadPortal
 * '11' - ExternalAccessPortal
 * '12' - DayTwo
-must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 - `user_role` (Number) * '0' - Unspecified
 * '1' - Admin
 * '2' - Viewer
@@ -451,7 +454,6 @@ must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 * '9' - Asset Manager
 * '10' - Operator
 * '11' - Service Now Token
-must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]
 
 <a id="nestedatt--created_by--created_by"></a>
 ### Nested Schema for `created_by.created_by`
@@ -507,7 +509,6 @@ Read-Only:
   * '12' - Can't be monitored (inactive entity)
   * '13' - Stalked Externally
   * '14' - Lightweight Agent
-must be one of ["1", "2", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14"]
 - `asset_type` (Number) Possible asset status:
   * '0' - Unknown
   * '1' - Client
@@ -689,10 +690,14 @@ must be one of ["1", "2", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14"]
   * '177' - WIRELESS PHONE
   * '178' - WIRELESS PHONE GATEWAY
   * '1001' - OTHER OT
-must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "140", "141", "142", "143", "144", "145", "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "1001"]
 - `assigned_deployment_id` (String)
 - `break_glass_activated` (Boolean)
 - `domain` (String)
+- `enforcement_method` (Number) Possible values:
+  * '1' - Linux IP Tables
+  * '2' - Linux NF Tables
+  * '3' - Windows Firewall
+  * '4' - Windows WFP
 - `external_device_id` (String)
 - `fqdn` (String)
 - `has_dns` (Boolean)
@@ -707,10 +712,10 @@ must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "1
 * '4' - Disabled in asset repository
 * '5' - Inactive in asset repository
 * '6' - Deleted in asset repository
-must be one of ["1", "2", "3", "4", "5", "6"]
 - `inactive_since` (Number) Epoch Millis
 - `ip_v4_addresses` (List of String)
 - `ip_v6_addresses` (List of String)
+- `is_ip_sec_configured` (Boolean)
 - `is_quarantined` (Boolean)
 - `last_logon` (Number) Epoch Millis
 - `manufacturer` (String)
@@ -743,7 +748,6 @@ must be one of ["1", "2", "3", "4", "5", "6"]
 * '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
 * '17' - QUEUED_WITH_BLOCKS_DONE
 * '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
-must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]
 - `purdue_level` (Number)
 - `rpc_monitored` (Boolean)
 - `rpc_protect_at` (Number) Epoch Millis
@@ -779,7 +783,6 @@ must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "1
   * '28' - Conditional
   * '29' - Claroty OT
   * '30' - Manual Mac
-must be one of ["2", "3", "6", "7", "8", "9", "10", "11", "12", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
 - `switch_location_overridden` (Boolean)
 
 <a id="nestedatt--local_entity_infos--asset--health_state"></a>
@@ -795,7 +798,6 @@ Read-Only:
 * '4' - N/A
 * '5' - Retrying
 * '6' - Blocker
-must be one of ["0", "1", "2", "3", "4", "5", "6"]
 
 <a id="nestedatt--local_entity_infos--asset--health_state--health_issues_list"></a>
 ### Nested Schema for `local_entity_infos.asset.health_state.health_issues_list`
@@ -843,7 +845,6 @@ Read-Only:
 * '1000' - First blocker issue code
 * '1001' - Cluster node ipv6 disabled
 * '1002' - Local rules merge disallowed
-must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "1000", "1001", "1002"]
 
 
 

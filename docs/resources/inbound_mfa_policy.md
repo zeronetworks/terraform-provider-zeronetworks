@@ -127,7 +127,6 @@ must be one of ["1", "2"]
 * '10' - DownloadPortal
 * '11' - ExternalAccessPortal
 * '12' - DayTwo
-must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 - `id` (String) The id of the MFA policy
 - `restrict_to_originated_user` (Boolean)
 - `updated_at` (Number) Epoch Millis

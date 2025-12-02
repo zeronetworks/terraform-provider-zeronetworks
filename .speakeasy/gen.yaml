@@ -18,12 +18,15 @@ generation:
     oAuth2PasswordEnabled: true
     hoistGlobalSecurity: true
   sdkHooksConfigAccess: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ""
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 terraform:
-  version: 1.0.1
+  version: 1.1.19
   additionalDataSources: []
   additionalDependencies: {}
   additionalEphemeralResources: []
@@ -35,6 +38,13 @@ terraform:
   author: zeronetworks
   baseErrorName: ZeroNetworksError
   defaultErrorName: APIError
+  enableCustomCodeRegions: false
+  enableOperationSecurity: false
+  enableOperationServers: false
   enableTypeDeduplication: false
   environmentVariables: []
+  excludeEmptyObjectSchemas: false
+  includeEmptyObjects: false
+  inferUnionDiscriminators: false
   packageName: zeronetworks
+  unionStrategy: populated-fields

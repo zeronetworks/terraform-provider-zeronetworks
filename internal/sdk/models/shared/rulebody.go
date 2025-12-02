@@ -5,11 +5,17 @@ package shared
 type RuleBody struct {
 	// * 1 - Allow
 	// * 2 - Block
+	// * 3 - Force Block
 	//
-	Action               RuleAction `json:"action"`
-	ChangeTicket         *string    `json:"changeTicket,omitempty"`
-	Description          *string    `json:"description,omitempty"`
-	ExcludedLocalIdsList []string   `json:"excludedLocalIdsList,omitempty"`
+	Action RuleAction `json:"action"`
+	// * 1 - Apply Immediately
+	// * 2 - Review
+	// * 3 - Conditional Review
+	//
+	ReviewMode           *RuleReviewMode `json:"reviewMode,omitempty"`
+	ChangeTicket         *string         `json:"changeTicket,omitempty"`
+	Description          *string         `json:"description,omitempty"`
+	ExcludedLocalIdsList []string        `json:"excludedLocalIdsList,omitempty"`
 	// Epoch Millis
 	ExpiresAt *int64 `json:"expiresAt,omitempty"`
 	// * For allow rule only.
@@ -44,6 +50,13 @@ func (r *RuleBody) GetAction() RuleAction {
 		return RuleAction(0)
 	}
 	return r.Action
+}
+
+func (r *RuleBody) GetReviewMode() *RuleReviewMode {
+	if r == nil {
+		return nil
+	}
+	return r.ReviewMode
 }
 
 func (r *RuleBody) GetChangeTicket() *string {

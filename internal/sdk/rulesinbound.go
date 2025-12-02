@@ -62,7 +62,7 @@ func (s *RulesInbound) InboundRulesCreate(ctx context.Context, request shared.Ru
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "InboundRules_Create",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
@@ -247,7 +247,7 @@ func (s *RulesInbound) InboundRuleGet(ctx context.Context, request operations.In
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "InboundRule_Get",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -425,7 +425,7 @@ func (s *RulesInbound) InboundRuleUpdate(ctx context.Context, request operations
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "InboundRule_Update",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RuleBody", "json", `request:"mediaType=application/json"`)
@@ -610,7 +610,7 @@ func (s *RulesInbound) InboundRuleDelete(ctx context.Context, request operations
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "InboundRule_Delete",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 

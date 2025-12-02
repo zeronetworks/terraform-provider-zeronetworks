@@ -123,6 +123,36 @@ func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx cont
 	return diags
 }
 
+func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicyItem(ctx context.Context, resp *shared.ReactivePolicyItem) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedReactivePolicy(ctx, resp.Item)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
+func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicyResponse(ctx context.Context, resp *shared.ReactivePolicyResponse) diag.Diagnostics {
+	var diags diag.Diagnostics
+
+	if resp != nil {
+		diags.Append(r.RefreshFromSharedReactivePolicy(ctx, resp.Items)...)
+
+		if diags.HasError() {
+			return diags
+		}
+
+	}
+
+	return diags
+}
+
 func (r *InboundMFAPolicyResourceModel) ToOperationsMFAInboundPoliciesDeleteRequest(ctx context.Context) (*operations.MFAInboundPoliciesDeleteRequest, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
@@ -174,16 +204,16 @@ func (r *InboundMFAPolicyResourceModel) ToSharedReactivePolicyInboundBody(ctx co
 	var diags diag.Diagnostics
 
 	additionalPortsList := make([]shared.PortsList, 0, len(r.AdditionalPortsList))
-	for _, additionalPortsListItem := range r.AdditionalPortsList {
+	for additionalPortsListIndex := range r.AdditionalPortsList {
 		ports := new(string)
-		if !additionalPortsListItem.Ports.IsUnknown() && !additionalPortsListItem.Ports.IsNull() {
-			*ports = additionalPortsListItem.Ports.ValueString()
+		if !r.AdditionalPortsList[additionalPortsListIndex].Ports.IsUnknown() && !r.AdditionalPortsList[additionalPortsListIndex].Ports.IsNull() {
+			*ports = r.AdditionalPortsList[additionalPortsListIndex].Ports.ValueString()
 		} else {
 			ports = nil
 		}
 		protocolType := new(shared.Protocol)
-		if !additionalPortsListItem.ProtocolType.IsUnknown() && !additionalPortsListItem.ProtocolType.IsNull() {
-			*protocolType = shared.Protocol(additionalPortsListItem.ProtocolType.ValueInt32())
+		if !r.AdditionalPortsList[additionalPortsListIndex].ProtocolType.IsUnknown() && !r.AdditionalPortsList[additionalPortsListIndex].ProtocolType.IsNull() {
+			*protocolType = shared.Protocol(r.AdditionalPortsList[additionalPortsListIndex].ProtocolType.ValueInt32())
 		} else {
 			protocolType = nil
 		}
@@ -214,21 +244,21 @@ func (r *InboundMFAPolicyResourceModel) ToSharedReactivePolicyInboundBody(ctx co
 	dstPort = r.DstPort.ValueString()
 
 	dstProcessNames := make([]string, 0, len(r.DstProcessNames))
-	for _, dstProcessNamesItem := range r.DstProcessNames {
-		dstProcessNames = append(dstProcessNames, dstProcessNamesItem.ValueString())
+	for dstProcessNamesIndex := range r.DstProcessNames {
+		dstProcessNames = append(dstProcessNames, r.DstProcessNames[dstProcessNamesIndex].ValueString())
 	}
 	excludedSrcEntityInfos := make([]shared.ReactivePolicyInboundBodyExcludedSrcEntityInfo, 0, len(r.ExcludedSrcEntityInfos))
-	for _, excludedSrcEntityInfosItem := range r.ExcludedSrcEntityInfos {
+	for excludedSrcEntityInfosIndex := range r.ExcludedSrcEntityInfos {
 		var id1 string
-		id1 = excludedSrcEntityInfosItem.ID.ValueString()
+		id1 = r.ExcludedSrcEntityInfos[excludedSrcEntityInfosIndex].ID.ValueString()
 
 		excludedSrcEntityInfos = append(excludedSrcEntityInfos, shared.ReactivePolicyInboundBodyExcludedSrcEntityInfo{
 			ID: id1,
 		})
 	}
 	excludedSrcProcesses := make([]string, 0, len(r.ExcludedSrcProcesses))
-	for _, excludedSrcProcessesItem := range r.ExcludedSrcProcesses {
-		excludedSrcProcesses = append(excludedSrcProcesses, excludedSrcProcessesItem.ValueString())
+	for excludedSrcProcessesIndex := range r.ExcludedSrcProcesses {
+		excludedSrcProcesses = append(excludedSrcProcesses, r.ExcludedSrcProcesses[excludedSrcProcessesIndex].ValueString())
 	}
 	var fallbackToLoggedOnUser bool
 	fallbackToLoggedOnUser = r.FallbackToLoggedOnUser.ValueBool()
@@ -261,22 +291,22 @@ func (r *InboundMFAPolicyResourceModel) ToSharedReactivePolicyInboundBody(ctx co
 	}
 	ruleDuration := shared.RuleDuration(r.RuleDuration.ValueInt32())
 	srcEntityInfos := make([]shared.ReactivePolicyInboundBodySrcEntityInfo, 0, len(r.SrcEntityInfos))
-	for _, srcEntityInfosItem := range r.SrcEntityInfos {
+	for srcEntityInfosIndex := range r.SrcEntityInfos {
 		var id2 string
-		id2 = srcEntityInfosItem.ID.ValueString()
+		id2 = r.SrcEntityInfos[srcEntityInfosIndex].ID.ValueString()
 
 		srcEntityInfos = append(srcEntityInfos, shared.ReactivePolicyInboundBodySrcEntityInfo{
 			ID: id2,
 		})
 	}
 	srcProcessNames := make([]string, 0, len(r.SrcProcessNames))
-	for _, srcProcessNamesItem := range r.SrcProcessNames {
-		srcProcessNames = append(srcProcessNames, srcProcessNamesItem.ValueString())
+	for srcProcessNamesIndex := range r.SrcProcessNames {
+		srcProcessNames = append(srcProcessNames, r.SrcProcessNames[srcProcessNamesIndex].ValueString())
 	}
 	srcUserInfos := make([]shared.ReactivePolicyInboundBodySrcUserInfo, 0, len(r.SrcUserInfos))
-	for _, srcUserInfosItem := range r.SrcUserInfos {
+	for srcUserInfosIndex := range r.SrcUserInfos {
 		var id3 string
-		id3 = srcUserInfosItem.ID.ValueString()
+		id3 = r.SrcUserInfos[srcUserInfosIndex].ID.ValueString()
 
 		srcUserInfos = append(srcUserInfos, shared.ReactivePolicyInboundBodySrcUserInfo{
 			ID: id3,

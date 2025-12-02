@@ -6,8 +6,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/hashicorp/terraform-plugin-framework-validators/int32validator"
-	"github.com/hashicorp/terraform-plugin-framework-validators/int64validator"
-	"github.com/hashicorp/terraform-plugin-framework-validators/objectvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
@@ -66,8 +64,9 @@ type InboundRuleResourceModel struct {
 	PortsList                  []tfTypes.PortsList       `tfsdk:"ports_list"`
 	RemoteEntityIdsList        []types.String            `tfsdk:"remote_entity_ids_list"`
 	RemoteEntityInfos          []tfTypes.IDNamePair1     `tfsdk:"remote_entity_infos"`
-	RuleReview                 *tfTypes.RuleReviewReason `tfsdk:"rule_review"`
+	ReviewMode                 types.Int32               `tfsdk:"review_mode"`
 	Ruleclass                  types.Int32               `tfsdk:"ruleclass"`
+	RuleReview                 *tfTypes.RuleReviewReason `tfsdk:"rule_review"`
 	ServicesList               []types.String            `tfsdk:"services_list"`
 	SrcUsersList               []tfTypes.SrcUsersList    `tfsdk:"src_users_list"`
 	State                      types.Int32               `tfsdk:"state"`
@@ -87,9 +86,10 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 				Required: true,
 				MarkdownDescription: `* 1 - Allow` + "\n" +
 					`* 2 - Block` + "\n" +
-					`must be one of ["1", "2"]`,
+					`* 3 - Force Block` + "\n" +
+					`must be one of ["1", "2", "3"]`,
 				Validators: []validator.Int32{
-					int32validator.OneOf(1, 2),
+					int32validator.OneOf(1, 2, 3),
 				},
 			},
 			"activities_count": schema.Int32Attribute{
@@ -159,24 +159,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 							`* '9' - System` + "\n" +
 							`* '10' - DownloadPortal` + "\n" +
 							`* '11' - ExternalAccessPortal` + "\n" +
-							`* '12' - DayTwo` + "\n" +
-							`must be one of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]`,
-						Validators: []validator.Int32{
-							int32validator.OneOf(
-								1,
-								2,
-								3,
-								4,
-								5,
-								6,
-								7,
-								8,
-								9,
-								10,
-								11,
-								12,
-							),
-						},
+							`* '12' - DayTwo`,
 					},
 					"user_role": schema.Int32Attribute{
 						Computed: true,
@@ -191,24 +174,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 							`* '8' - JAMF Asset` + "\n" +
 							`* '9' - Asset Manager` + "\n" +
 							`* '10' - Operator` + "\n" +
-							`* '11' - Service Now Token` + "\n" +
-							`must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"]`,
-						Validators: []validator.Int32{
-							int32validator.OneOf(
-								0,
-								1,
-								2,
-								3,
-								4,
-								5,
-								6,
-								7,
-								8,
-								9,
-								10,
-								11,
-							),
-						},
+							`* '11' - Service Now Token`,
 					},
 				},
 			},
@@ -237,11 +203,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 				Computed: true,
 				MarkdownDescription: `* '1' - Inbound` + "\n" +
 					`* '2' - Outbound` + "\n" +
-					`* '3' - Both` + "\n" +
-					`must be one of ["1", "2", "3"]`,
-				Validators: []validator.Int32{
-					int32validator.OneOf(1, 2, 3),
-				},
+					`* '3' - Both`,
 			},
 			"excluded_entity_infos": schema.ListNestedAttribute{
 				Computed: true,
@@ -319,24 +281,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '10' - Not monitored (cloud connector required)` + "\n" +
 										`  * '12' - Can't be monitored (inactive entity)` + "\n" +
 										`  * '13' - Stalked Externally` + "\n" +
-										`  * '14' - Lightweight Agent` + "\n" +
-										`must be one of ["1", "2", "4", "5", "6", "7", "8", "9", "10", "12", "13", "14"]`,
-									Validators: []validator.Int64{
-										int64validator.OneOf(
-											1,
-											2,
-											4,
-											5,
-											6,
-											7,
-											8,
-											9,
-											10,
-											12,
-											13,
-											14,
-										),
-									},
+										`  * '14' - Lightweight Agent`,
 								},
 								"asset_type": schema.Int32Attribute{
 									Computed: true,
@@ -520,191 +465,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '176' - WATER SYSTEM` + "\n" +
 										`  * '177' - WIRELESS PHONE` + "\n" +
 										`  * '178' - WIRELESS PHONE GATEWAY` + "\n" +
-										`  * '1001' - OTHER OT` + "\n" +
-										`must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100", "101", "102", "103", "104", "105", "106", "107", "108", "109", "110", "111", "112", "113", "114", "115", "116", "117", "118", "119", "120", "121", "122", "123", "124", "125", "126", "127", "128", "129", "130", "131", "132", "133", "134", "135", "136", "137", "138", "139", "140", "141", "142", "143", "144", "145", "146", "147", "148", "149", "150", "151", "152", "153", "154", "155", "156", "157", "158", "159", "160", "161", "162", "163", "164", "165", "166", "167", "168", "169", "170", "171", "172", "173", "174", "175", "176", "177", "178", "1001"]`,
-									Validators: []validator.Int32{
-										int32validator.OneOf(
-											0,
-											1,
-											2,
-											3,
-											4,
-											5,
-											6,
-											7,
-											8,
-											9,
-											10,
-											11,
-											12,
-											13,
-											14,
-											15,
-											16,
-											17,
-											18,
-											19,
-											20,
-											21,
-											22,
-											23,
-											24,
-											25,
-											26,
-											27,
-											29,
-											30,
-											31,
-											32,
-											33,
-											34,
-											35,
-											36,
-											37,
-											38,
-											39,
-											40,
-											41,
-											42,
-											43,
-											44,
-											45,
-											46,
-											47,
-											48,
-											49,
-											50,
-											51,
-											52,
-											53,
-											54,
-											55,
-											56,
-											57,
-											58,
-											59,
-											60,
-											61,
-											62,
-											63,
-											64,
-											65,
-											66,
-											67,
-											68,
-											69,
-											70,
-											71,
-											72,
-											73,
-											74,
-											75,
-											76,
-											77,
-											78,
-											79,
-											80,
-											81,
-											82,
-											83,
-											84,
-											85,
-											86,
-											87,
-											88,
-											89,
-											90,
-											91,
-											92,
-											93,
-											94,
-											95,
-											96,
-											97,
-											98,
-											99,
-											100,
-											101,
-											102,
-											103,
-											104,
-											105,
-											106,
-											107,
-											108,
-											109,
-											110,
-											111,
-											112,
-											113,
-											114,
-											115,
-											116,
-											117,
-											118,
-											119,
-											120,
-											121,
-											122,
-											123,
-											124,
-											125,
-											126,
-											127,
-											128,
-											129,
-											130,
-											131,
-											132,
-											133,
-											134,
-											135,
-											136,
-											137,
-											138,
-											139,
-											140,
-											141,
-											142,
-											143,
-											144,
-											145,
-											146,
-											147,
-											148,
-											149,
-											150,
-											151,
-											152,
-											153,
-											154,
-											155,
-											156,
-											157,
-											158,
-											159,
-											160,
-											161,
-											162,
-											163,
-											164,
-											165,
-											166,
-											167,
-											168,
-											169,
-											170,
-											171,
-											172,
-											173,
-											174,
-											175,
-											176,
-											177,
-											178,
-											1001,
-										),
-									},
+										`  * '1001' - OTHER OT`,
 								},
 								"assigned_deployment_id": schema.StringAttribute{
 									Computed: true,
@@ -714,6 +475,14 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 								},
 								"domain": schema.StringAttribute{
 									Computed: true,
+								},
+								"enforcement_method": schema.Int64Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible values:` + "\n" +
+										`  * '1' - Linux IP Tables` + "\n" +
+										`  * '2' - Linux NF Tables` + "\n" +
+										`  * '3' - Windows Firewall` + "\n" +
+										`  * '4' - Windows WFP`,
 								},
 								"external_device_id": schema.StringAttribute{
 									Computed: true,
@@ -775,52 +544,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 															`* '36' - Linux firewall logs oversized` + "\n" +
 															`* '1000' - First blocker issue code` + "\n" +
 															`* '1001' - Cluster node ipv6 disabled` + "\n" +
-															`* '1002' - Local rules merge disallowed` + "\n" +
-															`must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "1000", "1001", "1002"]`,
-														Validators: []validator.Int32{
-															int32validator.OneOf(
-																0,
-																1,
-																2,
-																3,
-																4,
-																5,
-																6,
-																7,
-																8,
-																9,
-																10,
-																11,
-																12,
-																13,
-																14,
-																15,
-																16,
-																17,
-																18,
-																19,
-																20,
-																21,
-																22,
-																23,
-																24,
-																25,
-																26,
-																27,
-																28,
-																29,
-																30,
-																31,
-																32,
-																33,
-																34,
-																35,
-																36,
-																1000,
-																1001,
-																1002,
-															),
-														},
+															`* '1002' - Local rules merge disallowed`,
 													},
 												},
 											},
@@ -833,19 +557,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 												`* '3' - Warning` + "\n" +
 												`* '4' - N/A` + "\n" +
 												`* '5' - Retrying` + "\n" +
-												`* '6' - Blocker` + "\n" +
-												`must be one of ["0", "1", "2", "3", "4", "5", "6"]`,
-											Validators: []validator.Int32{
-												int32validator.OneOf(
-													0,
-													1,
-													2,
-													3,
-													4,
-													5,
-													6,
-												),
-											},
+												`* '6' - Blocker`,
 										},
 									},
 								},
@@ -870,18 +582,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`* '3' - None` + "\n" +
 										`* '4' - Disabled in asset repository` + "\n" +
 										`* '5' - Inactive in asset repository` + "\n" +
-										`* '6' - Deleted in asset repository` + "\n" +
-										`must be one of ["1", "2", "3", "4", "5", "6"]`,
-									Validators: []validator.Int32{
-										int32validator.OneOf(
-											1,
-											2,
-											3,
-											4,
-											5,
-											6,
-										),
-									},
+										`* '6' - Deleted in asset repository`,
 								},
 								"inactive_since": schema.Int64Attribute{
 									Computed:    true,
@@ -894,6 +595,9 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 								"ip_v6_addresses": schema.ListAttribute{
 									Computed:    true,
 									ElementType: types.StringType,
+								},
+								"is_ip_sec_configured": schema.BoolAttribute{
+									Computed: true,
 								},
 								"is_quarantined": schema.BoolAttribute{
 									Computed: true,
@@ -969,31 +673,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
 										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
 										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
-										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE` + "\n" +
-										`must be one of ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"]`,
-									Validators: []validator.Int32{
-										int32validator.OneOf(
-											0,
-											1,
-											2,
-											3,
-											4,
-											5,
-											6,
-											7,
-											8,
-											9,
-											10,
-											11,
-											12,
-											13,
-											14,
-											15,
-											16,
-											17,
-											18,
-										),
-									},
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
 								},
 								"purdue_level": schema.Int64Attribute{
 									Computed: true,
@@ -1043,47 +723,11 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '27' - Environment` + "\n" +
 										`  * '28' - Conditional` + "\n" +
 										`  * '29' - Claroty OT` + "\n" +
-										`  * '30' - Manual Mac` + "\n" +
-										`must be one of ["2", "3", "6", "7", "8", "9", "10", "11", "12", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]`,
-									Validators: []validator.Int32{
-										int32validator.OneOf(
-											2,
-											3,
-											6,
-											7,
-											8,
-											9,
-											10,
-											11,
-											12,
-											14,
-											15,
-											16,
-											17,
-											18,
-											19,
-											20,
-											21,
-											22,
-											23,
-											24,
-											25,
-											26,
-											27,
-											28,
-											29,
-											30,
-										),
-									},
+										`  * '30' - Manual Mac`,
 								},
 								"switch_location_overridden": schema.BoolAttribute{
 									Computed: true,
 								},
-							},
-							Validators: []validator.Object{
-								objectvalidator.ConflictsWith(path.Expressions{
-									path.MatchRelative().AtParent().AtName("group"),
-								}...),
 							},
 						},
 						"group": schema.SingleNestedAttribute{
@@ -1145,11 +789,6 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 									Computed:    true,
 									Description: `Epoch Millis`,
 								},
-							},
-							Validators: []validator.Object{
-								objectvalidator.ConflictsWith(path.Expressions{
-									path.MatchRelative().AtParent().AtName("asset"),
-								}...),
 							},
 						},
 					},
@@ -1735,6 +1374,16 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 					},
 				},
 			},
+			"review_mode": schema.Int32Attribute{
+				Optional: true,
+				MarkdownDescription: `* 1 - Apply Immediately` + "\n" +
+					`* 2 - Review` + "\n" +
+					`* 3 - Conditional Review` + "\n" +
+					`must be one of ["1", "2", "3"]`,
+				Validators: []validator.Int32{
+					int32validator.OneOf(1, 2, 3),
+				},
+			},
 			"rule_review": schema.SingleNestedAttribute{
 				Computed: true,
 				Attributes: map[string]schema.Attribute{
@@ -1766,19 +1415,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 					`* '4' - Critical` + "\n" +
 					`* '5' - System` + "\n" +
 					`* '6' - Preventative` + "\n" +
-					`* '8' - Dangerous` + "\n" +
-					`must be one of ["1", "2", "3", "4", "5", "6", "8"]`,
-				Validators: []validator.Int32{
-					int32validator.OneOf(
-						1,
-						2,
-						3,
-						4,
-						5,
-						6,
-						8,
-					),
-				},
+					`* '8' - Dangerous`,
 			},
 			"services_list": schema.ListAttribute{
 				Computed:    true,
@@ -1903,15 +1540,59 @@ func (r *InboundRuleResource) Create(ctx context.Context, req resource.CreateReq
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
+	if res.StatusCode == 409 {
+		resp.Diagnostics.AddError(
+			"Resource Already Exists",
+			"When creating this resource, the API indicated that this resource already exists. You can bring the existing resource under management using Terraform import functionality or retry with a unique configuration.",
+		)
+		return
+	}
 	if res.StatusCode != 200 {
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RuleResponse != nil && res.RuleResponse.Item != nil) {
+	if !(res.RuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRule(ctx, res.RuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleResponse(ctx, res.RuleResponse)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	request1, request1Diags := data.ToOperationsInboundRuleGetRequest(ctx)
+	resp.Diagnostics.Append(request1Diags...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	res1, err := r.client.RulesInbound.InboundRuleGet(ctx, *request1)
+	if err != nil {
+		resp.Diagnostics.AddError("failure to invoke API", err.Error())
+		if res1 != nil && res1.RawResponse != nil {
+			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
+		}
+		return
+	}
+	if res1 == nil {
+		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
+		return
+	}
+	if res1.StatusCode != 200 {
+		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
+		return
+	}
+	if !(res1.RuleItem != nil) {
+		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res1.RawResponse))
+		return
+	}
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res1.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -1971,11 +1652,11 @@ func (r *InboundRuleResource) Read(ctx context.Context, req resource.ReadRequest
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RuleItem != nil && res.RuleItem.Item != nil) {
+	if !(res.RuleItem != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRule(ctx, res.RuleItem.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -2021,11 +1702,48 @@ func (r *InboundRuleResource) Update(ctx context.Context, req resource.UpdateReq
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.RuleResponse != nil && res.RuleResponse.Item != nil) {
+	if !(res.RuleResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRule(ctx, res.RuleResponse.Item)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleResponse(ctx, res.RuleResponse)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+
+	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	request1, request1Diags := data.ToOperationsInboundRuleGetRequest(ctx)
+	resp.Diagnostics.Append(request1Diags...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
+	res1, err := r.client.RulesInbound.InboundRuleGet(ctx, *request1)
+	if err != nil {
+		resp.Diagnostics.AddError("failure to invoke API", err.Error())
+		if res1 != nil && res1.RawResponse != nil {
+			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
+		}
+		return
+	}
+	if res1 == nil {
+		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
+		return
+	}
+	if res1.StatusCode != 200 {
+		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
+		return
+	}
+	if !(res1.RuleItem != nil) {
+		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res1.RawResponse))
+		return
+	}
+	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res1.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -2077,7 +1795,10 @@ func (r *InboundRuleResource) Delete(ctx context.Context, req resource.DeleteReq
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode != 200 {
+	switch res.StatusCode {
+	case 200, 404:
+		break
+	default:
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}

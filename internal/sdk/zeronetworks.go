@@ -2,7 +2,7 @@
 
 package sdk
 
-// Generated from OpenAPI doc version 1.0.9 and generator version 2.706.0
+// Generated from OpenAPI doc version 1.0.9 and generator version 2.768.1
 
 import (
 	"context"
@@ -53,6 +53,9 @@ type ZeroNetworks struct {
 	SDKVersion string
 	// API calls related to Assets.
 	Assets *Assets
+	// API calls related to Custom Groups.
+	GroupsCustom *GroupsCustom
+	CustomGroup  *CustomGroup
 	// API calls related to Inbound MFA policies.
 	MFAInbound *MFAInbound
 	// API calls related to Outbound MFA policies.
@@ -151,9 +154,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *ZeroNetworks {
 	sdk := &ZeroNetworks{
-		SDKVersion: "1.0.1",
+		SDKVersion: "1.1.19",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 1.0.1 2.706.0 1.0.9 github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 1.1.19 2.768.1 1.0.9 github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{
@@ -180,6 +183,8 @@ func New(opts ...SDKOption) *ZeroNetworks {
 	}
 
 	sdk.Assets = newAssets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.GroupsCustom = newGroupsCustom(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.CustomGroup = newCustomGroup(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MFAInbound = newMFAInbound(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.MFAOutbound = newMFAOutbound(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.RulesRPC = newRulesRPC(sdk, sdk.sdkConfiguration, sdk.hooks)

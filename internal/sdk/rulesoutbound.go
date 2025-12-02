@@ -62,7 +62,7 @@ func (s *RulesOutbound) OutboundRulesCreate(ctx context.Context, request shared.
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "OutboundRules_Create",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "Request", "json", `request:"mediaType=application/json"`)
@@ -247,7 +247,7 @@ func (s *RulesOutbound) OutboundRuleGet(ctx context.Context, request operations.
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "OutboundRule_Get",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 
@@ -425,7 +425,7 @@ func (s *RulesOutbound) OutboundRuleUpdate(ctx context.Context, request operatio
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "OutboundRule_Update",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 	bodyReader, reqContentType, err := utils.SerializeRequestBody(ctx, request, false, false, "RuleBody", "json", `request:"mediaType=application/json"`)
@@ -610,7 +610,7 @@ func (s *RulesOutbound) OutboundRuleDelete(ctx context.Context, request operatio
 		BaseURL:          baseURL,
 		Context:          ctx,
 		OperationID:      "OutboundRule_Delete",
-		OAuth2Scopes:     []string{},
+		OAuth2Scopes:     nil,
 		SecuritySource:   s.sdkConfiguration.Security,
 	}
 

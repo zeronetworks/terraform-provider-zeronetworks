@@ -29,6 +29,7 @@ data "zeronetworks_inbound_rule" "my_inboundrule" {
 
 - `action` (Number) * 1 - Allow
 * 2 - Block
+* 3 - Force Block
 - `activities_count` (Number)
 - `ae_overridden` (Boolean)
 - `approved_at` (Number) Epoch Millis
@@ -374,6 +375,11 @@ Read-Only:
 - `assigned_deployment_id` (String)
 - `break_glass_activated` (Boolean)
 - `domain` (String)
+- `enforcement_method` (Number) Possible values:
+  * '1' - Linux IP Tables
+  * '2' - Linux NF Tables
+  * '3' - Windows Firewall
+  * '4' - Windows WFP
 - `external_device_id` (String)
 - `fqdn` (String)
 - `has_dns` (Boolean)
@@ -391,6 +397,7 @@ Read-Only:
 - `inactive_since` (Number) Epoch Millis
 - `ip_v4_addresses` (List of String)
 - `ip_v6_addresses` (List of String)
+- `is_ip_sec_configured` (Boolean)
 - `is_quarantined` (Boolean)
 - `last_logon` (Number) Epoch Millis
 - `manufacturer` (String)

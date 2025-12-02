@@ -578,11 +578,11 @@ func (r *OutboundMFAPolicyDataSource) Read(ctx context.Context, req datasource.R
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
-	if !(res.ReactivePolicyResponse != nil && res.ReactivePolicyResponse.Items != nil) {
+	if !(res.ReactivePolicyResponse != nil) {
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicy(ctx, res.ReactivePolicyResponse.Items)...)
+	resp.Diagnostics.Append(data.RefreshFromSharedReactivePolicyResponse(ctx, res.ReactivePolicyResponse)...)
 
 	if resp.Diagnostics.HasError() {
 		return

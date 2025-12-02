@@ -21,6 +21,31 @@ actions:
   - target: $["components"]["schemas"]["assetIdSearch"]
     update:
         x-speakeasy-entity: AssetId
+  - target: $["paths"]["/activities/analysis/widgets/{widgetId}"]
+    remove: true
+  - target: $["paths"]["/groups/custom"]["post"]
+    update:
+      x-speakeasy-entity-operation: CustomGroup#create
+  - target: $["paths"]["/groups/custom/{groupId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: CustomGroup#get
+  - target: $["paths"]["/groups/custom/{groupId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: CustomGroup#update
+  - target: $["paths"]["/groups/custom/{groupId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: CustomGroup#delete
+  - target: $["paths"]["/groups/custom/{groupId}/members"]["get"]
+    update:
+      x-speakeasy-entity-operation: CustomGroupMembers#get
+  - target: $["paths"]["/groups/custom/{groupId}/members"]["put"]
+    update:
+      x-speakeasy-entity-operation:
+        - CustomGroupMembers#create
+        - CustomGroupMembers#update
+  - target: $["paths"]["/groups/custom/{groupId}/members"]["delete"]
+    update:
+      x-speakeasy-entity-operation: CustomGroupMembers#delete
   - target: $["paths"]["/protection/reactive-policies/inbound"]["post"]
     update:
       x-speakeasy-entity-operation: InboundMFAPolicy#create
@@ -87,9 +112,24 @@ actions:
   - target: $["components"]["parameters"]["ruleIdParameter"]
     update:
       x-speakeasy-name-override: id
+  - target: $["components"]["parameters"]["groupIdParameter"]
+    update:
+      x-speakeasy-name-override: id
   - target: $["components"]["schemas"]["assetSearchResponse"]
     update:
       x-speakeasy-entity: AssetId
+  - target: $["components"]["schemas"]["customGroup"]
+    update:
+      x-speakeasy-entity: CustomGroup
+  - target: $["components"]["schemas"]["customGroupBody"]
+    update:
+      x-speakeasy-entity: CustomGroup
+  - target: $["components"]["schemas"]["groupMembersList"]
+    update:
+      x-speakeasy-entity: CustomGroupMembers
+  - target: $["components"]["schemas"]["customGroupMembersBody"]
+    update:
+      x-speakeasy-entity: CustomGroupMembers
   - target: $["components"]["schemas"]["reactivePolicy"]
     update:
       x-speakeasy-entity: 
