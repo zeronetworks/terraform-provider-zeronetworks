@@ -101,6 +101,9 @@ Read-Only:
 * '9' - Asset Manager
 * '10' - Operator
 * '11' - Service Now Token
+* '12' - Segment Server Provisioning
+* '13' - Connect Server Provisioning
+* '14' - Segment Connector Provisioning
 
 <a id="nestedatt--created_by--created_by"></a>
 ### Nested Schema for `created_by.created_by`

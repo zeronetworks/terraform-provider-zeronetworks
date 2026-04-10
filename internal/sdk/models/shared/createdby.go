@@ -31,6 +31,9 @@ type CreatedBy struct {
 	// * '9' - Asset Manager
 	// * '10' - Operator
 	// * '11' - Service Now Token
+	// * '12' - Segment Server Provisioning
+	// * '13' - Connect Server Provisioning
+	// * '14' - Segment Connector Provisioning
 	//
 	UserRole *UserRole `json:"userRole,omitempty"`
 }

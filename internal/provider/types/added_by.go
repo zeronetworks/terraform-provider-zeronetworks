@@ -6,7 +6,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-type CustomGroupAddedBy struct {
+type AddedBy struct {
 	ID   types.String `tfsdk:"id"`
 	Name types.String `tfsdk:"name"`
 }

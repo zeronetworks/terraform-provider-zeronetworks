@@ -33,45 +33,54 @@ type InboundRuleResource struct {
 
 // InboundRuleResourceModel describes the resource data model.
 type InboundRuleResourceModel struct {
-	Action                     types.Int32               `tfsdk:"action"`
-	ActivitiesCount            types.Int32               `tfsdk:"activities_count"`
-	AeOverridden               types.Bool                `tfsdk:"ae_overridden"`
-	ApprovedAt                 types.Int64               `tfsdk:"approved_at"`
-	ApprovedBy                 *tfTypes.IDNamePair1      `tfsdk:"approved_by"`
-	ChangeTicket               types.String              `tfsdk:"change_ticket"`
-	Context                    types.Int32               `tfsdk:"context"`
-	CreatedAt                  types.Int64               `tfsdk:"created_at"`
-	CreatedBy                  *tfTypes.CreatedBy        `tfsdk:"created_by"`
-	DeletedAt                  types.Int64               `tfsdk:"deleted_at"`
-	DeletedBy                  *tfTypes.IDNamePair1      `tfsdk:"deleted_by"`
-	Description                types.String              `tfsdk:"description"`
-	Direction                  types.Int32               `tfsdk:"direction"`
-	ExcludedEntityInfos        []tfTypes.IDNamePair1     `tfsdk:"excluded_entity_infos"`
-	ExcludedLocalIdsList       []types.String            `tfsdk:"excluded_local_ids_list"`
-	ExpiresAt                  types.Int64               `tfsdk:"expires_at"`
-	ID                         types.String              `tfsdk:"id"`
-	IPSecOpt                   types.Int32               `tfsdk:"ip_sec_opt"`
-	IsRejectOnLinux            types.Bool                `tfsdk:"is_reject_on_linux"`
-	LocalEntityID              types.String              `tfsdk:"local_entity_id"`
-	LocalEntityInfos           []tfTypes.LocalEntityInfo `tfsdk:"local_entity_infos"`
-	LocalProcessesList         []types.String            `tfsdk:"local_processes_list"`
-	MultipleLocalEntityIdsList []types.String            `tfsdk:"multiple_local_entity_ids_list"`
-	Name                       types.String              `tfsdk:"name"`
-	ParentID                   types.String              `tfsdk:"parent_id"`
-	ParentSwitchRuleID         types.String              `tfsdk:"parent_switch_rule_id"`
-	ParentSwitchRuleType       types.Int32               `tfsdk:"parent_switch_rule_type"`
-	ParentType                 types.Int32               `tfsdk:"parent_type"`
-	PortsList                  []tfTypes.PortsList       `tfsdk:"ports_list"`
-	RemoteEntityIdsList        []types.String            `tfsdk:"remote_entity_ids_list"`
-	RemoteEntityInfos          []tfTypes.IDNamePair1     `tfsdk:"remote_entity_infos"`
-	ReviewMode                 types.Int32               `tfsdk:"review_mode"`
-	Ruleclass                  types.Int32               `tfsdk:"ruleclass"`
-	RuleReview                 *tfTypes.RuleReviewReason `tfsdk:"rule_review"`
-	ServicesList               []types.String            `tfsdk:"services_list"`
-	SrcUsersList               []tfTypes.SrcUsersList    `tfsdk:"src_users_list"`
-	State                      types.Int32               `tfsdk:"state"`
-	UpdatedAt                  types.Int64               `tfsdk:"updated_at"`
-	UpdatedBy                  *tfTypes.IDNamePair1      `tfsdk:"updated_by"`
+	Action                     types.Int32                    `tfsdk:"action"`
+	ActivitiesCount            types.Int32                    `tfsdk:"activities_count"`
+	AeOverridden               types.Bool                     `tfsdk:"ae_overridden"`
+	ApprovedAt                 types.Int64                    `tfsdk:"approved_at"`
+	ApprovedBy                 *tfTypes.IDNamePair            `tfsdk:"approved_by"`
+	ChangeTicket               types.String                   `tfsdk:"change_ticket"`
+	Context                    types.Int32                    `tfsdk:"context"`
+	CreatedAt                  types.Int64                    `tfsdk:"created_at"`
+	CreatedBy                  *tfTypes.CreatedBy             `tfsdk:"created_by"`
+	DeletedAt                  types.Int64                    `tfsdk:"deleted_at"`
+	DeletedBy                  *tfTypes.IDNamePair            `tfsdk:"deleted_by"`
+	DeleteSuggestionRejected   types.Bool                     `tfsdk:"delete_suggestion_rejected"`
+	Description                types.String                   `tfsdk:"description"`
+	Direction                  types.Int32                    `tfsdk:"direction"`
+	EnforcementSource          types.Int32                    `tfsdk:"enforcement_source"`
+	ExcludedEntityInfos        []tfTypes.IDNamePair           `tfsdk:"excluded_entity_infos"`
+	ExcludedEntitySuccessor    *tfTypes.IDNamePair            `tfsdk:"excluded_entity_successor"`
+	ExcludedLocalIdsList       []types.String                 `tfsdk:"excluded_local_ids_list"`
+	ExpiresAt                  types.Int64                    `tfsdk:"expires_at"`
+	ID                         types.String                   `tfsdk:"id"`
+	IPSecOpt                   types.Int32                    `tfsdk:"ip_sec_opt"`
+	IsRejectOnLinux            types.Bool                     `tfsdk:"is_reject_on_linux"`
+	LocalEntityID              types.String                   `tfsdk:"local_entity_id"`
+	LocalEntityInfos           []tfTypes.RuleLocalEntityInfo  `tfsdk:"local_entity_infos"`
+	LocalEntitySuccessor       *tfTypes.IDNamePair            `tfsdk:"local_entity_successor"`
+	LocalProcessesList         []types.String                 `tfsdk:"local_processes_list"`
+	MultipleLocalEntityIdsList []types.String                 `tfsdk:"multiple_local_entity_ids_list"`
+	Name                       types.String                   `tfsdk:"name"`
+	ParentID                   types.String                   `tfsdk:"parent_id"`
+	ParentSwitchRuleID         types.String                   `tfsdk:"parent_switch_rule_id"`
+	ParentSwitchRuleType       types.Int32                    `tfsdk:"parent_switch_rule_type"`
+	ParentType                 types.Int32                    `tfsdk:"parent_type"`
+	PortsList                  []tfTypes.PortsList            `tfsdk:"ports_list"`
+	RemoteEntityIdsList        []types.String                 `tfsdk:"remote_entity_ids_list"`
+	RemoteEntityInfos          []tfTypes.RuleRemoteEntityInfo `tfsdk:"remote_entity_infos"`
+	RemoteEntitySuccessor      *tfTypes.IDNamePair            `tfsdk:"remote_entity_successor"`
+	ReviewMode                 types.Int32                    `tfsdk:"review_mode"`
+	RuleClass                  types.Int32                    `tfsdk:"rule_class"`
+	RuleReview                 *tfTypes.RuleReviewReason      `tfsdk:"rule_review"`
+	ServicesList               []types.String                 `tfsdk:"services_list"`
+	SkipAudit                  types.Bool                     `tfsdk:"skip_audit"`
+	SrcUsersInfos              []tfTypes.IDNamePair           `tfsdk:"src_users_infos"`
+	SrcUsersList               []tfTypes.SrcUsersList         `tfsdk:"src_users_list"`
+	State                      types.Int32                    `tfsdk:"state"`
+	SuggestionReason           types.String                   `tfsdk:"suggestion_reason"`
+	SuggestionType             types.Int32                    `tfsdk:"suggestion_type"`
+	UpdatedAt                  types.Int64                    `tfsdk:"updated_at"`
+	UpdatedBy                  *tfTypes.IDNamePair            `tfsdk:"updated_by"`
 }
 
 func (r *InboundRuleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -122,6 +131,51 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 			"context": schema.Int32Attribute{
 				Computed: true,
 				Optional: true,
+				MarkdownDescription: `- '0' - Unspecified` + "\n" +
+					`- '1' - Block` + "\n" +
+					`- '2' - App Ring` + "\n" +
+					`- '3' - Global RPC` + "\n" +
+					`- '4' - Populare App` + "\n" +
+					`- '5' - MS Cluster` + "\n" +
+					`- '6' - Tag` + "\n" +
+					`- '7' - Scanner` + "\n" +
+					`- '8' - Popular Destination` + "\n" +
+					`- '9' - Popular Source` + "\n" +
+					`- '10' - MFA with Rule` + "\n" +
+					`- '11' - Inter Server` + "\n" +
+					`- '12' - AE Group` + "\n" +
+					`- '13' - Block High Risk IPs` + "\n" +
+					`- '14' - Unmonitored Source` + "\n" +
+					`- '15' - Popular Client` + "\n" +
+					`- '16' - Externally Facing Popular Destination` + "\n" +
+					`- '17' - External IP Source` + "\n" +
+					`- '18' - DC Tag` + "\n" +
+					`- '19' - MDI Tag` + "\n" +
+					`- '20' - DHCP Tag` + "\n" +
+					`- '21' - DHCP Failover Tag` + "\n" +
+					`- '22' - SCCM Tag` + "\n" +
+					`- '23' - DNS Tag` + "\n" +
+					`- '24' - Web Server Tag` + "\n" +
+					`- '25' - Exchange Tag` + "\n" +
+					`- '26' - Exchange Internal Tag` + "\n" +
+					`- '27' - DFSR Tag` + "\n" +
+					`- '28' - FTP Tag` + "\n" +
+					`- '29' - ADFS Tag` + "\n" +
+					`- '30' - WSUS Tag` + "\n" +
+					`- '31' - PDQ Incoming` + "\n" +
+					`- '32' - PDQ Outgoing` + "\n" +
+					`- '33' - Citrix ICA` + "\n" +
+					`- '34' - Citrix Broker Incoming` + "\n" +
+					`- '35' - Citrix Broker Outgoing` + "\n" +
+					`- '36' - WDS Tag` + "\n" +
+					`- '37' - MS CA Tag` + "\n" +
+					`- '38' - Direct Access Tag` + "\n" +
+					`- '39' - KMS Tag` + "\n" +
+					`- '40' - Security Scanners` + "\n" +
+					`- '41' - Backup Tag` + "\n" +
+					`- '42' - Databases Tag` + "\n" +
+					`- '43' - Port Scanners` + "\n" +
+					`- '44' - MS Cluster to external assets`,
 			},
 			"created_at": schema.Int64Attribute{
 				Computed:    true,
@@ -174,9 +228,15 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 							`* '8' - JAMF Asset` + "\n" +
 							`* '9' - Asset Manager` + "\n" +
 							`* '10' - Operator` + "\n" +
-							`* '11' - Service Now Token`,
+							`* '11' - Service Now Token` + "\n" +
+							`* '12' - Segment Server Provisioning` + "\n" +
+							`* '13' - Connect Server Provisioning` + "\n" +
+							`* '14' - Segment Connector Provisioning`,
 					},
 				},
+			},
+			"delete_suggestion_rejected": schema.BoolAttribute{
+				Computed: true,
 			},
 			"deleted_at": schema.Int64Attribute{
 				Computed:    true,
@@ -205,6 +265,21 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 					`* '2' - Outbound` + "\n" +
 					`* '3' - Both`,
 			},
+			"enforcement_source": schema.Int32Attribute{
+				Computed: true,
+				MarkdownDescription: `* '1' - ReactivePolicy` + "\n" +
+					`* '2' - Automated` + "\n" +
+					`* '3' - AccessPortal` + "\n" +
+					`* '4' - AdminPortal` + "\n" +
+					`* '5' - AI` + "\n" +
+					`* '6' - API` + "\n" +
+					`* '7' - Setup` + "\n" +
+					`* '8' - Connect` + "\n" +
+					`* '9' - System` + "\n" +
+					`* '10' - DownloadPortal` + "\n" +
+					`* '11' - ExternalAccessPortal` + "\n" +
+					`* '12' - DayTwo`,
+			},
 			"excluded_entity_infos": schema.ListNestedAttribute{
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
@@ -217,6 +292,19 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 							Computed:    true,
 							Description: `Entity Name`,
 						},
+					},
+				},
+			},
+			"excluded_entity_successor": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+						Computed:    true,
+						Description: `EntityId`,
+					},
+					"name": schema.StringAttribute{
+						Computed:    true,
+						Description: `Entity Name`,
 					},
 				},
 			},
@@ -467,11 +555,52 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '178' - WIRELESS PHONE GATEWAY` + "\n" +
 										`  * '1001' - OTHER OT`,
 								},
+								"assigned_deployment": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
 								"assigned_deployment_id": schema.StringAttribute{
 									Computed: true,
 								},
 								"break_glass_activated": schema.BoolAttribute{
 									Computed: true,
+								},
+								"cloud_connector_version": schema.StringAttribute{
+									Computed: true,
+								},
+								"deploymenta_cluster_id": schema.StringAttribute{
+									Computed: true,
+								},
+								"deployments_cluster": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
+								"deployments_cluster_source": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '1' - System` + "\n" +
+										`* '2' - User` + "\n" +
+										`* '3' - Domain` + "\n" +
+										`* '4' - Subnet` + "\n" +
+										`* '5' - None` + "\n" +
+										`* '6' - N/A`,
 								},
 								"domain": schema.StringAttribute{
 									Computed: true,
@@ -483,6 +612,19 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '2' - Linux NF Tables` + "\n" +
 										`  * '3' - Windows Firewall` + "\n" +
 										`  * '4' - Windows WFP`,
+								},
+								"environment_group": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
 								},
 								"external_device_id": schema.StringAttribute{
 									Computed: true,
@@ -572,8 +714,27 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 									Computed:    true,
 									Description: `Epoch Millis`,
 								},
-								"identity_protection_state": schema.Int64Attribute{
+								"identity_protection_state": schema.Int32Attribute{
 									Computed: true,
+									MarkdownDescription: `* '0' - Unspecified` + "\n" +
+										`* '1' - Unsegmented` + "\n" +
+										`* '2' - Unsegmenting` + "\n" +
+										`* '3' - Segmented` + "\n" +
+										`* '4' - Segmenting` + "\n" +
+										`* '5' - Learning until` + "\n" +
+										`* '6' - forced_unprotected` + "\n" +
+										`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+										`* '8' - Segmented' - Due to Policy` + "\n" +
+										`* '9' - Segmenting- Due to Policy` + "\n" +
+										`* '10' - Learning until' - Due to Policy` + "\n" +
+										`* '11' - Learning done` + "\n" +
+										`* '12' - Learning done- Due to Policy` + "\n" +
+										`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+										`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
 								},
 								"inactive_reason": schema.Int32Attribute{
 									Computed: true,
@@ -587,6 +748,9 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 								"inactive_since": schema.Int64Attribute{
 									Computed:    true,
 									Description: `Epoch Millis`,
+								},
+								"ip_space": schema.Int64Attribute{
+									Computed: true,
 								},
 								"ip_v4_addresses": schema.ListAttribute{
 									Computed:    true,
@@ -615,8 +779,13 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 								"operating_system": schema.StringAttribute{
 									Computed: true,
 								},
-								"os_type": schema.Int64Attribute{
+								"os_type": schema.Int32Attribute{
 									Computed: true,
+									MarkdownDescription: `Possible osType:` + "\n" +
+										`  * '1' - Unmanagable` + "\n" +
+										`  * '2' - Windows` + "\n" +
+										`  * '3' - Linux` + "\n" +
+										`  * '4' - Mac`,
 								},
 								"ot_locattion": schema.SingleNestedAttribute{
 									Computed: true,
@@ -632,12 +801,30 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										},
 									},
 								},
-								"outbound_restriction": schema.Int64Attribute{
+								"outbound_restriction": schema.Int32Attribute{
 									Computed: true,
+									MarkdownDescription: `* '1' - No restrictions` + "\n" +
+										`* '2' - Internal Restricted` + "\n" +
+										`* '3' - External Restricted` + "\n" +
+										`* '4' - Internal and External Restricted` + "\n" +
+										`* '5' - No applicable`,
 								},
 								"password_update_time": schema.Int64Attribute{
 									Computed:    true,
 									Description: `Epoch Millis`,
+								},
+								"preferred_deployment": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
 								},
 								"preferred_deployment_id": schema.StringAttribute{
 									Computed: true,
@@ -675,8 +862,15 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
 										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
 								},
-								"purdue_level": schema.Int64Attribute{
+								"purdue_level": schema.Int32Attribute{
 									Computed: true,
+									MarkdownDescription: `Purdue Level:` + "\n" +
+										`  * '0' - Unspecified` + "\n" +
+										`  * '1' - Level 0` + "\n" +
+										`  * '2' - Level 1` + "\n" +
+										`  * '3' - Level 2` + "\n" +
+										`  * '4' - Level 3` + "\n" +
+										`  * '5' - Level 4`,
 								},
 								"rpc_monitored": schema.BoolAttribute{
 									Computed: true,
@@ -689,12 +883,32 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 									Computed:    true,
 									Description: `Epoch Millis`,
 								},
-								"rpc_protection_state": schema.Int64Attribute{
+								"rpc_protection_state": schema.Int32Attribute{
 									Computed: true,
+									MarkdownDescription: `* '0' - Unspecified` + "\n" +
+										`* '1' - Unsegmented` + "\n" +
+										`* '2' - Unsegmenting` + "\n" +
+										`* '3' - Segmented` + "\n" +
+										`* '4' - Segmenting` + "\n" +
+										`* '5' - Learning until` + "\n" +
+										`* '6' - forced_unprotected` + "\n" +
+										`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+										`* '8' - Segmented' - Due to Policy` + "\n" +
+										`* '9' - Segmenting- Due to Policy` + "\n" +
+										`* '10' - Learning until' - Due to Policy` + "\n" +
+										`* '11' - Learning done` + "\n" +
+										`* '12' - Learning done- Due to Policy` + "\n" +
+										`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+										`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
 								},
 								"source": schema.Int32Attribute{
 									Computed: true,
 									MarkdownDescription: `Possible asset sources:` + "\n" +
+										`  * '0' - Unspecified` + "\n" +
 										`  * '1' - Access portal` + "\n" +
 										`  * '2' - SSP` + "\n" +
 										`  * '3' - Active directory` + "\n" +
@@ -707,6 +921,7 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '10' - Azure` + "\n" +
 										`  * '11' - AWS` + "\n" +
 										`  * '12' - GCP` + "\n" +
+										`  * '13' - Tag` + "\n" +
 										`  * '14' - Jamf` + "\n" +
 										`  * '15' - Manual Linux` + "\n" +
 										`  * '16' - IBM cloud` + "\n" +
@@ -725,72 +940,141 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 										`  * '29' - Claroty OT` + "\n" +
 										`  * '30' - Manual Mac`,
 								},
+								"state": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"asset_id": schema.StringAttribute{
+											Computed: true,
+										},
+										"identity_protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"identity_protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"identity_protection_state": schema.Int64Attribute{
+											Computed: true,
+											MarkdownDescription: `Possible asset status:` + "\n" +
+												`  * '0' - Unspecified` + "\n" +
+												`  * '1' - Unsegmented` + "\n" +
+												`  * '2' - Unspecified` + "\n" +
+												`  * '3' - Segmented` + "\n" +
+												`  * '4' - Unsegmented` + "\n" +
+												`  * '5' - In learning` + "\n" +
+												`  * '6' - Forced Unprotected` + "\n" +
+												`  * '7' - Forced Removing Protection` + "\n" +
+												`  * '8' - Protected Due To Policy` + "\n" +
+												`  * '9' - Applying Protection Due To Policy` + "\n" +
+												`  * '10' - In learning Due To Policy` + "\n" +
+												`  * '11' - Learning Done` + "\n" +
+												`  * '12' - In learning Due To Policy Done`,
+										},
+										"is_asset_connected": schema.BoolAttribute{
+											Computed: true,
+										},
+										"last_connected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"last_disconnected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protection_state": schema.Int32Attribute{
+											Computed: true,
+											MarkdownDescription: `* '0' - Unspecified` + "\n" +
+												`* '1' - Unsegmented` + "\n" +
+												`* '2' - Unsegmenting` + "\n" +
+												`* '3' - Segmented` + "\n" +
+												`* '4' - Segmenting` + "\n" +
+												`* '5' - Learning until` + "\n" +
+												`* '6' - forced_unprotected` + "\n" +
+												`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+												`* '8' - Segmented' - Due to Policy` + "\n" +
+												`* '9' - Segmenting- Due to Policy` + "\n" +
+												`* '10' - Learning until' - Due to Policy` + "\n" +
+												`* '11' - Learning done` + "\n" +
+												`* '12' - Learning done- Due to Policy` + "\n" +
+												`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+												`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+												`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+												`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+										},
+										"rpc_protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"rpc_protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"rpc_protection_state": schema.Int32Attribute{
+											Computed: true,
+											MarkdownDescription: `* '0' - Unspecified` + "\n" +
+												`* '1' - Unsegmented` + "\n" +
+												`* '2' - Unsegmenting` + "\n" +
+												`* '3' - Segmented` + "\n" +
+												`* '4' - Segmenting` + "\n" +
+												`* '5' - Learning until` + "\n" +
+												`* '6' - forced_unprotected` + "\n" +
+												`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+												`* '8' - Segmented' - Due to Policy` + "\n" +
+												`* '9' - Segmenting- Due to Policy` + "\n" +
+												`* '10' - Learning until' - Due to Policy` + "\n" +
+												`* '11' - Learning done` + "\n" +
+												`* '12' - Learning done- Due to Policy` + "\n" +
+												`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+												`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+												`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+												`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+										},
+									},
+								},
 								"switch_location_overridden": schema.BoolAttribute{
 									Computed: true,
 								},
 							},
 						},
-						"group": schema.SingleNestedAttribute{
+						"id_name_pair": schema.SingleNestedAttribute{
 							Computed: true,
 							Attributes: map[string]schema.Attribute{
-								"added_at": schema.Int64Attribute{
-									Computed:    true,
-									Description: `Epoch Millis`,
-								},
-								"added_by": schema.SingleNestedAttribute{
-									Computed: true,
-									Attributes: map[string]schema.Attribute{
-										"id": schema.StringAttribute{
-											Computed: true,
-										},
-										"name": schema.StringAttribute{
-											Computed: true,
-										},
-									},
-								},
-								"created_at": schema.Int64Attribute{
-									Computed:    true,
-									Description: `Epoch Millis`,
-								},
-								"description": schema.StringAttribute{
-									Computed: true,
-								},
-								"direct_members_count": schema.Int64Attribute{
-									Computed: true,
-								},
-								"domain": schema.StringAttribute{
-									Computed: true,
-								},
-								"external_id": schema.StringAttribute{
-									Computed: true,
-								},
-								"guid": schema.StringAttribute{
-									Computed: true,
-								},
-								"has_protection_policy": schema.BoolAttribute{
-									Computed: true,
-								},
 								"id": schema.StringAttribute{
-									Computed: true,
+									Computed:    true,
+									Description: `EntityId`,
 								},
 								"name": schema.StringAttribute{
-									Computed: true,
-								},
-								"principal_name": schema.StringAttribute{
-									Computed: true,
-								},
-								"role": schema.Int32Attribute{
-									Computed: true,
-								},
-								"sid": schema.StringAttribute{
-									Computed: true,
-								},
-								"updated_at": schema.Int64Attribute{
 									Computed:    true,
-									Description: `Epoch Millis`,
+									Description: `Entity Name`,
 								},
 							},
 						},
+					},
+				},
+			},
+			"local_entity_successor": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+						Computed:    true,
+						Description: `EntityId`,
+					},
+					"name": schema.StringAttribute{
+						Computed:    true,
+						Description: `Entity Name`,
 					},
 				},
 			},
@@ -1363,18 +1647,734 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 				Computed: true,
 				NestedObject: schema.NestedAttributeObject{
 					Attributes: map[string]schema.Attribute{
-						"id": schema.StringAttribute{
-							Computed:    true,
-							Description: `EntityId`,
+						"asset": schema.SingleNestedAttribute{
+							Computed: true,
+							Attributes: map[string]schema.Attribute{
+								"asset_status": schema.Int64Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible asset status:` + "\n" +
+										`  * '1' - Not monitored` + "\n" +
+										`  * '2' - Segment server` + "\n" +
+										`  * '4' - Can't be monitored (unsupported OS)` + "\n" +
+										`  * '5' - Can't be monitored (unmonitorable)` + "\n" +
+										`  * '6' - Can't be monitored (unmonitorable)` + "\n" +
+										`  * '7' - Cloud connector` + "\n" +
+										`  * '8' - Not monitored (ansible unreachable)` + "\n" +
+										`  * '9' - Not monitored (cloud connector uninstalled)` + "\n" +
+										`  * '10' - Not monitored (cloud connector required)` + "\n" +
+										`  * '12' - Can't be monitored (inactive entity)` + "\n" +
+										`  * '13' - Stalked Externally` + "\n" +
+										`  * '14' - Lightweight Agent`,
+								},
+								"asset_type": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible asset status:` + "\n" +
+										`  * '0' - Unknown` + "\n" +
+										`  * '1' - Client` + "\n" +
+										`  * '2' - Server` + "\n" +
+										`  * '3' - Virtual cluster` + "\n" +
+										`  * '4' - IP camera` + "\n" +
+										`  * '5' - Smart TV` + "\n" +
+										`  * '6' - Factory controller` + "\n" +
+										`  * '7' - Medical device` + "\n" +
+										`  * '8' - Printer` + "\n" +
+										`  * '9' - Scanner` + "\n" +
+										`  * '10' - Smart card reader` + "\n" +
+										`  * '11' - Router` + "\n" +
+										`  * '12' - Hypervisor` + "\n" +
+										`  * '13' - PLC` + "\n" +
+										`  * '14' - HMI` + "\n" +
+										`  * '15' - Switch` + "\n" +
+										`  * '16' - Terminal station` + "\n" +
+										`  * '17' - RTU` + "\n" +
+										`  * '18' - Wireless access point` + "\n" +
+										`  * '19' - Historian` + "\n" +
+										`  * '20' - Game console` + "\n" +
+										`  * '21' - Fire alarm` + "\n" +
+										`  * '22' - UPS` + "\n" +
+										`  * '23' - Storage appliance` + "\n" +
+										`  * '24' - Virtualization appliance` + "\n" +
+										`  * '25' - Firewall appliance` + "\n" +
+										`  * '26' - Security scanner` + "\n" +
+										`  * '27' - Security controller` + "\n" +
+										`  * '28 ' - Door lock` + "\n" +
+										`  * '29' - Biometric entry system` + "\n" +
+										`  * '30' - HVAC` + "\n" +
+										`  * '31' - Room scheduler` + "\n" +
+										`  * '32' - Load Balancer Appliance` + "\n" +
+										`  * '33' - WAN Concentrator` + "\n" +
+										`  * '34' - IPAM Appliance` + "\n" +
+										`  * '35' - TEMPERATURE SENSOR GATEWAY` + "\n" +
+										`  * '36' - POWER METER` + "\n" +
+										`  * '37' - CONVEYOR SYSTEM` + "\n" +
+										`  * '38' - BUILDING AUTOMATION DEVICE` + "\n" +
+										`  * '39' - VISION CONTROLLER` + "\n" +
+										`  * '40' - MANUFACTURING EXECUTION SYSTEM` + "\n" +
+										`  * '41' - BACNET BROADCAST MANAGEMENT DEVICE BBMD` + "\n" +
+										`  * '42' - BACNET ROUTER AND BBMD` + "\n" +
+										`  * '43' - CLOCK` + "\n" +
+										`  * '44' - RFID` + "\n" +
+										`  * '45' - SCALE` + "\n" +
+										`  * '46' - MOBILE PRINTER` + "\n" +
+										`  * '47' - IED` + "\n" +
+										`  * '48' - CNC MILL` + "\n" +
+										`  * '49' - ROOM MONITOR` + "\n" +
+										`  * '50' - SMART SPEAKER` + "\n" +
+										`  * '51' - VENDING MACHINE` + "\n" +
+										`  * '52' - AUTONOMOUS VEHICLE` + "\n" +
+										`  * '53' - FLEET MANAGEMENT SYSTEM` + "\n" +
+										`  * '54' - BACNET ROUTER` + "\n" +
+										`  * '55' - MOTOR CONTROLLER` + "\n" +
+										`  * '56' - OT GATEWAY` + "\n" +
+										`  * '57' - CONTROLLER` + "\n" +
+										`  * '58' - BUILDING MANAGEMENT SYSTEM` + "\n" +
+										`  * '59' - VOIP PHONE` + "\n" +
+										`  * '60' - VISION SENSOR` + "\n" +
+										`  * '61' - REMOTE IO` + "\n" +
+										`  * '62' - VOIP SERVER` + "\n" +
+										`  * '63' - FLOW METER` + "\n" +
+										`  * '64' - BUILDING AUTOMATION CONTROLLER` + "\n" +
+										`  * '65' - SECURITY CAMERA` + "\n" +
+										`  * '66' - DIGITAL SIGN` + "\n" +
+										`  * '67' - REMOTE ACCESS GATEWAY` + "\n" +
+										`  * '68' - TEMPERATURE SENSOR` + "\n" +
+										`  * '69' - RTLS` + "\n" +
+										`  * '70' - SERIAL TO ETHERNET` + "\n" +
+										`  * '71' - INTERCOM` + "\n" +
+										`  * '72' - ENGINEERING STATION` + "\n" +
+										`  * '73' - DATA LOGGER GATEWAY` + "\n" +
+										`  * '74' - ROBOT` + "\n" +
+										`  * '75' - TABLET` + "\n" +
+										`  * '76' - SCADA SERVER` + "\n" +
+										`  * '77' - INDUSTRIAL PRINTER` + "\n" +
+										`  * '78' - VISION CAMERA` + "\n" +
+										`  * '79' - TIME CLOCK` + "\n" +
+										`  * '80' - VIDEO CONFERENCE` + "\n" +
+										`  * '81' - ELECTRICAL DRIVE` + "\n" +
+										`  * '82' - ACCESS CONTROL` + "\n" +
+										`  * '83' - PRINTER 3D` + "\n" +
+										`  * '84' - ACCESS CONTROL GATEWAY` + "\n" +
+										`  * '85' - ATM` + "\n" +
+										`  * '86' - AUDIO DECODER` + "\n" +
+										`  * '87' - AV SYSTEM` + "\n" +
+										`  * '88' - BACNET ROUTER BBMD` + "\n" +
+										`  * '89' - BADGE READER` + "\n" +
+										`  * '90' - BARCODE SCANNER` + "\n" +
+										`  * '91' - BUILDING AUTOMATION CONTROLLER GATEWAY` + "\n" +
+										`  * '92' - BUILDING MANAGEMENT SENSOR` + "\n" +
+										`  * '93' - BUILDING MANAGEMENT SENSOR GATEWAY` + "\n" +
+										`  * '94' - BUILDING MANAGEMENT SYSTEM GATEWAY` + "\n" +
+										`  * '95' - CAR` + "\n" +
+										`  * '96' - CIRCUIT MONITOR` + "\n" +
+										`  * '97' - CLINICAL MOBILE DEVICE` + "\n" +
+										`  * '98' - CLINICAL MOBILE DEVICE GATEWAY` + "\n" +
+										`  * '99' - CLOCK GATEWAY` + "\n" +
+										`  * '100' - CNC SYSTEM` + "\n" +
+										`  * '101' - CONFERENCE ROOM` + "\n" +
+										`  * '102' - DATA LOGGER` + "\n" +
+										`  * '103' - DIGITAL SIGN WORKSTATION` + "\n" +
+										`  * '104' - DISK PUBLISHER` + "\n" +
+										`  * '105' - DISPATCHER` + "\n" +
+										`  * '106' - EMBEDDED PC` + "\n" +
+										`  * '107' - ENCODER` + "\n" +
+										`  * '108' - EV CHARGING` + "\n" +
+										`  * '109' - FITNESS DEVICE` + "\n" +
+										`  * '110' - GENERIC MOBILE DEVICE` + "\n" +
+										`  * '111' - GPS NAVIGATOR` + "\n" +
+										`  * '112' - INDUSTRIAL BARCODE SCANNER` + "\n" +
+										`  * '113' - INDUSTRIAL METAL DETECTOR` + "\n" +
+										`  * '114' - INDUSTRIAL NETWORK EQUIPMENT` + "\n" +
+										`  * '115' - INDUSTRIAL THIN CLIENT` + "\n" +
+										`  * '116' - INDUSTRIAL THIN CLIENT GATEWAY` + "\n" +
+										`  * '117' - INDUSTRIAL WIRELESS` + "\n" +
+										`  * '118' - INDUSTRIAL WORKSTATION` + "\n" +
+										`  * '119' - INSPECTION SYSTEM` + "\n" +
+										`  * '120' - INTERACTIVE VOICE RESPONSE` + "\n" +
+										`  * '121' - INTERCOM GATEWAY` + "\n" +
+										`  * '122' - IOT CONTROLLER` + "\n" +
+										`  * '123' - LOCK BOX` + "\n" +
+										`  * '124' - MACHINERY HEALTH ANALYZER` + "\n" +
+										`  * '125' - MAILING SYSTEM` + "\n" +
+										`  * '126' - MEDIA GATEWAY` + "\n" +
+										`  * '127' - MEDIA PLAYER` + "\n" +
+										`  * '128' - MEDIA STREAMER` + "\n" +
+										`  * '129' - MICROSCOPE` + "\n" +
+										`  * '130' - MOBILE COMPUTER` + "\n" +
+										`  * '131' - MOTOR STARTER` + "\n" +
+										`  * '132' - MUSICAL INSTRUMENT` + "\n" +
+										`  * '133' - OPC SERVER` + "\n" +
+										`  * '134' - ORDER FULFILLMENT SYSTEM` + "\n" +
+										`  * '135' - OT DEVICE` + "\n" +
+										`  * '136' - OT SERVER` + "\n" +
+										`  * '137' - PA SYSTEM` + "\n" +
+										`  * '138' - PAYMENT KIOSK` + "\n" +
+										`  * '139' - PHYSICAL SECURITY PLATFORM` + "\n" +
+										`  * '140' - POINT OF SALE` + "\n" +
+										`  * '141' - POINT OF SALE GATEWAY` + "\n" +
+										`  * '142' - POWER DISTRIBUTION UNIT` + "\n" +
+										`  * '143' - POWER DISTRIBUTION UNIT GATEWAY` + "\n" +
+										`  * '144' - POWER SUPPLY` + "\n" +
+										`  * '145' - PRINT SERVER` + "\n" +
+										`  * '146' - PROJECTOR` + "\n" +
+										`  * '147' - RADIO` + "\n" +
+										`  * '148' - RADIO REPEATER` + "\n" +
+										`  * '149' - RECORDING SERVER` + "\n" +
+										`  * '150' - REPORTING SERVER` + "\n" +
+										`  * '151' - ROOM AUTOMATION STATION` + "\n" +
+										`  * '152' - ROOM DISPLAY` + "\n" +
+										`  * '153' - RTLS GATEWAY` + "\n" +
+										`  * '154' - SAFETY SYSTEM` + "\n" +
+										`  * '155' - SCADA CLIENT` + "\n" +
+										`  * '156' - SCREEN SHARE` + "\n" +
+										`  * '157' - SECURITY XRAY SCANNER` + "\n" +
+										`  * '158' - SENSOR` + "\n" +
+										`  * '159' - SERIAL TO ETHERNET GATEWAY` + "\n" +
+										`  * '160' - SERVICE TROLLEY` + "\n" +
+										`  * '161' - SMART BOARD` + "\n" +
+										`  * '162' - SMART HOME` + "\n" +
+										`  * '163' - SMART LIGHT` + "\n" +
+										`  * '164' - SMART LIGHT GATEWAY` + "\n" +
+										`  * '165' - SMART LOCK CONTROLLER` + "\n" +
+										`  * '166' - SMARTPHONE` + "\n" +
+										`  * '167' - SMARTWATCH` + "\n" +
+										`  * '168' - SOLAR ENERGY` + "\n" +
+										`  * '169' - TIME CLOCK GATEWAY` + "\n" +
+										`  * '170' - VIDEO CONFERENCE GATEWAY` + "\n" +
+										`  * '171' - VIDEO DECODER` + "\n" +
+										`  * '172' - VIDEO ENCODER` + "\n" +
+										`  * '173' - VIDEO SURVEILLANCE DEVICE` + "\n" +
+										`  * '174' - VOIP ADAPTER` + "\n" +
+										`  * '175' - VOIP PHONE GATEWAY` + "\n" +
+										`  * '176' - WATER SYSTEM` + "\n" +
+										`  * '177' - WIRELESS PHONE` + "\n" +
+										`  * '178' - WIRELESS PHONE GATEWAY` + "\n" +
+										`  * '1001' - OTHER OT`,
+								},
+								"assigned_deployment": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
+								"assigned_deployment_id": schema.StringAttribute{
+									Computed: true,
+								},
+								"break_glass_activated": schema.BoolAttribute{
+									Computed: true,
+								},
+								"cloud_connector_version": schema.StringAttribute{
+									Computed: true,
+								},
+								"deploymenta_cluster_id": schema.StringAttribute{
+									Computed: true,
+								},
+								"deployments_cluster": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
+								"deployments_cluster_source": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '1' - System` + "\n" +
+										`* '2' - User` + "\n" +
+										`* '3' - Domain` + "\n" +
+										`* '4' - Subnet` + "\n" +
+										`* '5' - None` + "\n" +
+										`* '6' - N/A`,
+								},
+								"domain": schema.StringAttribute{
+									Computed: true,
+								},
+								"enforcement_method": schema.Int64Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible values:` + "\n" +
+										`  * '1' - Linux IP Tables` + "\n" +
+										`  * '2' - Linux NF Tables` + "\n" +
+										`  * '3' - Windows Firewall` + "\n" +
+										`  * '4' - Windows WFP`,
+								},
+								"environment_group": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
+								"external_device_id": schema.StringAttribute{
+									Computed: true,
+								},
+								"fqdn": schema.StringAttribute{
+									Computed: true,
+								},
+								"has_dns": schema.BoolAttribute{
+									Computed: true,
+								},
+								"health_state": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"health_issues_list": schema.ListNestedAttribute{
+											Computed: true,
+											NestedObject: schema.NestedAttributeObject{
+												Attributes: map[string]schema.Attribute{
+													"details": schema.StringAttribute{
+														Computed: true,
+													},
+													"issue_code": schema.Int32Attribute{
+														Computed: true,
+														MarkdownDescription: `* '0' - Unspecified` + "\n" +
+															`* '1' - Unknown` + "\n" +
+															`* '2' - Access Denied` + "\n" +
+															`* '3' - IO Device Issue` + "\n" +
+															`* '4' - DotNet 3.5` + "\n" +
+															`* '5' - WMI Corrupted` + "\n" +
+															`* '6' - URL Filtering` + "\n" +
+															`* '7' - Out of Space` + "\n" +
+															`* '8' - Unsupported HMAC` + "\n" +
+															`* '9' - Unsupported Encryption` + "\n" +
+															`* '10' - Setup Script Failed` + "\n" +
+															`* '11' - Slow MFA` + "\n" +
+															`* '12' - Unexpted GPO Rules` + "\n" +
+															`* '13' - Zero Networks GPO Rule Mismatch` + "\n" +
+															`* '14' - Audit Mismatch` + "\n" +
+															`* '15' - Asset ID Mismatch` + "\n" +
+															`* '16' - Unsupported HTTP Version` + "\n" +
+															`* '17' - Registry Marked for Deletion` + "\n" +
+															`* '18' - Unable to add to automation group` + "\n" +
+															`* '19' - Incorrect Username or Password` + "\n" +
+															`* '20' - RPC Open Source Installed` + "\n" +
+															`* '21' - Timeout during initialization` + "\n" +
+															`* '22' - Data collection timeout` + "\n" +
+															`* '23' - Not in Sudoers` + "\n" +
+															`* '24' - Invalid SSH Key` + "\n" +
+															`* '25' - Events Unavailable` + "\n" +
+															`* '26' - SSH Password Incorrect` + "\n" +
+															`* '27' - SSH Password Expired` + "\n" +
+															`* '28' - Segmneted Users not found` + "\n" +
+															`* '29' - Unsupported Python Versions` + "\n" +
+															`* '30' - Cound not query segmented users` + "\n" +
+															`* '31' - Switch unreachable` + "\n" +
+															`* '32' - Switch communication issue` + "\n" +
+															`* '33' - Interface protection resource exceeded` + "\n" +
+															`* '34' - Unsupported Package Manager` + "\n" +
+															`* '35' - Firewall disabled by GPO` + "\n" +
+															`* '36' - Linux firewall logs oversized` + "\n" +
+															`* '1000' - First blocker issue code` + "\n" +
+															`* '1001' - Cluster node ipv6 disabled` + "\n" +
+															`* '1002' - Local rules merge disallowed`,
+													},
+												},
+											},
+										},
+										"health_status": schema.Int32Attribute{
+											Computed: true,
+											MarkdownDescription: `* '0' - Unspecified` + "\n" +
+												`* '1' - Healthy` + "\n" +
+												`* '2' - Error` + "\n" +
+												`* '3' - Warning` + "\n" +
+												`* '4' - N/A` + "\n" +
+												`* '5' - Retrying` + "\n" +
+												`* '6' - Blocker`,
+										},
+									},
+								},
+								"id": schema.StringAttribute{
+									Computed: true,
+								},
+								"identity_protect_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"identity_protected_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"identity_protection_state": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '0' - Unspecified` + "\n" +
+										`* '1' - Unsegmented` + "\n" +
+										`* '2' - Unsegmenting` + "\n" +
+										`* '3' - Segmented` + "\n" +
+										`* '4' - Segmenting` + "\n" +
+										`* '5' - Learning until` + "\n" +
+										`* '6' - forced_unprotected` + "\n" +
+										`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+										`* '8' - Segmented' - Due to Policy` + "\n" +
+										`* '9' - Segmenting- Due to Policy` + "\n" +
+										`* '10' - Learning until' - Due to Policy` + "\n" +
+										`* '11' - Learning done` + "\n" +
+										`* '12' - Learning done- Due to Policy` + "\n" +
+										`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+										`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+								},
+								"inactive_reason": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '1' - Duplicated in asset repository` + "\n" +
+										`* '2' - Manually set as inactive` + "\n" +
+										`* '3' - None` + "\n" +
+										`* '4' - Disabled in asset repository` + "\n" +
+										`* '5' - Inactive in asset repository` + "\n" +
+										`* '6' - Deleted in asset repository`,
+								},
+								"inactive_since": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"ip_space": schema.Int64Attribute{
+									Computed: true,
+								},
+								"ip_v4_addresses": schema.ListAttribute{
+									Computed:    true,
+									ElementType: types.StringType,
+								},
+								"ip_v6_addresses": schema.ListAttribute{
+									Computed:    true,
+									ElementType: types.StringType,
+								},
+								"is_ip_sec_configured": schema.BoolAttribute{
+									Computed: true,
+								},
+								"is_quarantined": schema.BoolAttribute{
+									Computed: true,
+								},
+								"last_logon": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"manufacturer": schema.StringAttribute{
+									Computed: true,
+								},
+								"name": schema.StringAttribute{
+									Computed: true,
+								},
+								"operating_system": schema.StringAttribute{
+									Computed: true,
+								},
+								"os_type": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible osType:` + "\n" +
+										`  * '1' - Unmanagable` + "\n" +
+										`  * '2' - Windows` + "\n" +
+										`  * '3' - Linux` + "\n" +
+										`  * '4' - Mac`,
+								},
+								"ot_locattion": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"interface_name": schema.StringAttribute{
+											Computed: true,
+										},
+										"name": schema.StringAttribute{
+											Computed: true,
+										},
+										"switch_id": schema.StringAttribute{
+											Computed: true,
+										},
+									},
+								},
+								"outbound_restriction": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '1' - No restrictions` + "\n" +
+										`* '2' - Internal Restricted` + "\n" +
+										`* '3' - External Restricted` + "\n" +
+										`* '4' - Internal and External Restricted` + "\n" +
+										`* '5' - No applicable`,
+								},
+								"password_update_time": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"preferred_deployment": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"id": schema.StringAttribute{
+											Computed:    true,
+											Description: `EntityId`,
+										},
+										"name": schema.StringAttribute{
+											Computed:    true,
+											Description: `Entity Name`,
+										},
+									},
+								},
+								"preferred_deployment_id": schema.StringAttribute{
+									Computed: true,
+								},
+								"principal_name": schema.StringAttribute{
+									Computed: true,
+								},
+								"protect_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"protected_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"protection_state": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '0' - Unspecified` + "\n" +
+										`* '1' - Unsegmented` + "\n" +
+										`* '2' - Unsegmenting` + "\n" +
+										`* '3' - Segmented` + "\n" +
+										`* '4' - Segmenting` + "\n" +
+										`* '5' - Learning until` + "\n" +
+										`* '6' - forced_unprotected` + "\n" +
+										`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+										`* '8' - Segmented' - Due to Policy` + "\n" +
+										`* '9' - Segmenting- Due to Policy` + "\n" +
+										`* '10' - Learning until' - Due to Policy` + "\n" +
+										`* '11' - Learning done` + "\n" +
+										`* '12' - Learning done- Due to Policy` + "\n" +
+										`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+										`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+								},
+								"purdue_level": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `Purdue Level:` + "\n" +
+										`  * '0' - Unspecified` + "\n" +
+										`  * '1' - Level 0` + "\n" +
+										`  * '2' - Level 1` + "\n" +
+										`  * '3' - Level 2` + "\n" +
+										`  * '4' - Level 3` + "\n" +
+										`  * '5' - Level 4`,
+								},
+								"rpc_monitored": schema.BoolAttribute{
+									Computed: true,
+								},
+								"rpc_protect_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"rpc_protected_at": schema.Int64Attribute{
+									Computed:    true,
+									Description: `Epoch Millis`,
+								},
+								"rpc_protection_state": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `* '0' - Unspecified` + "\n" +
+										`* '1' - Unsegmented` + "\n" +
+										`* '2' - Unsegmenting` + "\n" +
+										`* '3' - Segmented` + "\n" +
+										`* '4' - Segmenting` + "\n" +
+										`* '5' - Learning until` + "\n" +
+										`* '6' - forced_unprotected` + "\n" +
+										`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+										`* '8' - Segmented' - Due to Policy` + "\n" +
+										`* '9' - Segmenting- Due to Policy` + "\n" +
+										`* '10' - Learning until' - Due to Policy` + "\n" +
+										`* '11' - Learning done` + "\n" +
+										`* '12' - Learning done- Due to Policy` + "\n" +
+										`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+										`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+										`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+										`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+										`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+								},
+								"source": schema.Int32Attribute{
+									Computed: true,
+									MarkdownDescription: `Possible asset sources:` + "\n" +
+										`  * '0' - Unspecified` + "\n" +
+										`  * '1' - Access portal` + "\n" +
+										`  * '2' - SSP` + "\n" +
+										`  * '3' - Active directory` + "\n" +
+										`  * '4' - Custom` + "\n" +
+										`  * '5' - System` + "\n" +
+										`  * '6' - Ansible` + "\n" +
+										`  * '7' - Manual OT/IoT` + "\n" +
+										`  * '8' - Workgroup` + "\n" +
+										`  * '9' - Azure active directory` + "\n" +
+										`  * '10' - Azure` + "\n" +
+										`  * '11' - AWS` + "\n" +
+										`  * '12' - GCP` + "\n" +
+										`  * '13' - Tag` + "\n" +
+										`  * '14' - Jamf` + "\n" +
+										`  * '15' - Manual Linux` + "\n" +
+										`  * '16' - IBM cloud` + "\n" +
+										`  * '17' - Oracle cloud` + "\n" +
+										`  * '18' - VMware cloud` + "\n" +
+										`  * '19' - Alibaba cloud` + "\n" +
+										`  * '20' - Lumen cloud` + "\n" +
+										`  * '21' - OVH cloud` + "\n" +
+										`  * '22' - Connect` + "\n" +
+										`  * '23' - AI` + "\n" +
+										`  * '24' - SNOW` + "\n" +
+										`  * '25' - Google Workspace` + "\n" +
+										`  * '26' - OU` + "\n" +
+										`  * '27' - Environment` + "\n" +
+										`  * '28' - Conditional` + "\n" +
+										`  * '29' - Claroty OT` + "\n" +
+										`  * '30' - Manual Mac`,
+								},
+								"state": schema.SingleNestedAttribute{
+									Computed: true,
+									Attributes: map[string]schema.Attribute{
+										"asset_id": schema.StringAttribute{
+											Computed: true,
+										},
+										"identity_protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"identity_protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"identity_protection_state": schema.Int64Attribute{
+											Computed: true,
+											MarkdownDescription: `Possible asset status:` + "\n" +
+												`  * '0' - Unspecified` + "\n" +
+												`  * '1' - Unsegmented` + "\n" +
+												`  * '2' - Unspecified` + "\n" +
+												`  * '3' - Segmented` + "\n" +
+												`  * '4' - Unsegmented` + "\n" +
+												`  * '5' - In learning` + "\n" +
+												`  * '6' - Forced Unprotected` + "\n" +
+												`  * '7' - Forced Removing Protection` + "\n" +
+												`  * '8' - Protected Due To Policy` + "\n" +
+												`  * '9' - Applying Protection Due To Policy` + "\n" +
+												`  * '10' - In learning Due To Policy` + "\n" +
+												`  * '11' - Learning Done` + "\n" +
+												`  * '12' - In learning Due To Policy Done`,
+										},
+										"is_asset_connected": schema.BoolAttribute{
+											Computed: true,
+										},
+										"last_connected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"last_disconnected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"protection_state": schema.Int32Attribute{
+											Computed: true,
+											MarkdownDescription: `* '0' - Unspecified` + "\n" +
+												`* '1' - Unsegmented` + "\n" +
+												`* '2' - Unsegmenting` + "\n" +
+												`* '3' - Segmented` + "\n" +
+												`* '4' - Segmenting` + "\n" +
+												`* '5' - Learning until` + "\n" +
+												`* '6' - forced_unprotected` + "\n" +
+												`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+												`* '8' - Segmented' - Due to Policy` + "\n" +
+												`* '9' - Segmenting- Due to Policy` + "\n" +
+												`* '10' - Learning until' - Due to Policy` + "\n" +
+												`* '11' - Learning done` + "\n" +
+												`* '12' - Learning done- Due to Policy` + "\n" +
+												`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+												`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+												`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+												`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+										},
+										"rpc_protect_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"rpc_protected_at": schema.Int64Attribute{
+											Computed:    true,
+											Description: `Epoch Millis`,
+										},
+										"rpc_protection_state": schema.Int32Attribute{
+											Computed: true,
+											MarkdownDescription: `* '0' - Unspecified` + "\n" +
+												`* '1' - Unsegmented` + "\n" +
+												`* '2' - Unsegmenting` + "\n" +
+												`* '3' - Segmented` + "\n" +
+												`* '4' - Segmenting` + "\n" +
+												`* '5' - Learning until` + "\n" +
+												`* '6' - forced_unprotected` + "\n" +
+												`* '7' - Unsegmenting' - Due to Policy` + "\n" +
+												`* '8' - Segmented' - Due to Policy` + "\n" +
+												`* '9' - Segmenting- Due to Policy` + "\n" +
+												`* '10' - Learning until' - Due to Policy` + "\n" +
+												`* '11' - Learning done` + "\n" +
+												`* '12' - Learning done- Due to Policy` + "\n" +
+												`* '13' - APPLYING_QUEUE_WITH_BLOCKS` + "\n" +
+												`* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '15' - QUEUED_WITH_BLOCKS` + "\n" +
+												`* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY` + "\n" +
+												`* '17' - QUEUED_WITH_BLOCKS_DONE` + "\n" +
+												`* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE`,
+										},
+									},
+								},
+								"switch_location_overridden": schema.BoolAttribute{
+									Computed: true,
+								},
+							},
 						},
-						"name": schema.StringAttribute{
-							Computed:    true,
-							Description: `Entity Name`,
+						"id_name_pair": schema.SingleNestedAttribute{
+							Computed: true,
+							Attributes: map[string]schema.Attribute{
+								"id": schema.StringAttribute{
+									Computed:    true,
+									Description: `EntityId`,
+								},
+								"name": schema.StringAttribute{
+									Computed:    true,
+									Description: `Entity Name`,
+								},
+							},
 						},
 					},
 				},
 			},
+			"remote_entity_successor": schema.SingleNestedAttribute{
+				Computed: true,
+				Attributes: map[string]schema.Attribute{
+					"id": schema.StringAttribute{
+						Computed:    true,
+						Description: `EntityId`,
+					},
+					"name": schema.StringAttribute{
+						Computed:    true,
+						Description: `Entity Name`,
+					},
+				},
+			},
 			"review_mode": schema.Int32Attribute{
+				Computed: true,
 				Optional: true,
 				MarkdownDescription: `* 1 - Apply Immediately` + "\n" +
 					`* 2 - Review` + "\n" +
@@ -1383,6 +2383,16 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 				Validators: []validator.Int32{
 					int32validator.OneOf(1, 2, 3),
 				},
+			},
+			"rule_class": schema.Int32Attribute{
+				Computed: true,
+				MarkdownDescription: `* '1' - Trivial` + "\n" +
+					`* '2' - Permissive` + "\n" +
+					`* '3' - Privileged` + "\n" +
+					`* '4' - Critical` + "\n" +
+					`* '5' - System` + "\n" +
+					`* '6' - Preventative` + "\n" +
+					`* '8' - Dangerous`,
 			},
 			"rule_review": schema.SingleNestedAttribute{
 				Computed: true,
@@ -1407,20 +2417,28 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 					`    OTHER = 7` + "\n" +
 					`}`,
 			},
-			"ruleclass": schema.Int32Attribute{
-				Computed: true,
-				MarkdownDescription: `* '1' - Trivial` + "\n" +
-					`* '2' - Permissive` + "\n" +
-					`* '3' - Privileged` + "\n" +
-					`* '4' - Critical` + "\n" +
-					`* '5' - System` + "\n" +
-					`* '6' - Preventative` + "\n" +
-					`* '8' - Dangerous`,
-			},
 			"services_list": schema.ListAttribute{
 				Computed:    true,
 				Optional:    true,
 				ElementType: types.StringType,
+			},
+			"skip_audit": schema.BoolAttribute{
+				Computed: true,
+			},
+			"src_users_infos": schema.ListNestedAttribute{
+				Computed: true,
+				NestedObject: schema.NestedAttributeObject{
+					Attributes: map[string]schema.Attribute{
+						"id": schema.StringAttribute{
+							Computed:    true,
+							Description: `EntityId`,
+						},
+						"name": schema.StringAttribute{
+							Computed:    true,
+							Description: `Entity Name`,
+						},
+					},
+				},
 			},
 			"src_users_list": schema.ListNestedAttribute{
 				Computed: true,
@@ -1462,6 +2480,15 @@ func (r *InboundRuleResource) Schema(ctx context.Context, req resource.SchemaReq
 						7,
 					),
 				},
+			},
+			"suggestion_reason": schema.StringAttribute{
+				Computed: true,
+			},
+			"suggestion_type": schema.Int32Attribute{
+				Computed: true,
+				MarkdownDescription: `* '0' - Unspecified` + "\n" +
+					`* '1' - Create` + "\n" +
+					`* '2' - Delete`,
 			},
 			"updated_at": schema.Int64Attribute{
 				Computed:    true,
@@ -1556,43 +2583,6 @@ func (r *InboundRuleResource) Create(ctx context.Context, req resource.CreateReq
 		return
 	}
 	resp.Diagnostics.Append(data.RefreshFromSharedRuleResponse(ctx, res.RuleResponse)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-	request1, request1Diags := data.ToOperationsInboundRuleGetRequest(ctx)
-	resp.Diagnostics.Append(request1Diags...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-	res1, err := r.client.RulesInbound.InboundRuleGet(ctx, *request1)
-	if err != nil {
-		resp.Diagnostics.AddError("failure to invoke API", err.Error())
-		if res1 != nil && res1.RawResponse != nil {
-			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
-		}
-		return
-	}
-	if res1 == nil {
-		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
-		return
-	}
-	if res1.StatusCode != 200 {
-		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
-		return
-	}
-	if !(res1.RuleItem != nil) {
-		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res1.RawResponse))
-		return
-	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res1.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return
@@ -1707,43 +2697,6 @@ func (r *InboundRuleResource) Update(ctx context.Context, req resource.UpdateReq
 		return
 	}
 	resp.Diagnostics.Append(data.RefreshFromSharedRuleResponse(ctx, res.RuleResponse)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-
-	resp.Diagnostics.Append(refreshPlan(ctx, plan, &data)...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-	request1, request1Diags := data.ToOperationsInboundRuleGetRequest(ctx)
-	resp.Diagnostics.Append(request1Diags...)
-
-	if resp.Diagnostics.HasError() {
-		return
-	}
-	res1, err := r.client.RulesInbound.InboundRuleGet(ctx, *request1)
-	if err != nil {
-		resp.Diagnostics.AddError("failure to invoke API", err.Error())
-		if res1 != nil && res1.RawResponse != nil {
-			resp.Diagnostics.AddError("unexpected http request/response", debugResponse(res1.RawResponse))
-		}
-		return
-	}
-	if res1 == nil {
-		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res1))
-		return
-	}
-	if res1.StatusCode != 200 {
-		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res1.StatusCode), debugResponse(res1.RawResponse))
-		return
-	}
-	if !(res1.RuleItem != nil) {
-		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res1.RawResponse))
-		return
-	}
-	resp.Diagnostics.Append(data.RefreshFromSharedRuleItem(ctx, res1.RuleItem)...)
 
 	if resp.Diagnostics.HasError() {
 		return

@@ -15,6 +15,7 @@ import (
 type EnforcementMethod int64
 
 const (
+	EnforcementMethodZero  EnforcementMethod = 0
 	EnforcementMethodOne   EnforcementMethod = 1
 	EnforcementMethodTwo   EnforcementMethod = 2
 	EnforcementMethodThree EnforcementMethod = 3
@@ -30,6 +31,8 @@ func (e *EnforcementMethod) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
+	case 0:
+		fallthrough
 	case 1:
 		fallthrough
 	case 2:

@@ -22,6 +22,7 @@ import (
 type EnforcementSource int
 
 const (
+	EnforcementSourceZero   EnforcementSource = 0
 	EnforcementSourceOne    EnforcementSource = 1
 	EnforcementSourceTwo    EnforcementSource = 2
 	EnforcementSourceThree  EnforcementSource = 3
@@ -45,6 +46,8 @@ func (e *EnforcementSource) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
+	case 0:
+		fallthrough
 	case 1:
 		fallthrough
 	case 2:

@@ -19,7 +19,7 @@ func (r *CustomGroupResourceModel) RefreshFromSharedCustomGroup(ctx context.Cont
 		if resp.AddedBy == nil {
 			r.AddedBy = nil
 		} else {
-			r.AddedBy = &tfTypes.CustomGroupAddedBy{}
+			r.AddedBy = &tfTypes.AddedBy{}
 			r.AddedBy.ID = types.StringPointerValue(resp.AddedBy.ID)
 			r.AddedBy.Name = types.StringPointerValue(resp.AddedBy.Name)
 		}
@@ -118,29 +118,39 @@ func (r *CustomGroupResourceModel) ToSharedCustomGroupBody(ctx context.Context) 
 	for membersIDIndex := range r.MembersID {
 		membersID = append(membersID, r.MembersID[membersIDIndex].ValueString())
 	}
-	var conditions *shared.Conditions
+	var conditions *shared.GroupConditions
 	if r.Conditions != nil {
+		domains := make([]string, 0, len(r.Conditions.Domains))
+		for domainsIndex := range r.Conditions.Domains {
+			domains = append(domains, r.Conditions.Domains[domainsIndex].ValueString())
+		}
 		namePatterns := make([]string, 0, len(r.Conditions.NamePatterns))
 		for namePatternsIndex := range r.Conditions.NamePatterns {
 			namePatterns = append(namePatterns, r.Conditions.NamePatterns[namePatternsIndex].ValueString())
-		}
-		osTypes := make([]int64, 0, len(r.Conditions.OsTypes))
-		for osTypesIndex := range r.Conditions.OsTypes {
-			osTypes = append(osTypes, r.Conditions.OsTypes[osTypesIndex].ValueInt64())
 		}
 		osNamePatterns := make([]string, 0, len(r.Conditions.OsNamePatterns))
 		for osNamePatternsIndex := range r.Conditions.OsNamePatterns {
 			osNamePatterns = append(osNamePatterns, r.Conditions.OsNamePatterns[osNamePatternsIndex].ValueString())
 		}
-		assetTypes := make([]int64, 0, len(r.Conditions.AssetTypes))
-		for assetTypesIndex := range r.Conditions.AssetTypes {
-			assetTypes = append(assetTypes, r.Conditions.AssetTypes[assetTypesIndex].ValueInt64())
+		osTypes := make([]shared.OsType, 0, len(r.Conditions.OsTypes))
+		for _, osTypesItem := range r.Conditions.OsTypes {
+			osTypes = append(osTypes, shared.OsType(int(osTypesItem.ValueInt32())))
 		}
-		conditions = &shared.Conditions{
+		assetTypes := make([]shared.AssetType, 0, len(r.Conditions.AssetTypes))
+		for _, assetTypesItem := range r.Conditions.AssetTypes {
+			assetTypes = append(assetTypes, shared.AssetType(int(assetTypesItem.ValueInt32())))
+		}
+		ipBuiltins := make([]string, 0, len(r.Conditions.IPBuiltins))
+		for ipBuiltinsIndex := range r.Conditions.IPBuiltins {
+			ipBuiltins = append(ipBuiltins, r.Conditions.IPBuiltins[ipBuiltinsIndex].ValueString())
+		}
+		conditions = &shared.GroupConditions{
+			Domains:        domains,
 			NamePatterns:   namePatterns,
-			OsTypes:        osTypes,
 			OsNamePatterns: osNamePatterns,
+			OsTypes:        osTypes,
 			AssetTypes:     assetTypes,
+			IPBuiltins:     ipBuiltins,
 		}
 	}
 	out := shared.CustomGroupBody{

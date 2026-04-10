@@ -6,9 +6,11 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-type Conditions struct {
-	AssetTypes     []types.Int64  `tfsdk:"asset_types"`
+type GroupConditions struct {
+	AssetTypes     []types.Int32  `tfsdk:"asset_types"`
+	Domains        []types.String `tfsdk:"domains"`
+	IPBuiltins     []types.String `tfsdk:"ip_builtins"`
 	NamePatterns   []types.String `tfsdk:"name_patterns"`
 	OsNamePatterns []types.String `tfsdk:"os_name_patterns"`
-	OsTypes        []types.Int64  `tfsdk:"os_types"`
+	OsTypes        []types.Int32  `tfsdk:"os_types"`
 }

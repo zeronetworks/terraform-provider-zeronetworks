@@ -2,50 +2,23 @@
 
 package shared
 
-import (
-	"encoding/json"
-	"fmt"
-)
-
-// ProtocolType - 6=TCP, 17=UDP
-type ProtocolType int
-
-const (
-	ProtocolTypeSix       ProtocolType = 6
-	ProtocolTypeSeventeen ProtocolType = 17
-)
-
-func (e ProtocolType) ToPointer() *ProtocolType {
-	return &e
-}
-func (e *ProtocolType) UnmarshalJSON(data []byte) error {
-	var v int
-	if err := json.Unmarshal(data, &v); err != nil {
-		return err
-	}
-	switch v {
-	case 6:
-		fallthrough
-	case 17:
-		*e = ProtocolType(v)
-		return nil
-	default:
-		return fmt.Errorf("invalid value for ProtocolType: %v", v)
-	}
-}
-
 type ReactivePolicy struct {
 	AdditionalPortsList []PortsList `json:"additionalPortsList,omitempty"`
+	ChangeTicket        *string     `json:"changeTicket,omitempty"`
+	// * '0' - Unspecified
+	// * '1' - Unmonitored Policies
+	// * '2' - Default MFA Policies
+	// * '3' - Senstive Tools and Processes
+	//
+	Context *ReactivePolicyContext `json:"context,omitempty"`
 	// Epoch Millis
-	CreatedAt       *int64      `json:"createdAt,omitempty"`
-	CreatedBy       *string     `json:"createdBy,omitempty"`
-	CreatedByName   *string     `json:"createdByName,omitempty"`
-	ChangeTicket    *string     `json:"changeTicket,omitempty"`
-	Context         *int64      `json:"context,omitempty"`
-	Description     *string     `json:"description,omitempty"`
-	DstEntityInfo   *IDNamePair `json:"dstEntityInfo,omitempty"`
-	DstPort         *string     `json:"dstPort,omitempty"`
-	DstProcessNames []string    `json:"dstProcessNames,omitempty"`
+	CreatedAt       *int64   `json:"createdAt,omitempty"`
+	CreatedBy       *string  `json:"createdBy,omitempty"`
+	CreatedByName   *string  `json:"createdByName,omitempty"`
+	DstEntityInfo   *Asset   `json:"dstEntityInfo,omitempty"`
+	Description     *string  `json:"description,omitempty"`
+	DstPort         *string  `json:"dstPort,omitempty"`
+	DstProcessNames []string `json:"dstProcessNames,omitempty"`
 	// * '1' - ReactivePolicy
 	// * '2' - Automated
 	// * '3' - AccessPortal
@@ -69,9 +42,9 @@ type ReactivePolicy struct {
 	MfaMethods                     []MfaMethods                 `json:"mfaMethods,omitempty"`
 	OverrideBuiltins               *bool                        `json:"overrideBuiltins,omitempty"`
 	// 6=TCP, 17=UDP
-	ProtocolType                   *ProtocolType `json:"protocolType,omitempty"`
-	RestrictToOriginatedUser       *bool         `json:"restrictToOriginatedUser,omitempty"`
-	RestrictLoginToOriginatingUser *bool         `json:"restrictLoginToOriginatingUser,omitempty"`
+	ProtocolType                   *ProtocolTypeMFA `json:"protocolType,omitempty"`
+	RestrictToOriginatedUser       *bool            `json:"restrictToOriginatedUser,omitempty"`
+	RestrictLoginToOriginatingUser *bool            `json:"restrictLoginToOriginatingUser,omitempty"`
 	// * '1' - Hour
 	// * '2' - Day
 	// * '3' - Week
@@ -82,7 +55,7 @@ type ReactivePolicy struct {
 	// * '8' - 8 hours
 	//
 	RuleDuration    *RuleDuration `json:"ruleDuration,omitempty"`
-	SrcEntityInfos  []IDNamePair  `json:"srcEntityInfos,omitempty"`
+	SrcEntityInfos  []Asset       `json:"srcEntityInfos,omitempty"`
 	SrcProcessNames []string      `json:"srcProcessNames,omitempty"`
 	SrcUserInfos    []IDNamePair  `json:"srcUserInfos,omitempty"`
 	// * '1' - Enabled
@@ -102,6 +75,20 @@ func (r *ReactivePolicy) GetAdditionalPortsList() []PortsList {
 		return nil
 	}
 	return r.AdditionalPortsList
+}
+
+func (r *ReactivePolicy) GetChangeTicket() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ChangeTicket
+}
+
+func (r *ReactivePolicy) GetContext() *ReactivePolicyContext {
+	if r == nil {
+		return nil
+	}
+	return r.Context
 }
 
 func (r *ReactivePolicy) GetCreatedAt() *int64 {
@@ -125,18 +112,11 @@ func (r *ReactivePolicy) GetCreatedByName() *string {
 	return r.CreatedByName
 }
 
-func (r *ReactivePolicy) GetChangeTicket() *string {
+func (r *ReactivePolicy) GetDstEntityInfo() *Asset {
 	if r == nil {
 		return nil
 	}
-	return r.ChangeTicket
-}
-
-func (r *ReactivePolicy) GetContext() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.Context
+	return r.DstEntityInfo
 }
 
 func (r *ReactivePolicy) GetDescription() *string {
@@ -144,13 +124,6 @@ func (r *ReactivePolicy) GetDescription() *string {
 		return nil
 	}
 	return r.Description
-}
-
-func (r *ReactivePolicy) GetDstEntityInfo() *IDNamePair {
-	if r == nil {
-		return nil
-	}
-	return r.DstEntityInfo
 }
 
 func (r *ReactivePolicy) GetDstPort() *string {
@@ -230,7 +203,7 @@ func (r *ReactivePolicy) GetOverrideBuiltins() *bool {
 	return r.OverrideBuiltins
 }
 
-func (r *ReactivePolicy) GetProtocolType() *ProtocolType {
+func (r *ReactivePolicy) GetProtocolType() *ProtocolTypeMFA {
 	if r == nil {
 		return nil
 	}
@@ -258,7 +231,7 @@ func (r *ReactivePolicy) GetRuleDuration() *RuleDuration {
 	return r.RuleDuration
 }
 
-func (r *ReactivePolicy) GetSrcEntityInfos() []IDNamePair {
+func (r *ReactivePolicy) GetSrcEntityInfos() []Asset {
 	if r == nil {
 		return nil
 	}

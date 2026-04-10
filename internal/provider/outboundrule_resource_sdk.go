@@ -27,12 +27,12 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		if resp.ApprovedBy == nil {
 			r.ApprovedBy = nil
 		} else {
-			r.ApprovedBy = &tfTypes.IDNamePair1{}
+			r.ApprovedBy = &tfTypes.IDNamePair{}
 			r.ApprovedBy.ID = types.StringPointerValue(resp.ApprovedBy.ID)
 			r.ApprovedBy.Name = types.StringPointerValue(resp.ApprovedBy.Name)
 		}
 		r.ChangeTicket = types.StringPointerValue(resp.ChangeTicket)
-		r.Context = types.Int32PointerValue(typeconvert.Int64PointerToInt32Pointer(resp.Context))
+		r.Context = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer((*int)(resp.Context)))
 		r.CreatedAt = types.Int64PointerValue(resp.CreatedAt)
 		if resp.CreatedBy == nil {
 			r.CreatedBy = nil
@@ -41,7 +41,7 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 			if resp.CreatedBy.CreatedBy == nil {
 				r.CreatedBy.CreatedBy = nil
 			} else {
-				r.CreatedBy.CreatedBy = &tfTypes.IDNamePair1{}
+				r.CreatedBy.CreatedBy = &tfTypes.IDNamePair{}
 				r.CreatedBy.CreatedBy.ID = types.StringPointerValue(resp.CreatedBy.CreatedBy.ID)
 				r.CreatedBy.CreatedBy.Name = types.StringPointerValue(resp.CreatedBy.CreatedBy.Name)
 			}
@@ -61,25 +61,38 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		if resp.DeletedBy == nil {
 			r.DeletedBy = nil
 		} else {
-			r.DeletedBy = &tfTypes.IDNamePair1{}
+			r.DeletedBy = &tfTypes.IDNamePair{}
 			r.DeletedBy.ID = types.StringPointerValue(resp.DeletedBy.ID)
 			r.DeletedBy.Name = types.StringPointerValue(resp.DeletedBy.Name)
 		}
+		r.DeleteSuggestionRejected = types.BoolPointerValue(resp.DeleteSuggestionRejected)
 		r.Description = types.StringPointerValue(resp.Description)
 		if resp.Direction != nil {
 			r.Direction = types.Int32Value(int32(*resp.Direction))
 		} else {
 			r.Direction = types.Int32Null()
 		}
-		r.ExcludedEntityInfos = []tfTypes.IDNamePair1{}
+		if resp.EnforcementSource != nil {
+			r.EnforcementSource = types.Int32Value(int32(*resp.EnforcementSource))
+		} else {
+			r.EnforcementSource = types.Int32Null()
+		}
+		r.ExcludedEntityInfos = []tfTypes.IDNamePair{}
 
 		for _, excludedEntityInfosItem := range resp.ExcludedEntityInfos {
-			var excludedEntityInfos tfTypes.IDNamePair1
+			var excludedEntityInfos tfTypes.IDNamePair
 
 			excludedEntityInfos.ID = types.StringPointerValue(excludedEntityInfosItem.ID)
 			excludedEntityInfos.Name = types.StringPointerValue(excludedEntityInfosItem.Name)
 
 			r.ExcludedEntityInfos = append(r.ExcludedEntityInfos, excludedEntityInfos)
+		}
+		if resp.ExcludedEntitySuccessor == nil {
+			r.ExcludedEntitySuccessor = nil
+		} else {
+			r.ExcludedEntitySuccessor = &tfTypes.IDNamePair{}
+			r.ExcludedEntitySuccessor.ID = types.StringPointerValue(resp.ExcludedEntitySuccessor.ID)
+			r.ExcludedEntitySuccessor.Name = types.StringPointerValue(resp.ExcludedEntitySuccessor.Name)
 		}
 		r.ExcludedLocalIdsList = make([]types.String, 0, len(resp.ExcludedLocalIdsList))
 		for _, v := range resp.ExcludedLocalIdsList {
@@ -94,10 +107,10 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		}
 		r.IsRejectOnLinux = types.BoolPointerValue(resp.IsRejectOnLinux)
 		r.LocalEntityID = types.StringPointerValue(resp.LocalEntityID)
-		r.LocalEntityInfos = []tfTypes.LocalEntityInfo{}
+		r.LocalEntityInfos = []tfTypes.RuleLocalEntityInfo{}
 
 		for _, localEntityInfosItem := range resp.LocalEntityInfos {
-			var localEntityInfos tfTypes.LocalEntityInfo
+			var localEntityInfos tfTypes.RuleLocalEntityInfo
 
 			if localEntityInfosItem.Asset != nil {
 				localEntityInfos.Asset = &tfTypes.Asset{}
@@ -111,13 +124,41 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 				} else {
 					localEntityInfos.Asset.AssetType = types.Int32Null()
 				}
+				if localEntityInfosItem.Asset.AssignedDeployment == nil {
+					localEntityInfos.Asset.AssignedDeployment = nil
+				} else {
+					localEntityInfos.Asset.AssignedDeployment = &tfTypes.IDNamePair{}
+					localEntityInfos.Asset.AssignedDeployment.ID = types.StringPointerValue(localEntityInfosItem.Asset.AssignedDeployment.ID)
+					localEntityInfos.Asset.AssignedDeployment.Name = types.StringPointerValue(localEntityInfosItem.Asset.AssignedDeployment.Name)
+				}
 				localEntityInfos.Asset.AssignedDeploymentID = types.StringPointerValue(localEntityInfosItem.Asset.AssignedDeploymentID)
 				localEntityInfos.Asset.BreakGlassActivated = types.BoolPointerValue(localEntityInfosItem.Asset.BreakGlassActivated)
+				localEntityInfos.Asset.CloudConnectorVersion = types.StringPointerValue(localEntityInfosItem.Asset.CloudConnectorVersion)
+				localEntityInfos.Asset.DeploymentaClusterID = types.StringPointerValue(localEntityInfosItem.Asset.DeploymentaClusterID)
+				if localEntityInfosItem.Asset.DeploymentsCluster == nil {
+					localEntityInfos.Asset.DeploymentsCluster = nil
+				} else {
+					localEntityInfos.Asset.DeploymentsCluster = &tfTypes.IDNamePair{}
+					localEntityInfos.Asset.DeploymentsCluster.ID = types.StringPointerValue(localEntityInfosItem.Asset.DeploymentsCluster.ID)
+					localEntityInfos.Asset.DeploymentsCluster.Name = types.StringPointerValue(localEntityInfosItem.Asset.DeploymentsCluster.Name)
+				}
+				if localEntityInfosItem.Asset.DeploymentsClusterSource != nil {
+					localEntityInfos.Asset.DeploymentsClusterSource = types.Int32Value(int32(*localEntityInfosItem.Asset.DeploymentsClusterSource))
+				} else {
+					localEntityInfos.Asset.DeploymentsClusterSource = types.Int32Null()
+				}
 				localEntityInfos.Asset.Domain = types.StringPointerValue(localEntityInfosItem.Asset.Domain)
 				if localEntityInfosItem.Asset.EnforcementMethod != nil {
 					localEntityInfos.Asset.EnforcementMethod = types.Int64Value(int64(*localEntityInfosItem.Asset.EnforcementMethod))
 				} else {
 					localEntityInfos.Asset.EnforcementMethod = types.Int64Null()
+				}
+				if localEntityInfosItem.Asset.EnvironmentGroup == nil {
+					localEntityInfos.Asset.EnvironmentGroup = nil
+				} else {
+					localEntityInfos.Asset.EnvironmentGroup = &tfTypes.IDNamePair{}
+					localEntityInfos.Asset.EnvironmentGroup.ID = types.StringPointerValue(localEntityInfosItem.Asset.EnvironmentGroup.ID)
+					localEntityInfos.Asset.EnvironmentGroup.Name = types.StringPointerValue(localEntityInfosItem.Asset.EnvironmentGroup.Name)
 				}
 				localEntityInfos.Asset.ExternalDeviceID = types.StringPointerValue(localEntityInfosItem.Asset.ExternalDeviceID)
 				localEntityInfos.Asset.Fqdn = types.StringPointerValue(localEntityInfosItem.Asset.Fqdn)
@@ -149,13 +190,18 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 				localEntityInfos.Asset.ID = types.StringPointerValue(localEntityInfosItem.Asset.ID)
 				localEntityInfos.Asset.IdentityProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.IdentityProtectAt)
 				localEntityInfos.Asset.IdentityProtectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.IdentityProtectedAt)
-				localEntityInfos.Asset.IdentityProtectionState = types.Int64PointerValue(localEntityInfosItem.Asset.IdentityProtectionState)
+				if localEntityInfosItem.Asset.IdentityProtectionState != nil {
+					localEntityInfos.Asset.IdentityProtectionState = types.Int32Value(int32(*localEntityInfosItem.Asset.IdentityProtectionState))
+				} else {
+					localEntityInfos.Asset.IdentityProtectionState = types.Int32Null()
+				}
 				if localEntityInfosItem.Asset.InactiveReason != nil {
 					localEntityInfos.Asset.InactiveReason = types.Int32Value(int32(*localEntityInfosItem.Asset.InactiveReason))
 				} else {
 					localEntityInfos.Asset.InactiveReason = types.Int32Null()
 				}
 				localEntityInfos.Asset.InactiveSince = types.Int64PointerValue(localEntityInfosItem.Asset.InactiveSince)
+				localEntityInfos.Asset.IPSpace = types.Int64PointerValue(localEntityInfosItem.Asset.IPSpace)
 				localEntityInfos.Asset.IPV4Addresses = make([]types.String, 0, len(localEntityInfosItem.Asset.IPV4Addresses))
 				for _, v := range localEntityInfosItem.Asset.IPV4Addresses {
 					localEntityInfos.Asset.IPV4Addresses = append(localEntityInfos.Asset.IPV4Addresses, types.StringValue(v))
@@ -170,7 +216,11 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 				localEntityInfos.Asset.Manufacturer = types.StringPointerValue(localEntityInfosItem.Asset.Manufacturer)
 				localEntityInfos.Asset.Name = types.StringPointerValue(localEntityInfosItem.Asset.Name)
 				localEntityInfos.Asset.OperatingSystem = types.StringPointerValue(localEntityInfosItem.Asset.OperatingSystem)
-				localEntityInfos.Asset.OsType = types.Int64PointerValue(localEntityInfosItem.Asset.OsType)
+				if localEntityInfosItem.Asset.OsType != nil {
+					localEntityInfos.Asset.OsType = types.Int32Value(int32(*localEntityInfosItem.Asset.OsType))
+				} else {
+					localEntityInfos.Asset.OsType = types.Int32Null()
+				}
 				if localEntityInfosItem.Asset.OtLocattion == nil {
 					localEntityInfos.Asset.OtLocattion = nil
 				} else {
@@ -179,8 +229,19 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 					localEntityInfos.Asset.OtLocattion.Name = types.StringPointerValue(localEntityInfosItem.Asset.OtLocattion.Name)
 					localEntityInfos.Asset.OtLocattion.SwitchID = types.StringPointerValue(localEntityInfosItem.Asset.OtLocattion.SwitchID)
 				}
-				localEntityInfos.Asset.OutboundRestriction = types.Int64PointerValue(localEntityInfosItem.Asset.OutboundRestriction)
+				if localEntityInfosItem.Asset.OutboundRestriction != nil {
+					localEntityInfos.Asset.OutboundRestriction = types.Int32Value(int32(*localEntityInfosItem.Asset.OutboundRestriction))
+				} else {
+					localEntityInfos.Asset.OutboundRestriction = types.Int32Null()
+				}
 				localEntityInfos.Asset.PasswordUpdateTime = types.Int64PointerValue(localEntityInfosItem.Asset.PasswordUpdateTime)
+				if localEntityInfosItem.Asset.PreferredDeployment == nil {
+					localEntityInfos.Asset.PreferredDeployment = nil
+				} else {
+					localEntityInfos.Asset.PreferredDeployment = &tfTypes.IDNamePair{}
+					localEntityInfos.Asset.PreferredDeployment.ID = types.StringPointerValue(localEntityInfosItem.Asset.PreferredDeployment.ID)
+					localEntityInfos.Asset.PreferredDeployment.Name = types.StringPointerValue(localEntityInfosItem.Asset.PreferredDeployment.Name)
+				}
 				localEntityInfos.Asset.PreferredDeploymentID = types.StringPointerValue(localEntityInfosItem.Asset.PreferredDeploymentID)
 				localEntityInfos.Asset.PrincipalName = types.StringPointerValue(localEntityInfosItem.Asset.PrincipalName)
 				localEntityInfos.Asset.ProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.ProtectAt)
@@ -190,44 +251,70 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 				} else {
 					localEntityInfos.Asset.ProtectionState = types.Int32Null()
 				}
-				localEntityInfos.Asset.PurdueLevel = types.Int64PointerValue(localEntityInfosItem.Asset.PurdueLevel)
+				if localEntityInfosItem.Asset.PurdueLevel != nil {
+					localEntityInfos.Asset.PurdueLevel = types.Int32Value(int32(*localEntityInfosItem.Asset.PurdueLevel))
+				} else {
+					localEntityInfos.Asset.PurdueLevel = types.Int32Null()
+				}
 				localEntityInfos.Asset.RPCMonitored = types.BoolPointerValue(localEntityInfosItem.Asset.RPCMonitored)
 				localEntityInfos.Asset.RPCProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.RPCProtectAt)
 				localEntityInfos.Asset.RPCProtectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.RPCProtectedAt)
-				localEntityInfos.Asset.RPCProtectionState = types.Int64PointerValue(localEntityInfosItem.Asset.RPCProtectionState)
+				if localEntityInfosItem.Asset.RPCProtectionState != nil {
+					localEntityInfos.Asset.RPCProtectionState = types.Int32Value(int32(*localEntityInfosItem.Asset.RPCProtectionState))
+				} else {
+					localEntityInfos.Asset.RPCProtectionState = types.Int32Null()
+				}
 				if localEntityInfosItem.Asset.Source != nil {
 					localEntityInfos.Asset.Source = types.Int32Value(int32(*localEntityInfosItem.Asset.Source))
 				} else {
 					localEntityInfos.Asset.Source = types.Int32Null()
 				}
+				if localEntityInfosItem.Asset.State == nil {
+					localEntityInfos.Asset.State = nil
+				} else {
+					localEntityInfos.Asset.State = &tfTypes.State{}
+					localEntityInfos.Asset.State.AssetID = types.StringPointerValue(localEntityInfosItem.Asset.State.AssetID)
+					localEntityInfos.Asset.State.IdentityProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.IdentityProtectAt)
+					localEntityInfos.Asset.State.IdentityProtectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.IdentityProtectedAt)
+					if localEntityInfosItem.Asset.State.IdentityProtectionState != nil {
+						localEntityInfos.Asset.State.IdentityProtectionState = types.Int64Value(int64(*localEntityInfosItem.Asset.State.IdentityProtectionState))
+					} else {
+						localEntityInfos.Asset.State.IdentityProtectionState = types.Int64Null()
+					}
+					localEntityInfos.Asset.State.IsAssetConnected = types.BoolPointerValue(localEntityInfosItem.Asset.State.IsAssetConnected)
+					localEntityInfos.Asset.State.LastConnectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.LastConnectedAt)
+					localEntityInfos.Asset.State.LastDisconnectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.LastDisconnectedAt)
+					localEntityInfos.Asset.State.ProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.ProtectAt)
+					localEntityInfos.Asset.State.ProtectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.ProtectedAt)
+					if localEntityInfosItem.Asset.State.ProtectionState != nil {
+						localEntityInfos.Asset.State.ProtectionState = types.Int32Value(int32(*localEntityInfosItem.Asset.State.ProtectionState))
+					} else {
+						localEntityInfos.Asset.State.ProtectionState = types.Int32Null()
+					}
+					localEntityInfos.Asset.State.RPCProtectAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.RPCProtectAt)
+					localEntityInfos.Asset.State.RPCProtectedAt = types.Int64PointerValue(localEntityInfosItem.Asset.State.RPCProtectedAt)
+					if localEntityInfosItem.Asset.State.RPCProtectionState != nil {
+						localEntityInfos.Asset.State.RPCProtectionState = types.Int32Value(int32(*localEntityInfosItem.Asset.State.RPCProtectionState))
+					} else {
+						localEntityInfos.Asset.State.RPCProtectionState = types.Int32Null()
+					}
+				}
 				localEntityInfos.Asset.SwitchLocationOverridden = types.BoolPointerValue(localEntityInfosItem.Asset.SwitchLocationOverridden)
 			}
-			if localEntityInfosItem.Group != nil {
-				localEntityInfos.Group = &tfTypes.Group{}
-				localEntityInfos.Group.AddedAt = types.Int64PointerValue(localEntityInfosItem.Group.AddedAt)
-				if localEntityInfosItem.Group.AddedBy == nil {
-					localEntityInfos.Group.AddedBy = nil
-				} else {
-					localEntityInfos.Group.AddedBy = &tfTypes.GroupAddedBy{}
-					localEntityInfos.Group.AddedBy.ID = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.ID)
-					localEntityInfos.Group.AddedBy.Name = types.StringPointerValue(localEntityInfosItem.Group.AddedBy.Name)
-				}
-				localEntityInfos.Group.CreatedAt = types.Int64PointerValue(localEntityInfosItem.Group.CreatedAt)
-				localEntityInfos.Group.Description = types.StringPointerValue(localEntityInfosItem.Group.Description)
-				localEntityInfos.Group.DirectMembersCount = types.Int64PointerValue(localEntityInfosItem.Group.DirectMembersCount)
-				localEntityInfos.Group.Domain = types.StringPointerValue(localEntityInfosItem.Group.Domain)
-				localEntityInfos.Group.ExternalID = types.StringPointerValue(localEntityInfosItem.Group.ExternalID)
-				localEntityInfos.Group.GUID = types.StringPointerValue(localEntityInfosItem.Group.GUID)
-				localEntityInfos.Group.HasProtectionPolicy = types.BoolPointerValue(localEntityInfosItem.Group.HasProtectionPolicy)
-				localEntityInfos.Group.ID = types.StringPointerValue(localEntityInfosItem.Group.ID)
-				localEntityInfos.Group.Name = types.StringPointerValue(localEntityInfosItem.Group.Name)
-				localEntityInfos.Group.PrincipalName = types.StringPointerValue(localEntityInfosItem.Group.PrincipalName)
-				localEntityInfos.Group.Role = types.Int32PointerValue(typeconvert.IntPointerToInt32Pointer(localEntityInfosItem.Group.Role))
-				localEntityInfos.Group.Sid = types.StringPointerValue(localEntityInfosItem.Group.Sid)
-				localEntityInfos.Group.UpdatedAt = types.Int64PointerValue(localEntityInfosItem.Group.UpdatedAt)
+			if localEntityInfosItem.IDNamePair != nil {
+				localEntityInfos.IDNamePair = &tfTypes.IDNamePair{}
+				localEntityInfos.IDNamePair.ID = types.StringPointerValue(localEntityInfosItem.IDNamePair.ID)
+				localEntityInfos.IDNamePair.Name = types.StringPointerValue(localEntityInfosItem.IDNamePair.Name)
 			}
 
 			r.LocalEntityInfos = append(r.LocalEntityInfos, localEntityInfos)
+		}
+		if resp.LocalEntitySuccessor == nil {
+			r.LocalEntitySuccessor = nil
+		} else {
+			r.LocalEntitySuccessor = &tfTypes.IDNamePair{}
+			r.LocalEntitySuccessor.ID = types.StringPointerValue(resp.LocalEntitySuccessor.ID)
+			r.LocalEntitySuccessor.Name = types.StringPointerValue(resp.LocalEntitySuccessor.Name)
 		}
 		r.LocalProcessesList = make([]types.String, 0, len(resp.LocalProcessesList))
 		for _, v := range resp.LocalProcessesList {
@@ -260,20 +347,224 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		for _, v := range resp.RemoteEntityIdsList {
 			r.RemoteEntityIdsList = append(r.RemoteEntityIdsList, types.StringValue(v))
 		}
-		r.RemoteEntityInfos = []tfTypes.IDNamePair1{}
+		r.RemoteEntityInfos = []tfTypes.RuleRemoteEntityInfo{}
 
 		for _, remoteEntityInfosItem := range resp.RemoteEntityInfos {
-			var remoteEntityInfos tfTypes.IDNamePair1
+			var remoteEntityInfos tfTypes.RuleRemoteEntityInfo
 
-			remoteEntityInfos.ID = types.StringPointerValue(remoteEntityInfosItem.ID)
-			remoteEntityInfos.Name = types.StringPointerValue(remoteEntityInfosItem.Name)
+			if remoteEntityInfosItem.Asset != nil {
+				remoteEntityInfos.Asset = &tfTypes.Asset{}
+				if remoteEntityInfosItem.Asset.AssetStatus != nil {
+					remoteEntityInfos.Asset.AssetStatus = types.Int64Value(int64(*remoteEntityInfosItem.Asset.AssetStatus))
+				} else {
+					remoteEntityInfos.Asset.AssetStatus = types.Int64Null()
+				}
+				if remoteEntityInfosItem.Asset.AssetType != nil {
+					remoteEntityInfos.Asset.AssetType = types.Int32Value(int32(*remoteEntityInfosItem.Asset.AssetType))
+				} else {
+					remoteEntityInfos.Asset.AssetType = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.AssignedDeployment == nil {
+					remoteEntityInfos.Asset.AssignedDeployment = nil
+				} else {
+					remoteEntityInfos.Asset.AssignedDeployment = &tfTypes.IDNamePair{}
+					remoteEntityInfos.Asset.AssignedDeployment.ID = types.StringPointerValue(remoteEntityInfosItem.Asset.AssignedDeployment.ID)
+					remoteEntityInfos.Asset.AssignedDeployment.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.AssignedDeployment.Name)
+				}
+				remoteEntityInfos.Asset.AssignedDeploymentID = types.StringPointerValue(remoteEntityInfosItem.Asset.AssignedDeploymentID)
+				remoteEntityInfos.Asset.BreakGlassActivated = types.BoolPointerValue(remoteEntityInfosItem.Asset.BreakGlassActivated)
+				remoteEntityInfos.Asset.CloudConnectorVersion = types.StringPointerValue(remoteEntityInfosItem.Asset.CloudConnectorVersion)
+				remoteEntityInfos.Asset.DeploymentaClusterID = types.StringPointerValue(remoteEntityInfosItem.Asset.DeploymentaClusterID)
+				if remoteEntityInfosItem.Asset.DeploymentsCluster == nil {
+					remoteEntityInfos.Asset.DeploymentsCluster = nil
+				} else {
+					remoteEntityInfos.Asset.DeploymentsCluster = &tfTypes.IDNamePair{}
+					remoteEntityInfos.Asset.DeploymentsCluster.ID = types.StringPointerValue(remoteEntityInfosItem.Asset.DeploymentsCluster.ID)
+					remoteEntityInfos.Asset.DeploymentsCluster.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.DeploymentsCluster.Name)
+				}
+				if remoteEntityInfosItem.Asset.DeploymentsClusterSource != nil {
+					remoteEntityInfos.Asset.DeploymentsClusterSource = types.Int32Value(int32(*remoteEntityInfosItem.Asset.DeploymentsClusterSource))
+				} else {
+					remoteEntityInfos.Asset.DeploymentsClusterSource = types.Int32Null()
+				}
+				remoteEntityInfos.Asset.Domain = types.StringPointerValue(remoteEntityInfosItem.Asset.Domain)
+				if remoteEntityInfosItem.Asset.EnforcementMethod != nil {
+					remoteEntityInfos.Asset.EnforcementMethod = types.Int64Value(int64(*remoteEntityInfosItem.Asset.EnforcementMethod))
+				} else {
+					remoteEntityInfos.Asset.EnforcementMethod = types.Int64Null()
+				}
+				if remoteEntityInfosItem.Asset.EnvironmentGroup == nil {
+					remoteEntityInfos.Asset.EnvironmentGroup = nil
+				} else {
+					remoteEntityInfos.Asset.EnvironmentGroup = &tfTypes.IDNamePair{}
+					remoteEntityInfos.Asset.EnvironmentGroup.ID = types.StringPointerValue(remoteEntityInfosItem.Asset.EnvironmentGroup.ID)
+					remoteEntityInfos.Asset.EnvironmentGroup.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.EnvironmentGroup.Name)
+				}
+				remoteEntityInfos.Asset.ExternalDeviceID = types.StringPointerValue(remoteEntityInfosItem.Asset.ExternalDeviceID)
+				remoteEntityInfos.Asset.Fqdn = types.StringPointerValue(remoteEntityInfosItem.Asset.Fqdn)
+				remoteEntityInfos.Asset.HasDNS = types.BoolPointerValue(remoteEntityInfosItem.Asset.HasDNS)
+				if remoteEntityInfosItem.Asset.HealthState == nil {
+					remoteEntityInfos.Asset.HealthState = nil
+				} else {
+					remoteEntityInfos.Asset.HealthState = &tfTypes.HealthState{}
+					remoteEntityInfos.Asset.HealthState.HealthIssuesList = []tfTypes.HealthIssue{}
+
+					for _, healthIssuesListItem1 := range remoteEntityInfosItem.Asset.HealthState.HealthIssuesList {
+						var healthIssuesList1 tfTypes.HealthIssue
+
+						healthIssuesList1.Details = types.StringPointerValue(healthIssuesListItem1.Details)
+						if healthIssuesListItem1.IssueCode != nil {
+							healthIssuesList1.IssueCode = types.Int32Value(int32(*healthIssuesListItem1.IssueCode))
+						} else {
+							healthIssuesList1.IssueCode = types.Int32Null()
+						}
+
+						remoteEntityInfos.Asset.HealthState.HealthIssuesList = append(remoteEntityInfos.Asset.HealthState.HealthIssuesList, healthIssuesList1)
+					}
+					if remoteEntityInfosItem.Asset.HealthState.HealthStatus != nil {
+						remoteEntityInfos.Asset.HealthState.HealthStatus = types.Int32Value(int32(*remoteEntityInfosItem.Asset.HealthState.HealthStatus))
+					} else {
+						remoteEntityInfos.Asset.HealthState.HealthStatus = types.Int32Null()
+					}
+				}
+				remoteEntityInfos.Asset.ID = types.StringPointerValue(remoteEntityInfosItem.Asset.ID)
+				remoteEntityInfos.Asset.IdentityProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.IdentityProtectAt)
+				remoteEntityInfos.Asset.IdentityProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.IdentityProtectedAt)
+				if remoteEntityInfosItem.Asset.IdentityProtectionState != nil {
+					remoteEntityInfos.Asset.IdentityProtectionState = types.Int32Value(int32(*remoteEntityInfosItem.Asset.IdentityProtectionState))
+				} else {
+					remoteEntityInfos.Asset.IdentityProtectionState = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.InactiveReason != nil {
+					remoteEntityInfos.Asset.InactiveReason = types.Int32Value(int32(*remoteEntityInfosItem.Asset.InactiveReason))
+				} else {
+					remoteEntityInfos.Asset.InactiveReason = types.Int32Null()
+				}
+				remoteEntityInfos.Asset.InactiveSince = types.Int64PointerValue(remoteEntityInfosItem.Asset.InactiveSince)
+				remoteEntityInfos.Asset.IPSpace = types.Int64PointerValue(remoteEntityInfosItem.Asset.IPSpace)
+				remoteEntityInfos.Asset.IPV4Addresses = make([]types.String, 0, len(remoteEntityInfosItem.Asset.IPV4Addresses))
+				for _, v := range remoteEntityInfosItem.Asset.IPV4Addresses {
+					remoteEntityInfos.Asset.IPV4Addresses = append(remoteEntityInfos.Asset.IPV4Addresses, types.StringValue(v))
+				}
+				remoteEntityInfos.Asset.IPV6Addresses = make([]types.String, 0, len(remoteEntityInfosItem.Asset.IPV6Addresses))
+				for _, v := range remoteEntityInfosItem.Asset.IPV6Addresses {
+					remoteEntityInfos.Asset.IPV6Addresses = append(remoteEntityInfos.Asset.IPV6Addresses, types.StringValue(v))
+				}
+				remoteEntityInfos.Asset.IsIPSecConfigured = types.BoolPointerValue(remoteEntityInfosItem.Asset.IsIPSecConfigured)
+				remoteEntityInfos.Asset.IsQuarantined = types.BoolPointerValue(remoteEntityInfosItem.Asset.IsQuarantined)
+				remoteEntityInfos.Asset.LastLogon = types.Int64PointerValue(remoteEntityInfosItem.Asset.LastLogon)
+				remoteEntityInfos.Asset.Manufacturer = types.StringPointerValue(remoteEntityInfosItem.Asset.Manufacturer)
+				remoteEntityInfos.Asset.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.Name)
+				remoteEntityInfos.Asset.OperatingSystem = types.StringPointerValue(remoteEntityInfosItem.Asset.OperatingSystem)
+				if remoteEntityInfosItem.Asset.OsType != nil {
+					remoteEntityInfos.Asset.OsType = types.Int32Value(int32(*remoteEntityInfosItem.Asset.OsType))
+				} else {
+					remoteEntityInfos.Asset.OsType = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.OtLocattion == nil {
+					remoteEntityInfos.Asset.OtLocattion = nil
+				} else {
+					remoteEntityInfos.Asset.OtLocattion = &tfTypes.OtLocation{}
+					remoteEntityInfos.Asset.OtLocattion.InterfaceName = types.StringPointerValue(remoteEntityInfosItem.Asset.OtLocattion.InterfaceName)
+					remoteEntityInfos.Asset.OtLocattion.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.OtLocattion.Name)
+					remoteEntityInfos.Asset.OtLocattion.SwitchID = types.StringPointerValue(remoteEntityInfosItem.Asset.OtLocattion.SwitchID)
+				}
+				if remoteEntityInfosItem.Asset.OutboundRestriction != nil {
+					remoteEntityInfos.Asset.OutboundRestriction = types.Int32Value(int32(*remoteEntityInfosItem.Asset.OutboundRestriction))
+				} else {
+					remoteEntityInfos.Asset.OutboundRestriction = types.Int32Null()
+				}
+				remoteEntityInfos.Asset.PasswordUpdateTime = types.Int64PointerValue(remoteEntityInfosItem.Asset.PasswordUpdateTime)
+				if remoteEntityInfosItem.Asset.PreferredDeployment == nil {
+					remoteEntityInfos.Asset.PreferredDeployment = nil
+				} else {
+					remoteEntityInfos.Asset.PreferredDeployment = &tfTypes.IDNamePair{}
+					remoteEntityInfos.Asset.PreferredDeployment.ID = types.StringPointerValue(remoteEntityInfosItem.Asset.PreferredDeployment.ID)
+					remoteEntityInfos.Asset.PreferredDeployment.Name = types.StringPointerValue(remoteEntityInfosItem.Asset.PreferredDeployment.Name)
+				}
+				remoteEntityInfos.Asset.PreferredDeploymentID = types.StringPointerValue(remoteEntityInfosItem.Asset.PreferredDeploymentID)
+				remoteEntityInfos.Asset.PrincipalName = types.StringPointerValue(remoteEntityInfosItem.Asset.PrincipalName)
+				remoteEntityInfos.Asset.ProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.ProtectAt)
+				remoteEntityInfos.Asset.ProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.ProtectedAt)
+				if remoteEntityInfosItem.Asset.ProtectionState != nil {
+					remoteEntityInfos.Asset.ProtectionState = types.Int32Value(int32(*remoteEntityInfosItem.Asset.ProtectionState))
+				} else {
+					remoteEntityInfos.Asset.ProtectionState = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.PurdueLevel != nil {
+					remoteEntityInfos.Asset.PurdueLevel = types.Int32Value(int32(*remoteEntityInfosItem.Asset.PurdueLevel))
+				} else {
+					remoteEntityInfos.Asset.PurdueLevel = types.Int32Null()
+				}
+				remoteEntityInfos.Asset.RPCMonitored = types.BoolPointerValue(remoteEntityInfosItem.Asset.RPCMonitored)
+				remoteEntityInfos.Asset.RPCProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.RPCProtectAt)
+				remoteEntityInfos.Asset.RPCProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.RPCProtectedAt)
+				if remoteEntityInfosItem.Asset.RPCProtectionState != nil {
+					remoteEntityInfos.Asset.RPCProtectionState = types.Int32Value(int32(*remoteEntityInfosItem.Asset.RPCProtectionState))
+				} else {
+					remoteEntityInfos.Asset.RPCProtectionState = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.Source != nil {
+					remoteEntityInfos.Asset.Source = types.Int32Value(int32(*remoteEntityInfosItem.Asset.Source))
+				} else {
+					remoteEntityInfos.Asset.Source = types.Int32Null()
+				}
+				if remoteEntityInfosItem.Asset.State == nil {
+					remoteEntityInfos.Asset.State = nil
+				} else {
+					remoteEntityInfos.Asset.State = &tfTypes.State{}
+					remoteEntityInfos.Asset.State.AssetID = types.StringPointerValue(remoteEntityInfosItem.Asset.State.AssetID)
+					remoteEntityInfos.Asset.State.IdentityProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.IdentityProtectAt)
+					remoteEntityInfos.Asset.State.IdentityProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.IdentityProtectedAt)
+					if remoteEntityInfosItem.Asset.State.IdentityProtectionState != nil {
+						remoteEntityInfos.Asset.State.IdentityProtectionState = types.Int64Value(int64(*remoteEntityInfosItem.Asset.State.IdentityProtectionState))
+					} else {
+						remoteEntityInfos.Asset.State.IdentityProtectionState = types.Int64Null()
+					}
+					remoteEntityInfos.Asset.State.IsAssetConnected = types.BoolPointerValue(remoteEntityInfosItem.Asset.State.IsAssetConnected)
+					remoteEntityInfos.Asset.State.LastConnectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.LastConnectedAt)
+					remoteEntityInfos.Asset.State.LastDisconnectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.LastDisconnectedAt)
+					remoteEntityInfos.Asset.State.ProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.ProtectAt)
+					remoteEntityInfos.Asset.State.ProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.ProtectedAt)
+					if remoteEntityInfosItem.Asset.State.ProtectionState != nil {
+						remoteEntityInfos.Asset.State.ProtectionState = types.Int32Value(int32(*remoteEntityInfosItem.Asset.State.ProtectionState))
+					} else {
+						remoteEntityInfos.Asset.State.ProtectionState = types.Int32Null()
+					}
+					remoteEntityInfos.Asset.State.RPCProtectAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.RPCProtectAt)
+					remoteEntityInfos.Asset.State.RPCProtectedAt = types.Int64PointerValue(remoteEntityInfosItem.Asset.State.RPCProtectedAt)
+					if remoteEntityInfosItem.Asset.State.RPCProtectionState != nil {
+						remoteEntityInfos.Asset.State.RPCProtectionState = types.Int32Value(int32(*remoteEntityInfosItem.Asset.State.RPCProtectionState))
+					} else {
+						remoteEntityInfos.Asset.State.RPCProtectionState = types.Int32Null()
+					}
+				}
+				remoteEntityInfos.Asset.SwitchLocationOverridden = types.BoolPointerValue(remoteEntityInfosItem.Asset.SwitchLocationOverridden)
+			}
+			if remoteEntityInfosItem.IDNamePair != nil {
+				remoteEntityInfos.IDNamePair = &tfTypes.IDNamePair{}
+				remoteEntityInfos.IDNamePair.ID = types.StringPointerValue(remoteEntityInfosItem.IDNamePair.ID)
+				remoteEntityInfos.IDNamePair.Name = types.StringPointerValue(remoteEntityInfosItem.IDNamePair.Name)
+			}
 
 			r.RemoteEntityInfos = append(r.RemoteEntityInfos, remoteEntityInfos)
 		}
-		if resp.Ruleclass != nil {
-			r.Ruleclass = types.Int32Value(int32(*resp.Ruleclass))
+		if resp.RemoteEntitySuccessor == nil {
+			r.RemoteEntitySuccessor = nil
 		} else {
-			r.Ruleclass = types.Int32Null()
+			r.RemoteEntitySuccessor = &tfTypes.IDNamePair{}
+			r.RemoteEntitySuccessor.ID = types.StringPointerValue(resp.RemoteEntitySuccessor.ID)
+			r.RemoteEntitySuccessor.Name = types.StringPointerValue(resp.RemoteEntitySuccessor.Name)
+		}
+		if resp.ReviewMode != nil {
+			r.ReviewMode = types.Int32Value(int32(*resp.ReviewMode))
+		} else {
+			r.ReviewMode = types.Int32Null()
+		}
+		if resp.RuleClass != nil {
+			r.RuleClass = types.Int32Value(int32(*resp.RuleClass))
+		} else {
+			r.RuleClass = types.Int32Null()
 		}
 		if resp.RuleReview == nil {
 			r.RuleReview = nil
@@ -285,6 +576,17 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		r.ServicesList = make([]types.String, 0, len(resp.ServicesList))
 		for _, v := range resp.ServicesList {
 			r.ServicesList = append(r.ServicesList, types.StringValue(v))
+		}
+		r.SkipAudit = types.BoolPointerValue(resp.SkipAudit)
+		r.SrcUsersInfos = []tfTypes.IDNamePair{}
+
+		for _, srcUsersInfosItem := range resp.SrcUsersInfos {
+			var srcUsersInfos tfTypes.IDNamePair
+
+			srcUsersInfos.ID = types.StringPointerValue(srcUsersInfosItem.ID)
+			srcUsersInfos.Name = types.StringPointerValue(srcUsersInfosItem.Name)
+
+			r.SrcUsersInfos = append(r.SrcUsersInfos, srcUsersInfos)
 		}
 		r.SrcUsersList = []tfTypes.SrcUsersList{}
 
@@ -301,11 +603,17 @@ func (r *OutboundRuleResourceModel) RefreshFromSharedRule(ctx context.Context, r
 		} else {
 			r.State = types.Int32Null()
 		}
+		r.SuggestionReason = types.StringPointerValue(resp.SuggestionReason)
+		if resp.SuggestionType != nil {
+			r.SuggestionType = types.Int32Value(int32(*resp.SuggestionType))
+		} else {
+			r.SuggestionType = types.Int32Null()
+		}
 		r.UpdatedAt = types.Int64PointerValue(resp.UpdatedAt)
 		if resp.UpdatedBy == nil {
 			r.UpdatedBy = nil
 		} else {
-			r.UpdatedBy = &tfTypes.IDNamePair1{}
+			r.UpdatedBy = &tfTypes.IDNamePair{}
 			r.UpdatedBy.ID = types.StringPointerValue(resp.UpdatedBy.ID)
 			r.UpdatedBy.Name = types.StringPointerValue(resp.UpdatedBy.Name)
 		}

@@ -8,39 +8,39 @@ import (
 	"github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk/internal/utils"
 )
 
-type LocalEntityInfoType string
+type RuleLocalEntityInfoType string
 
 const (
-	LocalEntityInfoTypeAsset LocalEntityInfoType = "asset"
-	LocalEntityInfoTypeGroup LocalEntityInfoType = "group"
+	RuleLocalEntityInfoTypeAsset      RuleLocalEntityInfoType = "asset"
+	RuleLocalEntityInfoTypeIDNamePair RuleLocalEntityInfoType = "idNamePair"
 )
 
-type LocalEntityInfo struct {
-	Asset *Asset `queryParam:"inline,name=localEntityInfo"`
-	Group *Group `queryParam:"inline,name=localEntityInfo"`
+type RuleLocalEntityInfo struct {
+	Asset      *Asset      `queryParam:"inline,name=localEntityInfo"`
+	IDNamePair *IDNamePair `queryParam:"inline,name=localEntityInfo"`
 
-	Type LocalEntityInfoType
+	Type RuleLocalEntityInfoType
 }
 
-func CreateLocalEntityInfoAsset(asset Asset) LocalEntityInfo {
-	typ := LocalEntityInfoTypeAsset
+func CreateRuleLocalEntityInfoAsset(asset Asset) RuleLocalEntityInfo {
+	typ := RuleLocalEntityInfoTypeAsset
 
-	return LocalEntityInfo{
+	return RuleLocalEntityInfo{
 		Asset: &asset,
 		Type:  typ,
 	}
 }
 
-func CreateLocalEntityInfoGroup(group Group) LocalEntityInfo {
-	typ := LocalEntityInfoTypeGroup
+func CreateRuleLocalEntityInfoIDNamePair(idNamePair IDNamePair) RuleLocalEntityInfo {
+	typ := RuleLocalEntityInfoTypeIDNamePair
 
-	return LocalEntityInfo{
-		Group: &group,
-		Type:  typ,
+	return RuleLocalEntityInfo{
+		IDNamePair: &idNamePair,
+		Type:       typ,
 	}
 }
 
-func (u *LocalEntityInfo) UnmarshalJSON(data []byte) error {
+func (u *RuleLocalEntityInfo) UnmarshalJSON(data []byte) error {
 
 	var candidates []utils.UnionCandidate
 
@@ -48,53 +48,142 @@ func (u *LocalEntityInfo) UnmarshalJSON(data []byte) error {
 	var asset Asset = Asset{}
 	if err := utils.UnmarshalJSON(data, &asset, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  LocalEntityInfoTypeAsset,
+			Type:  RuleLocalEntityInfoTypeAsset,
 			Value: &asset,
 		})
 	}
 
-	var group Group = Group{}
-	if err := utils.UnmarshalJSON(data, &group, "", true, nil); err == nil {
+	var idNamePair IDNamePair = IDNamePair{}
+	if err := utils.UnmarshalJSON(data, &idNamePair, "", true, nil); err == nil {
 		candidates = append(candidates, utils.UnionCandidate{
-			Type:  LocalEntityInfoTypeGroup,
-			Value: &group,
+			Type:  RuleLocalEntityInfoTypeIDNamePair,
+			Value: &idNamePair,
 		})
 	}
 
 	if len(candidates) == 0 {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for LocalEntityInfo", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleLocalEntityInfo", string(data))
 	}
 
 	// Pick the best candidate using multi-stage filtering
 	best := utils.PickBestCandidate(candidates)
 	if best == nil {
-		return fmt.Errorf("could not unmarshal `%s` into any supported union types for LocalEntityInfo", string(data))
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleLocalEntityInfo", string(data))
 	}
 
 	// Set the union type and value based on the best candidate
-	u.Type = best.Type.(LocalEntityInfoType)
+	u.Type = best.Type.(RuleLocalEntityInfoType)
 	switch best.Type {
-	case LocalEntityInfoTypeAsset:
+	case RuleLocalEntityInfoTypeAsset:
 		u.Asset = best.Value.(*Asset)
 		return nil
-	case LocalEntityInfoTypeGroup:
-		u.Group = best.Value.(*Group)
+	case RuleLocalEntityInfoTypeIDNamePair:
+		u.IDNamePair = best.Value.(*IDNamePair)
 		return nil
 	}
 
-	return fmt.Errorf("could not unmarshal `%s` into any supported union types for LocalEntityInfo", string(data))
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleLocalEntityInfo", string(data))
 }
 
-func (u LocalEntityInfo) MarshalJSON() ([]byte, error) {
+func (u RuleLocalEntityInfo) MarshalJSON() ([]byte, error) {
 	if u.Asset != nil {
 		return utils.MarshalJSON(u.Asset, "", true)
 	}
 
-	if u.Group != nil {
-		return utils.MarshalJSON(u.Group, "", true)
+	if u.IDNamePair != nil {
+		return utils.MarshalJSON(u.IDNamePair, "", true)
 	}
 
-	return nil, errors.New("could not marshal union type LocalEntityInfo: all fields are null")
+	return nil, errors.New("could not marshal union type RuleLocalEntityInfo: all fields are null")
+}
+
+type RuleRemoteEntityInfoType string
+
+const (
+	RuleRemoteEntityInfoTypeAsset      RuleRemoteEntityInfoType = "asset"
+	RuleRemoteEntityInfoTypeIDNamePair RuleRemoteEntityInfoType = "idNamePair"
+)
+
+type RuleRemoteEntityInfo struct {
+	Asset      *Asset      `queryParam:"inline,name=remoteEntityInfo"`
+	IDNamePair *IDNamePair `queryParam:"inline,name=remoteEntityInfo"`
+
+	Type RuleRemoteEntityInfoType
+}
+
+func CreateRuleRemoteEntityInfoAsset(asset Asset) RuleRemoteEntityInfo {
+	typ := RuleRemoteEntityInfoTypeAsset
+
+	return RuleRemoteEntityInfo{
+		Asset: &asset,
+		Type:  typ,
+	}
+}
+
+func CreateRuleRemoteEntityInfoIDNamePair(idNamePair IDNamePair) RuleRemoteEntityInfo {
+	typ := RuleRemoteEntityInfoTypeIDNamePair
+
+	return RuleRemoteEntityInfo{
+		IDNamePair: &idNamePair,
+		Type:       typ,
+	}
+}
+
+func (u *RuleRemoteEntityInfo) UnmarshalJSON(data []byte) error {
+
+	var candidates []utils.UnionCandidate
+
+	// Collect all valid candidates
+	var asset Asset = Asset{}
+	if err := utils.UnmarshalJSON(data, &asset, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RuleRemoteEntityInfoTypeAsset,
+			Value: &asset,
+		})
+	}
+
+	var idNamePair IDNamePair = IDNamePair{}
+	if err := utils.UnmarshalJSON(data, &idNamePair, "", true, nil); err == nil {
+		candidates = append(candidates, utils.UnionCandidate{
+			Type:  RuleRemoteEntityInfoTypeIDNamePair,
+			Value: &idNamePair,
+		})
+	}
+
+	if len(candidates) == 0 {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleRemoteEntityInfo", string(data))
+	}
+
+	// Pick the best candidate using multi-stage filtering
+	best := utils.PickBestCandidate(candidates)
+	if best == nil {
+		return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleRemoteEntityInfo", string(data))
+	}
+
+	// Set the union type and value based on the best candidate
+	u.Type = best.Type.(RuleRemoteEntityInfoType)
+	switch best.Type {
+	case RuleRemoteEntityInfoTypeAsset:
+		u.Asset = best.Value.(*Asset)
+		return nil
+	case RuleRemoteEntityInfoTypeIDNamePair:
+		u.IDNamePair = best.Value.(*IDNamePair)
+		return nil
+	}
+
+	return fmt.Errorf("could not unmarshal `%s` into any supported union types for RuleRemoteEntityInfo", string(data))
+}
+
+func (u RuleRemoteEntityInfo) MarshalJSON() ([]byte, error) {
+	if u.Asset != nil {
+		return utils.MarshalJSON(u.Asset, "", true)
+	}
+
+	if u.IDNamePair != nil {
+		return utils.MarshalJSON(u.IDNamePair, "", true)
+	}
+
+	return nil, errors.New("could not marshal union type RuleRemoteEntityInfo: all fields are null")
 }
 
 type Rule struct {
@@ -103,27 +192,89 @@ type Rule struct {
 	// * 3 - Force Block
 	//
 	Action          *RuleAction `json:"action,omitempty"`
-	AeOverridden    *bool       `json:"aeOverridden,omitempty"`
 	ActivitiesCount *int        `json:"activitiesCount,omitempty"`
+	AeOverridden    *bool       `json:"aeOverridden,omitempty"`
 	// Epoch Millis
-	ApprovedAt *int64      `json:"approvedAt,omitempty"`
-	ApprovedBy *IDNamePair `json:"approvedBy,omitempty"`
+	ApprovedAt   *int64      `json:"approvedAt,omitempty"`
+	ApprovedBy   *IDNamePair `json:"approvedBy,omitempty"`
+	ChangeTicket *string     `json:"changeTicket,omitempty"`
+	// - '0' - Unspecified
+	// - '1' - Block
+	// - '2' - App Ring
+	// - '3' - Global RPC
+	// - '4' - Populare App
+	// - '5' - MS Cluster
+	// - '6' - Tag
+	// - '7' - Scanner
+	// - '8' - Popular Destination
+	// - '9' - Popular Source
+	// - '10' - MFA with Rule
+	// - '11' - Inter Server
+	// - '12' - AE Group
+	// - '13' - Block High Risk IPs
+	// - '14' - Unmonitored Source
+	// - '15' - Popular Client
+	// - '16' - Externally Facing Popular Destination
+	// - '17' - External IP Source
+	// - '18' - DC Tag
+	// - '19' - MDI Tag
+	// - '20' - DHCP Tag
+	// - '21' - DHCP Failover Tag
+	// - '22' - SCCM Tag
+	// - '23' - DNS Tag
+	// - '24' - Web Server Tag
+	// - '25' - Exchange Tag
+	// - '26' - Exchange Internal Tag
+	// - '27' - DFSR Tag
+	// - '28' - FTP Tag
+	// - '29' - ADFS Tag
+	// - '30' - WSUS Tag
+	// - '31' - PDQ Incoming
+	// - '32' - PDQ Outgoing
+	// - '33' - Citrix ICA
+	// - '34' - Citrix Broker Incoming
+	// - '35' - Citrix Broker Outgoing
+	// - '36' - WDS Tag
+	// - '37' - MS CA Tag
+	// - '38' - Direct Access Tag
+	// - '39' - KMS Tag
+	// - '40' - Security Scanners
+	// - '41' - Backup Tag
+	// - '42' - Databases Tag
+	// - '43' - Port Scanners
+	// - '44' - MS Cluster to external assets
+	//
+	Context *RuleContext `json:"context,omitempty"`
 	// Epoch Millis
-	CreatedAt    *int64     `json:"createdAt,omitempty"`
-	CreatedBy    *CreatedBy `json:"createdBy,omitempty"`
-	ChangeTicket *string    `json:"changeTicket,omitempty"`
-	Context      *int64     `json:"context,omitempty"`
+	CreatedAt *int64     `json:"createdAt,omitempty"`
+	CreatedBy *CreatedBy `json:"createdBy,omitempty"`
 	// Epoch Millis
-	DeletedAt   *int64      `json:"deletedAt,omitempty"`
-	DeletedBy   *IDNamePair `json:"deletedBy,omitempty"`
-	Description *string     `json:"description,omitempty"`
+	DeletedAt                *int64      `json:"deletedAt,omitempty"`
+	DeletedBy                *IDNamePair `json:"deletedBy,omitempty"`
+	DeleteSuggestionRejected *bool       `json:"deleteSuggestionRejected,omitempty"`
+	Description              *string     `json:"description,omitempty"`
 	// * '1' - Inbound
 	// * '2' - Outbound
 	// * '3' - Both
 	//
-	Direction            *RuleDirection `json:"direction,omitempty"`
-	ExcludedEntityInfos  []IDNamePair   `json:"excludedEntityInfos,omitempty"`
-	ExcludedLocalIdsList []string       `json:"excludedLocalIdsList,omitempty"`
+	Direction *RuleDirection `json:"direction,omitempty"`
+	// * '1' - ReactivePolicy
+	// * '2' - Automated
+	// * '3' - AccessPortal
+	// * '4' - AdminPortal
+	// * '5' - AI
+	// * '6' - API
+	// * '7' - Setup
+	// * '8' - Connect
+	// * '9' - System
+	// * '10' - DownloadPortal
+	// * '11' - ExternalAccessPortal
+	// * '12' - DayTwo
+	//
+	EnforcementSource       *EnforcementSource `json:"enforcementSource,omitempty"`
+	ExcludedEntityInfos     []IDNamePair       `json:"excludedEntityInfos,omitempty"`
+	ExcludedEntitySuccessor *IDNamePair        `json:"excludedEntitySuccessor,omitempty"`
+	ExcludedLocalIdsList    []string           `json:"excludedLocalIdsList,omitempty"`
 	// Epoch Millis
 	ExpiresAt *int64  `json:"expiresAt,omitempty"`
 	ID        *string `json:"id,omitempty"`
@@ -134,19 +285,27 @@ type Rule struct {
 	// * '4' - Encrypted connections and dynamically negotiate encryption (inbound rule only)
 	// * '5' - Encrypted connections
 	//
-	IPSecOpt                   *IPSecOpt         `json:"ipSecOpt,omitempty"`
-	LocalEntityID              *string           `json:"localEntityId,omitempty"`
-	LocalProcessesList         []string          `json:"localProcessesList,omitempty"`
-	LocalEntityInfos           []LocalEntityInfo `json:"localEntityInfos,omitempty"`
-	MultipleLocalEntityIdsList []string          `json:"multipleLocalEntityIdsList,omitempty"`
-	Name                       *string           `json:"name,omitempty"`
-	ParentID                   *string           `json:"parentId,omitempty"`
-	ParentSwitchRuleID         *string           `json:"parentSwitchRuleId,omitempty"`
-	ParentSwitchRuleType       *int              `json:"parentSwitchRuleType,omitempty"`
-	ParentType                 *int              `json:"parentType,omitempty"`
-	PortsList                  []PortsList       `json:"portsList,omitempty"`
-	RemoteEntityIdsList        []string          `json:"remoteEntityIdsList,omitempty"`
-	RemoteEntityInfos          []IDNamePair      `json:"remoteEntityInfos,omitempty"`
+	IPSecOpt                   *IPSecOpt              `json:"ipSecOpt,omitempty"`
+	IsRejectOnLinux            *bool                  `json:"isRejectOnLinux,omitempty"`
+	LocalEntityID              *string                `json:"localEntityId,omitempty"`
+	LocalEntityInfos           []RuleLocalEntityInfo  `json:"localEntityInfos,omitempty"`
+	LocalEntitySuccessor       *IDNamePair            `json:"localEntitySuccessor,omitempty"`
+	LocalProcessesList         []string               `json:"localProcessesList,omitempty"`
+	MultipleLocalEntityIdsList []string               `json:"multipleLocalEntityIdsList,omitempty"`
+	Name                       *string                `json:"name,omitempty"`
+	ParentID                   *string                `json:"parentId,omitempty"`
+	ParentSwitchRuleID         *string                `json:"parentSwitchRuleId,omitempty"`
+	ParentSwitchRuleType       *int                   `json:"parentSwitchRuleType,omitempty"`
+	ParentType                 *int                   `json:"parentType,omitempty"`
+	PortsList                  []PortsList            `json:"portsList,omitempty"`
+	RemoteEntityIdsList        []string               `json:"remoteEntityIdsList,omitempty"`
+	RemoteEntityInfos          []RuleRemoteEntityInfo `json:"remoteEntityInfos,omitempty"`
+	RemoteEntitySuccessor      *IDNamePair            `json:"remoteEntitySuccessor,omitempty"`
+	// * 1 - Apply Immediately
+	// * 2 - Review
+	// * 3 - Conditional Review
+	//
+	ReviewMode *RuleReviewMode `json:"reviewMode,omitempty"`
 	// * '1' - Trivial
 	// * '2' - Permissive
 	// * '3' - Privileged
@@ -155,7 +314,7 @@ type Rule struct {
 	// * '6' - Preventative
 	// * '8' - Dangerous
 	//
-	Ruleclass *RuleClass `json:"ruleclass,omitempty"`
+	RuleClass *RuleClass `json:"ruleClass,omitempty"`
 	// Mandatory object for rule review approve_with_changes / reject.
 	//
 	// reason: {
@@ -167,9 +326,11 @@ type Rule struct {
 	//     TRAFFIC_SHOULD_BE_BLOCKED = 6,
 	//     OTHER = 7
 	// }
-	RuleReview   *RuleReviewReason `json:"ruleReview,omitempty"`
-	ServicesList []string          `json:"servicesList,omitempty"`
-	SrcUsersList []SrcUsersList    `json:"srcUsersList,omitempty"`
+	RuleReview    *RuleReviewReason `json:"ruleReview,omitempty"`
+	ServicesList  []string          `json:"servicesList,omitempty"`
+	SkipAudit     *bool             `json:"skipAudit,omitempty"`
+	SrcUsersInfos []IDNamePair      `json:"srcUsersInfos,omitempty"`
+	SrcUsersList  []SrcUsersList    `json:"srcUsersList,omitempty"`
 	// * '1' - Enabled
 	// * '2' - Disabled
 	// * '3' - Deleted By User
@@ -178,11 +339,16 @@ type Rule struct {
 	// * '6' - Rejected by User
 	// * '7' - Excluded by User
 	//
-	State *RuleState `json:"state,omitempty"`
+	State            *RuleState `json:"state,omitempty"`
+	SuggestionReason *string    `json:"suggestionReason,omitempty"`
+	// * '0' - Unspecified
+	// * '1' - Create
+	// * '2' - Delete
+	//
+	SuggestionType *RuleSuggestionType `json:"suggestionType,omitempty"`
 	// Epoch Millis
-	UpdatedAt       *int64      `json:"updatedAt,omitempty"`
-	UpdatedBy       *IDNamePair `json:"updatedBy,omitempty"`
-	IsRejectOnLinux *bool       `json:"isRejectOnLinux,omitempty"`
+	UpdatedAt *int64      `json:"updatedAt,omitempty"`
+	UpdatedBy *IDNamePair `json:"updatedBy,omitempty"`
 }
 
 func (r *Rule) GetAction() *RuleAction {
@@ -192,18 +358,18 @@ func (r *Rule) GetAction() *RuleAction {
 	return r.Action
 }
 
-func (r *Rule) GetAeOverridden() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.AeOverridden
-}
-
 func (r *Rule) GetActivitiesCount() *int {
 	if r == nil {
 		return nil
 	}
 	return r.ActivitiesCount
+}
+
+func (r *Rule) GetAeOverridden() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.AeOverridden
 }
 
 func (r *Rule) GetApprovedAt() *int64 {
@@ -220,6 +386,20 @@ func (r *Rule) GetApprovedBy() *IDNamePair {
 	return r.ApprovedBy
 }
 
+func (r *Rule) GetChangeTicket() *string {
+	if r == nil {
+		return nil
+	}
+	return r.ChangeTicket
+}
+
+func (r *Rule) GetContext() *RuleContext {
+	if r == nil {
+		return nil
+	}
+	return r.Context
+}
+
 func (r *Rule) GetCreatedAt() *int64 {
 	if r == nil {
 		return nil
@@ -232,20 +412,6 @@ func (r *Rule) GetCreatedBy() *CreatedBy {
 		return nil
 	}
 	return r.CreatedBy
-}
-
-func (r *Rule) GetChangeTicket() *string {
-	if r == nil {
-		return nil
-	}
-	return r.ChangeTicket
-}
-
-func (r *Rule) GetContext() *int64 {
-	if r == nil {
-		return nil
-	}
-	return r.Context
 }
 
 func (r *Rule) GetDeletedAt() *int64 {
@@ -262,6 +428,13 @@ func (r *Rule) GetDeletedBy() *IDNamePair {
 	return r.DeletedBy
 }
 
+func (r *Rule) GetDeleteSuggestionRejected() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.DeleteSuggestionRejected
+}
+
 func (r *Rule) GetDescription() *string {
 	if r == nil {
 		return nil
@@ -276,11 +449,25 @@ func (r *Rule) GetDirection() *RuleDirection {
 	return r.Direction
 }
 
+func (r *Rule) GetEnforcementSource() *EnforcementSource {
+	if r == nil {
+		return nil
+	}
+	return r.EnforcementSource
+}
+
 func (r *Rule) GetExcludedEntityInfos() []IDNamePair {
 	if r == nil {
 		return nil
 	}
 	return r.ExcludedEntityInfos
+}
+
+func (r *Rule) GetExcludedEntitySuccessor() *IDNamePair {
+	if r == nil {
+		return nil
+	}
+	return r.ExcludedEntitySuccessor
 }
 
 func (r *Rule) GetExcludedLocalIdsList() []string {
@@ -311,6 +498,13 @@ func (r *Rule) GetIPSecOpt() *IPSecOpt {
 	return r.IPSecOpt
 }
 
+func (r *Rule) GetIsRejectOnLinux() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.IsRejectOnLinux
+}
+
 func (r *Rule) GetLocalEntityID() *string {
 	if r == nil {
 		return nil
@@ -318,18 +512,25 @@ func (r *Rule) GetLocalEntityID() *string {
 	return r.LocalEntityID
 }
 
+func (r *Rule) GetLocalEntityInfos() []RuleLocalEntityInfo {
+	if r == nil {
+		return nil
+	}
+	return r.LocalEntityInfos
+}
+
+func (r *Rule) GetLocalEntitySuccessor() *IDNamePair {
+	if r == nil {
+		return nil
+	}
+	return r.LocalEntitySuccessor
+}
+
 func (r *Rule) GetLocalProcessesList() []string {
 	if r == nil {
 		return nil
 	}
 	return r.LocalProcessesList
-}
-
-func (r *Rule) GetLocalEntityInfos() []LocalEntityInfo {
-	if r == nil {
-		return nil
-	}
-	return r.LocalEntityInfos
 }
 
 func (r *Rule) GetMultipleLocalEntityIdsList() []string {
@@ -388,18 +589,32 @@ func (r *Rule) GetRemoteEntityIdsList() []string {
 	return r.RemoteEntityIdsList
 }
 
-func (r *Rule) GetRemoteEntityInfos() []IDNamePair {
+func (r *Rule) GetRemoteEntityInfos() []RuleRemoteEntityInfo {
 	if r == nil {
 		return nil
 	}
 	return r.RemoteEntityInfos
 }
 
-func (r *Rule) GetRuleclass() *RuleClass {
+func (r *Rule) GetRemoteEntitySuccessor() *IDNamePair {
 	if r == nil {
 		return nil
 	}
-	return r.Ruleclass
+	return r.RemoteEntitySuccessor
+}
+
+func (r *Rule) GetReviewMode() *RuleReviewMode {
+	if r == nil {
+		return nil
+	}
+	return r.ReviewMode
+}
+
+func (r *Rule) GetRuleClass() *RuleClass {
+	if r == nil {
+		return nil
+	}
+	return r.RuleClass
 }
 
 func (r *Rule) GetRuleReview() *RuleReviewReason {
@@ -416,6 +631,20 @@ func (r *Rule) GetServicesList() []string {
 	return r.ServicesList
 }
 
+func (r *Rule) GetSkipAudit() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.SkipAudit
+}
+
+func (r *Rule) GetSrcUsersInfos() []IDNamePair {
+	if r == nil {
+		return nil
+	}
+	return r.SrcUsersInfos
+}
+
 func (r *Rule) GetSrcUsersList() []SrcUsersList {
 	if r == nil {
 		return nil
@@ -430,6 +659,20 @@ func (r *Rule) GetState() *RuleState {
 	return r.State
 }
 
+func (r *Rule) GetSuggestionReason() *string {
+	if r == nil {
+		return nil
+	}
+	return r.SuggestionReason
+}
+
+func (r *Rule) GetSuggestionType() *RuleSuggestionType {
+	if r == nil {
+		return nil
+	}
+	return r.SuggestionType
+}
+
 func (r *Rule) GetUpdatedAt() *int64 {
 	if r == nil {
 		return nil
@@ -442,11 +685,4 @@ func (r *Rule) GetUpdatedBy() *IDNamePair {
 		return nil
 	}
 	return r.UpdatedBy
-}
-
-func (r *Rule) GetIsRejectOnLinux() *bool {
-	if r == nil {
-		return nil
-	}
-	return r.IsRejectOnLinux
 }

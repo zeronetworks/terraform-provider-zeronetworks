@@ -2,49 +2,12 @@
 
 package shared
 
-// Conditions - Defines dynamic selection criteria for group membership
-type Conditions struct {
-	NamePatterns   []string `json:"namePatterns,omitempty"`
-	OsTypes        []int64  `json:"osTypes,omitempty"`
-	OsNamePatterns []string `json:"osNamePatterns,omitempty"`
-	AssetTypes     []int64  `json:"assetTypes,omitempty"`
-}
-
-func (c *Conditions) GetNamePatterns() []string {
-	if c == nil {
-		return nil
-	}
-	return c.NamePatterns
-}
-
-func (c *Conditions) GetOsTypes() []int64 {
-	if c == nil {
-		return nil
-	}
-	return c.OsTypes
-}
-
-func (c *Conditions) GetOsNamePatterns() []string {
-	if c == nil {
-		return nil
-	}
-	return c.OsNamePatterns
-}
-
-func (c *Conditions) GetAssetTypes() []int64 {
-	if c == nil {
-		return nil
-	}
-	return c.AssetTypes
-}
-
 type CustomGroupBody struct {
 	Name        string  `json:"name"`
 	Description *string `json:"description,omitempty"`
 	// members id
-	MembersID []string `json:"membersId,omitempty"`
-	// Defines dynamic selection criteria for group membership
-	Conditions *Conditions `json:"conditions,omitempty"`
+	MembersID  []string         `json:"membersId,omitempty"`
+	Conditions *GroupConditions `json:"conditions,omitempty"`
 }
 
 func (c *CustomGroupBody) GetName() string {
@@ -68,7 +31,7 @@ func (c *CustomGroupBody) GetMembersID() []string {
 	return c.MembersID
 }
 
-func (c *CustomGroupBody) GetConditions() *Conditions {
+func (c *CustomGroupBody) GetConditions() *GroupConditions {
 	if c == nil {
 		return nil
 	}

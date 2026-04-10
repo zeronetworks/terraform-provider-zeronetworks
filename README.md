@@ -36,7 +36,7 @@ terraform {
   required_providers {
     zeronetworks = {
       source  = "zeronetworks/zeronetworks"
-      version = "1.1.19"
+      version = "1.26.3"
     }
   }
 }
@@ -64,20 +64,26 @@ Available configuration:
 
 ### Resources
 
+* [zeronetworks_ae_exclusion_inbound](docs/resources/ae_exclusion_inbound.md)
+* [zeronetworks_ae_exclusion_outbound](docs/resources/ae_exclusion_outbound.md)
 * [zeronetworks_custom_group](docs/resources/custom_group.md)
 * [zeronetworks_custom_group_members](docs/resources/custom_group_members.md)
 * [zeronetworks_inbound_mfa_policy](docs/resources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/resources/inbound_rule.md)
+* [zeronetworks_internal_access_policy](docs/resources/internal_access_policy.md)
 * [zeronetworks_outbound_mfa_policy](docs/resources/outbound_mfa_policy.md)
 * [zeronetworks_outbound_rule](docs/resources/outbound_rule.md)
 * [zeronetworks_rpc_rule](docs/resources/rpc_rule.md)
 ### Data Sources
 
+* [zeronetworks_ae_exclusion_inbound](docs/data-sources/ae_exclusion_inbound.md)
+* [zeronetworks_ae_exclusion_outbound](docs/data-sources/ae_exclusion_outbound.md)
 * [zeronetworks_asset_id](docs/data-sources/asset_id.md)
 * [zeronetworks_custom_group](docs/data-sources/custom_group.md)
 * [zeronetworks_custom_group_members](docs/data-sources/custom_group_members.md)
 * [zeronetworks_inbound_mfa_policy](docs/data-sources/inbound_mfa_policy.md)
 * [zeronetworks_inbound_rule](docs/data-sources/inbound_rule.md)
+* [zeronetworks_internal_access_policy](docs/data-sources/internal_access_policy.md)
 * [zeronetworks_outbound_mfa_policy](docs/data-sources/outbound_mfa_policy.md)
 * [zeronetworks_outbound_rule](docs/data-sources/outbound_rule.md)
 * [zeronetworks_rpc_rule](docs/data-sources/rpc_rule.md)
