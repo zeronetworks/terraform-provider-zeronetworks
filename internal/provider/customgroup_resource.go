@@ -30,22 +30,22 @@ type CustomGroupResource struct {
 
 // CustomGroupResourceModel describes the resource data model.
 type CustomGroupResourceModel struct {
-	AddedAt             types.Int64                 `tfsdk:"added_at"`
-	AddedBy             *tfTypes.CustomGroupAddedBy `tfsdk:"added_by"`
-	Conditions          *tfTypes.Conditions         `tfsdk:"conditions"`
-	CreatedAt           types.Int64                 `tfsdk:"created_at"`
-	Description         types.String                `tfsdk:"description"`
-	DirectMembersCount  types.Int64                 `tfsdk:"direct_members_count"`
-	Domain              types.String                `tfsdk:"domain"`
-	GUID                types.String                `tfsdk:"guid"`
-	HasProtectionPolicy types.Bool                  `tfsdk:"has_protection_policy"`
-	ID                  types.String                `tfsdk:"id"`
-	MembersID           []types.String              `tfsdk:"members_id"`
-	Name                types.String                `tfsdk:"name"`
-	PrincipalName       types.String                `tfsdk:"principal_name"`
-	Role                types.Int64                 `tfsdk:"role"`
-	Sid                 types.String                `tfsdk:"sid"`
-	UpdatedAt           types.Int64                 `tfsdk:"updated_at"`
+	AddedAt             types.Int64              `tfsdk:"added_at"`
+	AddedBy             *tfTypes.AddedBy         `tfsdk:"added_by"`
+	Conditions          *tfTypes.GroupConditions `tfsdk:"conditions"`
+	CreatedAt           types.Int64              `tfsdk:"created_at"`
+	Description         types.String             `tfsdk:"description"`
+	DirectMembersCount  types.Int64              `tfsdk:"direct_members_count"`
+	Domain              types.String             `tfsdk:"domain"`
+	GUID                types.String             `tfsdk:"guid"`
+	HasProtectionPolicy types.Bool               `tfsdk:"has_protection_policy"`
+	ID                  types.String             `tfsdk:"id"`
+	MembersID           []types.String           `tfsdk:"members_id"`
+	Name                types.String             `tfsdk:"name"`
+	PrincipalName       types.String             `tfsdk:"principal_name"`
+	Role                types.Int64              `tfsdk:"role"`
+	Sid                 types.String             `tfsdk:"sid"`
+	UpdatedAt           types.Int64              `tfsdk:"updated_at"`
 }
 
 func (r *CustomGroupResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -76,7 +76,15 @@ func (r *CustomGroupResource) Schema(ctx context.Context, req resource.SchemaReq
 				Attributes: map[string]schema.Attribute{
 					"asset_types": schema.ListAttribute{
 						Optional:    true,
-						ElementType: types.Int64Type,
+						ElementType: types.Int32Type,
+					},
+					"domains": schema.ListAttribute{
+						Optional:    true,
+						ElementType: types.StringType,
+					},
+					"ip_builtins": schema.ListAttribute{
+						Optional:    true,
+						ElementType: types.StringType,
 					},
 					"name_patterns": schema.ListAttribute{
 						Optional:    true,
@@ -88,10 +96,9 @@ func (r *CustomGroupResource) Schema(ctx context.Context, req resource.SchemaReq
 					},
 					"os_types": schema.ListAttribute{
 						Optional:    true,
-						ElementType: types.Int64Type,
+						ElementType: types.Int32Type,
 					},
 				},
-				Description: `Defines dynamic selection criteria for group membership`,
 			},
 			"created_at": schema.Int64Attribute{
 				Computed:    true,

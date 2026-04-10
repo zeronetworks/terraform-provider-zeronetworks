@@ -19,7 +19,7 @@ func (r *CustomGroupDataSourceModel) RefreshFromSharedCustomGroup(ctx context.Co
 		if resp.AddedBy == nil {
 			r.AddedBy = nil
 		} else {
-			r.AddedBy = &tfTypes.CustomGroupAddedBy{}
+			r.AddedBy = &tfTypes.AddedBy{}
 			r.AddedBy.ID = types.StringPointerValue(resp.AddedBy.ID)
 			r.AddedBy.Name = types.StringPointerValue(resp.AddedBy.Name)
 		}

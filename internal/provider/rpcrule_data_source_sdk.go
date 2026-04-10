@@ -30,7 +30,7 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 			if resp.CreatedBy.CreatedBy == nil {
 				r.CreatedBy.CreatedBy = nil
 			} else {
-				r.CreatedBy.CreatedBy = &tfTypes.IDNamePair1{}
+				r.CreatedBy.CreatedBy = &tfTypes.IDNamePair{}
 				r.CreatedBy.CreatedBy.ID = types.StringPointerValue(resp.CreatedBy.CreatedBy.ID)
 				r.CreatedBy.CreatedBy.Name = types.StringPointerValue(resp.CreatedBy.CreatedBy.Name)
 			}
@@ -51,10 +51,10 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 		for _, v := range resp.ExcludedAssetIdsList {
 			r.ExcludedAssetIdsList = append(r.ExcludedAssetIdsList, types.StringValue(v))
 		}
-		r.ExcludedAssetInfos = []tfTypes.IDNamePair1{}
+		r.ExcludedAssetInfos = []tfTypes.IDNamePair{}
 
 		for _, excludedAssetInfosItem := range resp.ExcludedAssetInfos {
-			var excludedAssetInfos tfTypes.IDNamePair1
+			var excludedAssetInfos tfTypes.IDNamePair
 
 			excludedAssetInfos.ID = types.StringPointerValue(excludedAssetInfosItem.ID)
 			excludedAssetInfos.Name = types.StringPointerValue(excludedAssetInfosItem.Name)
@@ -71,7 +71,7 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 		if resp.LocalAssetInfo == nil {
 			r.LocalAssetInfo = nil
 		} else {
-			r.LocalAssetInfo = &tfTypes.IDNamePair1{}
+			r.LocalAssetInfo = &tfTypes.IDNamePair{}
 			r.LocalAssetInfo.ID = types.StringPointerValue(resp.LocalAssetInfo.ID)
 			r.LocalAssetInfo.Name = types.StringPointerValue(resp.LocalAssetInfo.Name)
 		}
@@ -90,10 +90,10 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 		for _, v := range resp.RemoteAssetIdsList {
 			r.RemoteAssetIdsList = append(r.RemoteAssetIdsList, types.StringValue(v))
 		}
-		r.RemoteAssetInfos = []tfTypes.IDNamePair1{}
+		r.RemoteAssetInfos = []tfTypes.IDNamePair{}
 
 		for _, remoteAssetInfosItem := range resp.RemoteAssetInfos {
-			var remoteAssetInfos tfTypes.IDNamePair1
+			var remoteAssetInfos tfTypes.IDNamePair
 
 			remoteAssetInfos.ID = types.StringPointerValue(remoteAssetInfosItem.ID)
 			remoteAssetInfos.Name = types.StringPointerValue(remoteAssetInfosItem.Name)
@@ -114,7 +114,7 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 		if resp.UpdatedBy == nil {
 			r.UpdatedBy = nil
 		} else {
-			r.UpdatedBy = &tfTypes.IDNamePair1{}
+			r.UpdatedBy = &tfTypes.IDNamePair{}
 			r.UpdatedBy.ID = types.StringPointerValue(resp.UpdatedBy.ID)
 			r.UpdatedBy.Name = types.StringPointerValue(resp.UpdatedBy.Name)
 		}
@@ -122,10 +122,10 @@ func (r *RPCRuleDataSourceModel) RefreshFromSharedRPCRule(ctx context.Context, r
 		for _, v := range resp.UserIdsList {
 			r.UserIdsList = append(r.UserIdsList, types.StringValue(v))
 		}
-		r.UserInfos = []tfTypes.IDNamePair1{}
+		r.UserInfos = []tfTypes.IDNamePair{}
 
 		for _, userInfosItem := range resp.UserInfos {
-			var userInfos tfTypes.IDNamePair1
+			var userInfos tfTypes.IDNamePair
 
 			userInfos.ID = types.StringPointerValue(userInfosItem.ID)
 			userInfos.Name = types.StringPointerValue(userInfosItem.Name)

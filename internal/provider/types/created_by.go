@@ -7,7 +7,7 @@ import (
 )
 
 type CreatedBy struct {
-	CreatedBy         *IDNamePair1 `tfsdk:"created_by"`
+	CreatedBy         *IDNamePair  `tfsdk:"created_by"`
 	Email             types.String `tfsdk:"email"`
 	EnforcementSource types.Int32  `tfsdk:"enforcement_source"`
 	UserRole          types.Int32  `tfsdk:"user_role"`

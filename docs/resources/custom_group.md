@@ -16,7 +16,13 @@ CustomGroup Resource
 resource "zeronetworks_custom_group" "my_customgroup" {
   conditions = {
     asset_types = [
-      4
+      67
+    ]
+    domains = [
+      "..."
+    ]
+    ip_builtins = [
+      "..."
     ]
     name_patterns = [
       "..."
@@ -25,7 +31,7 @@ resource "zeronetworks_custom_group" "my_customgroup" {
       "..."
     ]
     os_types = [
-      8
+      4
     ]
   }
   description = "...my_description..."
@@ -45,7 +51,7 @@ resource "zeronetworks_custom_group" "my_customgroup" {
 
 ### Optional
 
-- `conditions` (Attributes) Defines dynamic selection criteria for group membership (see [below for nested schema](#nestedatt--conditions))
+- `conditions` (Attributes) (see [below for nested schema](#nestedatt--conditions))
 - `description` (String)
 - `members_id` (List of String) members id
 
@@ -70,6 +76,8 @@ resource "zeronetworks_custom_group" "my_customgroup" {
 Optional:
 
 - `asset_types` (List of Number)
+- `domains` (List of String)
+- `ip_builtins` (List of String)
 - `name_patterns` (List of String)
 - `os_name_patterns` (List of String)
 - `os_types` (List of Number)

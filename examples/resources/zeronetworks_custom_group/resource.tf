@@ -1,7 +1,13 @@
 resource "zeronetworks_custom_group" "my_customgroup" {
   conditions = {
     asset_types = [
-      4
+      67
+    ]
+    domains = [
+      "..."
+    ]
+    ip_builtins = [
+      "..."
     ]
     name_patterns = [
       "..."
@@ -10,7 +16,7 @@ resource "zeronetworks_custom_group" "my_customgroup" {
       "..."
     ]
     os_types = [
-      8
+      4
     ]
   }
   description = "...my_description..."

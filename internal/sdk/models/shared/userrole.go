@@ -19,21 +19,27 @@ import (
 // * '9' - Asset Manager
 // * '10' - Operator
 // * '11' - Service Now Token
+// * '12' - Segment Server Provisioning
+// * '13' - Connect Server Provisioning
+// * '14' - Segment Connector Provisioning
 type UserRole int
 
 const (
-	UserRoleZero   UserRole = 0
-	UserRoleOne    UserRole = 1
-	UserRoleTwo    UserRole = 2
-	UserRoleThree  UserRole = 3
-	UserRoleFour   UserRole = 4
-	UserRoleFive   UserRole = 5
-	UserRoleSix    UserRole = 6
-	UserRoleSeven  UserRole = 7
-	UserRoleEight  UserRole = 8
-	UserRoleNine   UserRole = 9
-	UserRoleTen    UserRole = 10
-	UserRoleEleven UserRole = 11
+	UserRoleZero     UserRole = 0
+	UserRoleOne      UserRole = 1
+	UserRoleTwo      UserRole = 2
+	UserRoleThree    UserRole = 3
+	UserRoleFour     UserRole = 4
+	UserRoleFive     UserRole = 5
+	UserRoleSix      UserRole = 6
+	UserRoleSeven    UserRole = 7
+	UserRoleEight    UserRole = 8
+	UserRoleNine     UserRole = 9
+	UserRoleTen      UserRole = 10
+	UserRoleEleven   UserRole = 11
+	UserRoleTwelve   UserRole = 12
+	UserRoleThirteen UserRole = 13
+	UserRoleFourteen UserRole = 14
 )
 
 func (e UserRole) ToPointer() *UserRole {
@@ -68,6 +74,12 @@ func (e *UserRole) UnmarshalJSON(data []byte) error {
 	case 10:
 		fallthrough
 	case 11:
+		fallthrough
+	case 12:
+		fallthrough
+	case 13:
+		fallthrough
+	case 14:
 		*e = UserRole(v)
 		return nil
 	default:

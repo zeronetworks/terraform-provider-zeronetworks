@@ -32,31 +32,31 @@ type RPCRuleResource struct {
 
 // RPCRuleResourceModel describes the resource data model.
 type RPCRuleResourceModel struct {
-	Action               types.Int32           `tfsdk:"action"`
-	ChangeTicket         types.String          `tfsdk:"change_ticket"`
-	CreatedAt            types.Int64           `tfsdk:"created_at"`
-	CreatedBy            *tfTypes.CreatedBy    `tfsdk:"created_by"`
-	Description          types.String          `tfsdk:"description"`
-	ExcludedAssetIdsList []types.String        `tfsdk:"excluded_asset_ids_list"`
-	ExcludedAssetInfos   []tfTypes.IDNamePair1 `tfsdk:"excluded_asset_infos"`
-	ExpiresAt            types.Int64           `tfsdk:"expires_at"`
-	ID                   types.String          `tfsdk:"id"`
-	InterfaceUuidsList   []types.String        `tfsdk:"interface_uuids_list"`
-	LocalAssetID         types.String          `tfsdk:"local_asset_id"`
-	LocalAssetInfo       *tfTypes.IDNamePair1  `tfsdk:"local_asset_info"`
-	Name                 types.String          `tfsdk:"name"`
-	OpNumbersList        []types.Int64         `tfsdk:"op_numbers_list"`
-	ParentID             types.String          `tfsdk:"parent_id"`
-	ParentType           types.Int32           `tfsdk:"parent_type"`
-	ProtocolsList        []types.Int64         `tfsdk:"protocols_list"`
-	RemoteAssetIdsList   []types.String        `tfsdk:"remote_asset_ids_list"`
-	RemoteAssetInfos     []tfTypes.IDNamePair1 `tfsdk:"remote_asset_infos"`
-	RuleClass            types.Int32           `tfsdk:"rule_class"`
-	State                types.Int32           `tfsdk:"state"`
-	UpdatedAt            types.Int64           `tfsdk:"updated_at"`
-	UpdatedBy            *tfTypes.IDNamePair1  `tfsdk:"updated_by"`
-	UserIdsList          []types.String        `tfsdk:"user_ids_list"`
-	UserInfos            []tfTypes.IDNamePair1 `tfsdk:"user_infos"`
+	Action               types.Int32          `tfsdk:"action"`
+	ChangeTicket         types.String         `tfsdk:"change_ticket"`
+	CreatedAt            types.Int64          `tfsdk:"created_at"`
+	CreatedBy            *tfTypes.CreatedBy   `tfsdk:"created_by"`
+	Description          types.String         `tfsdk:"description"`
+	ExcludedAssetIdsList []types.String       `tfsdk:"excluded_asset_ids_list"`
+	ExcludedAssetInfos   []tfTypes.IDNamePair `tfsdk:"excluded_asset_infos"`
+	ExpiresAt            types.Int64          `tfsdk:"expires_at"`
+	ID                   types.String         `tfsdk:"id"`
+	InterfaceUuidsList   []types.String       `tfsdk:"interface_uuids_list"`
+	LocalAssetID         types.String         `tfsdk:"local_asset_id"`
+	LocalAssetInfo       *tfTypes.IDNamePair  `tfsdk:"local_asset_info"`
+	Name                 types.String         `tfsdk:"name"`
+	OpNumbersList        []types.Int64        `tfsdk:"op_numbers_list"`
+	ParentID             types.String         `tfsdk:"parent_id"`
+	ParentType           types.Int32          `tfsdk:"parent_type"`
+	ProtocolsList        []types.Int64        `tfsdk:"protocols_list"`
+	RemoteAssetIdsList   []types.String       `tfsdk:"remote_asset_ids_list"`
+	RemoteAssetInfos     []tfTypes.IDNamePair `tfsdk:"remote_asset_infos"`
+	RuleClass            types.Int32          `tfsdk:"rule_class"`
+	State                types.Int32          `tfsdk:"state"`
+	UpdatedAt            types.Int64          `tfsdk:"updated_at"`
+	UpdatedBy            *tfTypes.IDNamePair  `tfsdk:"updated_by"`
+	UserIdsList          []types.String       `tfsdk:"user_ids_list"`
+	UserInfos            []tfTypes.IDNamePair `tfsdk:"user_infos"`
 }
 
 func (r *RPCRuleResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -132,7 +132,10 @@ func (r *RPCRuleResource) Schema(ctx context.Context, req resource.SchemaRequest
 							`* '8' - JAMF Asset` + "\n" +
 							`* '9' - Asset Manager` + "\n" +
 							`* '10' - Operator` + "\n" +
-							`* '11' - Service Now Token`,
+							`* '11' - Service Now Token` + "\n" +
+							`* '12' - Segment Server Provisioning` + "\n" +
+							`* '13' - Connect Server Provisioning` + "\n" +
+							`* '14' - Segment Connector Provisioning`,
 					},
 				},
 			},

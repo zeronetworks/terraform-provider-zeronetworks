@@ -118,10 +118,13 @@ func (p *ZeronetworksProvider) Configure(ctx context.Context, req provider.Confi
 
 func (p *ZeronetworksProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
+		NewAEExclusionInboundResource,
+		NewAEExclusionOutboundResource,
 		NewCustomGroupResource,
 		NewCustomGroupMembersResource,
 		NewInboundMFAPolicyResource,
 		NewInboundRuleResource,
+		NewInternalAccessPolicyResource,
 		NewOutboundMFAPolicyResource,
 		NewOutboundRuleResource,
 		NewRPCRuleResource,
@@ -130,11 +133,14 @@ func (p *ZeronetworksProvider) Resources(ctx context.Context) []func() resource.
 
 func (p *ZeronetworksProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
+		NewAEExclusionInboundDataSource,
+		NewAEExclusionOutboundDataSource,
 		NewAssetIDDataSource,
 		NewCustomGroupDataSource,
 		NewCustomGroupMembersDataSource,
 		NewInboundMFAPolicyDataSource,
 		NewInboundRuleDataSource,
+		NewInternalAccessPolicyDataSource,
 		NewOutboundMFAPolicyDataSource,
 		NewOutboundRuleDataSource,
 		NewRPCRuleDataSource,

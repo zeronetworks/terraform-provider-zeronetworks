@@ -7,6 +7,23 @@ import (
 )
 
 type Asset struct {
+	ID   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Possible asset status:
+	//   * '1' - Not monitored
+	//   * '2' - Segment server
+	//   * '4' - Can't be monitored (unsupported OS)
+	//   * '5' - Can't be monitored (unmonitorable)
+	//   * '6' - Can't be monitored (unmonitorable)
+	//   * '7' - Cloud connector
+	//   * '8' - Not monitored (ansible unreachable)
+	//   * '9' - Not monitored (cloud connector uninstalled)
+	//   * '10' - Not monitored (cloud connector required)
+	//   * '12' - Can't be monitored (inactive entity)
+	//   * '13' - Stalked Externally
+	//   * '14' - Lightweight Agent
+	//
+	AssetStatus *AssetStatus `json:"assetStatus,omitempty"`
 	// Possible asset status:
 	//   * '0' - Unknown
 	//   * '1' - Client
@@ -189,13 +206,9 @@ type Asset struct {
 	//   * '178' - WIRELESS PHONE GATEWAY
 	//   * '1001' - OTHER OT
 	//
-	AssetType               *AssetType  `json:"assetType,omitempty"`
-	BreakGlassActivated     *bool       `json:"breakGlassActivated,omitempty"`
-	Domain                  *string     `json:"domain,omitempty"`
-	ID                      *string     `json:"id,omitempty"`
-	IdentityProtectionState *int64      `json:"identityProtectionState,omitempty"`
-	Name                    *string     `json:"name,omitempty"`
-	OtLocattion             *OtLocation `json:"otLocattion,omitempty"`
+	AssetType           *AssetType `json:"assetType,omitempty"`
+	BreakGlassActivated *bool      `json:"breakGlassActivated,omitempty"`
+	Domain              *string    `json:"domain,omitempty"`
 	// * '0' - Unspecified
 	// * '1' - Unsegmented
 	// * '2' - Unsegmenting
@@ -216,28 +229,76 @@ type Asset struct {
 	// * '17' - QUEUED_WITH_BLOCKS_DONE
 	// * '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
 	//
-	ProtectionState    *ProtectionState `json:"protectionState,omitempty"`
-	RPCProtectionState *int64           `json:"rpcProtectionState,omitempty"`
-	// Possible asset status:
-	//   * '1' - Not monitored
-	//   * '2' - Segment server
-	//   * '4' - Can't be monitored (unsupported OS)
-	//   * '5' - Can't be monitored (unmonitorable)
-	//   * '6' - Can't be monitored (unmonitorable)
-	//   * '7' - Cloud connector
-	//   * '8' - Not monitored (ansible unreachable)
-	//   * '9' - Not monitored (cloud connector uninstalled)
-	//   * '10' - Not monitored (cloud connector required)
-	//   * '12' - Can't be monitored (inactive entity)
-	//   * '13' - Stalked Externally
-	//   * '14' - Lightweight Agent
+	IdentityProtectionState *ProtectionState `json:"identityProtectionState,omitempty"`
+	IsQuarantined           *bool            `json:"isQuarantined,omitempty"`
+	OtLocattion             *OtLocation      `json:"otLocattion,omitempty"`
+	// * '0' - Unspecified
+	// * '1' - Unsegmented
+	// * '2' - Unsegmenting
+	// * '3' - Segmented
+	// * '4' - Segmenting
+	// * '5' - Learning until
+	// * '6' - forced_unprotected
+	// * '7' - Unsegmenting' - Due to Policy
+	// * '8' - Segmented' - Due to Policy
+	// * '9' - Segmenting- Due to Policy
+	// * '10' - Learning until' - Due to Policy
+	// * '11' - Learning done
+	// * '12' - Learning done- Due to Policy
+	// * '13' - APPLYING_QUEUE_WITH_BLOCKS
+	// * '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+	// * '15' - QUEUED_WITH_BLOCKS
+	// * '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+	// * '17' - QUEUED_WITH_BLOCKS_DONE
+	// * '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
 	//
-	AssetStatus          *AssetStatus `json:"assetStatus,omitempty"`
-	AssignedDeploymentID *string      `json:"assignedDeploymentId,omitempty"`
-	ExternalDeviceID     *string      `json:"externalDeviceId,omitempty"`
-	Fqdn                 *string      `json:"fqdn,omitempty"`
-	HasDNS               *bool        `json:"hasDns,omitempty"`
-	HealthState          *HealthState `json:"healthState,omitempty"`
+	ProtectionState *ProtectionState `json:"protectionState,omitempty"`
+	// * '0' - Unspecified
+	// * '1' - Unsegmented
+	// * '2' - Unsegmenting
+	// * '3' - Segmented
+	// * '4' - Segmenting
+	// * '5' - Learning until
+	// * '6' - forced_unprotected
+	// * '7' - Unsegmenting' - Due to Policy
+	// * '8' - Segmented' - Due to Policy
+	// * '9' - Segmenting- Due to Policy
+	// * '10' - Learning until' - Due to Policy
+	// * '11' - Learning done
+	// * '12' - Learning done- Due to Policy
+	// * '13' - APPLYING_QUEUE_WITH_BLOCKS
+	// * '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+	// * '15' - QUEUED_WITH_BLOCKS
+	// * '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+	// * '17' - QUEUED_WITH_BLOCKS_DONE
+	// * '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+	//
+	RPCProtectionState    *ProtectionState `json:"rpcProtectionState,omitempty"`
+	AssignedDeploymentID  *string          `json:"assignedDeploymentId,omitempty"`
+	AssignedDeployment    *IDNamePair      `json:"assignedDeployment,omitempty"`
+	CloudConnectorVersion *string          `json:"cloudConnectorVersion,omitempty"`
+	DeploymentaClusterID  *string          `json:"deploymentaClusterId,omitempty"`
+	// * '1' - System
+	// * '2' - User
+	// * '3' - Domain
+	// * '4' - Subnet
+	// * '5' - None
+	// * '6' - N/A
+	//
+	DeploymentsClusterSource *DeploymentsClusterSource `json:"deploymentsClusterSource,omitempty"`
+	DeploymentsCluster       *IDNamePair               `json:"deploymentsCluster,omitempty"`
+	// Possible values:
+	//   * '1' - Linux IP Tables
+	//   * '2' - Linux NF Tables
+	//   * '3' - Windows Firewall
+	//   * '4' - Windows WFP
+	//
+	EnforcementMethod *EnforcementMethod `json:"enforcementMethod,omitempty"`
+	EnvironmentGroup  *IDNamePair        `json:"environmentGroup,omitempty"`
+	ExternalDeviceID  *string            `json:"externalDeviceId,omitempty"`
+	Fqdn              *string            `json:"fqdn,omitempty"`
+	HasDNS            *bool              `json:"hasDns,omitempty"`
+	HealthState       *HealthState       `json:"healthState,omitempty"`
 	// Epoch Millis
 	IdentityProtectAt *int64 `json:"identityProtectAt,omitempty"`
 	// Epoch Millis
@@ -251,38 +312,54 @@ type Asset struct {
 	//
 	InactiveReason *InactiveReason `json:"inactiveReason,omitempty"`
 	// Epoch Millis
-	InactiveSince *int64   `json:"inactiveSince,omitempty"`
-	IPV4Addresses []string `json:"ipV4Addresses,omitempty"`
-	IPV6Addresses []string `json:"ipV6Addresses,omitempty"`
+	InactiveSince     *int64   `json:"inactiveSince,omitempty"`
+	IPV4Addresses     []string `json:"ipV4Addresses,omitempty"`
+	IPV6Addresses     []string `json:"ipV6Addresses,omitempty"`
+	IPSpace           *int64   `json:"ipSpace,omitempty"`
+	IsIPSecConfigured *bool    `json:"isIpSecConfigured,omitempty"`
 	// Epoch Millis
-	LastLogon           *int64  `json:"lastLogon,omitempty"`
-	Manufacturer        *string `json:"manufacturer,omitempty"`
-	OperatingSystem     *string `json:"operatingSystem,omitempty"`
-	OsType              *int64  `json:"osType,omitempty"`
-	OutboundRestriction *int64  `json:"outboundRestriction,omitempty"`
+	LastLogon       *int64  `json:"lastLogon,omitempty"`
+	Manufacturer    *string `json:"manufacturer,omitempty"`
+	OperatingSystem *string `json:"operatingSystem,omitempty"`
+	// Possible osType:
+	//   * '1' - Unmanagable
+	//   * '2' - Windows
+	//   * '3' - Linux
+	//   * '4' - Mac
+	//
+	OsType *OsType `json:"osType,omitempty"`
+	// * '1' - No restrictions
+	// * '2' - Internal Restricted
+	// * '3' - External Restricted
+	// * '4' - Internal and External Restricted
+	// * '5' - No applicable
+	//
+	OutboundRestriction *OutboundRestrictionMode `json:"outboundRestriction,omitempty"`
 	// Epoch Millis
-	PasswordUpdateTime    *int64  `json:"passwordUpdateTime,omitempty"`
-	PreferredDeploymentID *string `json:"preferredDeploymentId,omitempty"`
-	PrincipalName         *string `json:"principalName,omitempty"`
+	PasswordUpdateTime    *int64      `json:"passwordUpdateTime,omitempty"`
+	PreferredDeploymentID *string     `json:"preferredDeploymentId,omitempty"`
+	PreferredDeployment   *IDNamePair `json:"preferredDeployment,omitempty"`
+	PrincipalName         *string     `json:"principalName,omitempty"`
 	// Epoch Millis
 	ProtectAt *int64 `json:"protectAt,omitempty"`
 	// Epoch Millis
-	ProtectedAt   *int64 `json:"protectedAt,omitempty"`
-	PurdueLevel   *int64 `json:"purdueLevel,omitempty"`
-	IsQuarantined *bool  `json:"isQuarantined,omitempty"`
-	RPCMonitored  *bool  `json:"rpcMonitored,omitempty"`
+	ProtectedAt *int64 `json:"protectedAt,omitempty"`
+	// Purdue Level:
+	//   * '0' - Unspecified
+	//   * '1' - Level 0
+	//   * '2' - Level 1
+	//   * '3' - Level 2
+	//   * '4' - Level 3
+	//   * '5' - Level 4
+	//
+	PurdueLevel  *PurdueLevel `json:"purdueLevel,omitempty"`
+	RPCMonitored *bool        `json:"rpcMonitored,omitempty"`
 	// Epoch Millis
 	RPCProtectAt *int64 `json:"rpcProtectAt,omitempty"`
 	// Epoch Millis
 	RPCProtectedAt *int64 `json:"rpcProtectedAt,omitempty"`
-	// Possible values:
-	//   * '1' - Linux IP Tables
-	//   * '2' - Linux NF Tables
-	//   * '3' - Windows Firewall
-	//   * '4' - Windows WFP
-	//
-	EnforcementMethod *EnforcementMethod `json:"enforcementMethod,omitempty"`
 	// Possible asset sources:
+	//   * '0' - Unspecified
 	//   * '1' - Access portal
 	//   * '2' - SSP
 	//   * '3' - Active directory
@@ -295,6 +372,7 @@ type Asset struct {
 	//   * '10' - Azure
 	//   * '11' - AWS
 	//   * '12' - GCP
+	//   * '13' - Tag
 	//   * '14' - Jamf
 	//   * '15' - Manual Linux
 	//   * '16' - IBM cloud
@@ -314,8 +392,8 @@ type Asset struct {
 	//   * '30' - Manual Mac
 	//
 	Source                   *Source `json:"source,omitempty"`
+	State                    *State  `json:"state,omitempty"`
 	SwitchLocationOverridden *bool   `json:"switchLocationOverridden,omitempty"`
-	IsIPSecConfigured        *bool   `json:"isIpSecConfigured,omitempty"`
 }
 
 func (a Asset) MarshalJSON() ([]byte, error) {
@@ -327,6 +405,27 @@ func (a *Asset) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	return nil
+}
+
+func (a *Asset) GetID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.ID
+}
+
+func (a *Asset) GetName() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Name
+}
+
+func (a *Asset) GetAssetStatus() *AssetStatus {
+	if a == nil {
+		return nil
+	}
+	return a.AssetStatus
 }
 
 func (a *Asset) GetAssetType() *AssetType {
@@ -350,25 +449,18 @@ func (a *Asset) GetDomain() *string {
 	return a.Domain
 }
 
-func (a *Asset) GetID() *string {
-	if a == nil {
-		return nil
-	}
-	return a.ID
-}
-
-func (a *Asset) GetIdentityProtectionState() *int64 {
+func (a *Asset) GetIdentityProtectionState() *ProtectionState {
 	if a == nil {
 		return nil
 	}
 	return a.IdentityProtectionState
 }
 
-func (a *Asset) GetName() *string {
+func (a *Asset) GetIsQuarantined() *bool {
 	if a == nil {
 		return nil
 	}
-	return a.Name
+	return a.IsQuarantined
 }
 
 func (a *Asset) GetOtLocattion() *OtLocation {
@@ -385,18 +477,11 @@ func (a *Asset) GetProtectionState() *ProtectionState {
 	return a.ProtectionState
 }
 
-func (a *Asset) GetRPCProtectionState() *int64 {
+func (a *Asset) GetRPCProtectionState() *ProtectionState {
 	if a == nil {
 		return nil
 	}
 	return a.RPCProtectionState
-}
-
-func (a *Asset) GetAssetStatus() *AssetStatus {
-	if a == nil {
-		return nil
-	}
-	return a.AssetStatus
 }
 
 func (a *Asset) GetAssignedDeploymentID() *string {
@@ -404,6 +489,55 @@ func (a *Asset) GetAssignedDeploymentID() *string {
 		return nil
 	}
 	return a.AssignedDeploymentID
+}
+
+func (a *Asset) GetAssignedDeployment() *IDNamePair {
+	if a == nil {
+		return nil
+	}
+	return a.AssignedDeployment
+}
+
+func (a *Asset) GetCloudConnectorVersion() *string {
+	if a == nil {
+		return nil
+	}
+	return a.CloudConnectorVersion
+}
+
+func (a *Asset) GetDeploymentaClusterID() *string {
+	if a == nil {
+		return nil
+	}
+	return a.DeploymentaClusterID
+}
+
+func (a *Asset) GetDeploymentsClusterSource() *DeploymentsClusterSource {
+	if a == nil {
+		return nil
+	}
+	return a.DeploymentsClusterSource
+}
+
+func (a *Asset) GetDeploymentsCluster() *IDNamePair {
+	if a == nil {
+		return nil
+	}
+	return a.DeploymentsCluster
+}
+
+func (a *Asset) GetEnforcementMethod() *EnforcementMethod {
+	if a == nil {
+		return nil
+	}
+	return a.EnforcementMethod
+}
+
+func (a *Asset) GetEnvironmentGroup() *IDNamePair {
+	if a == nil {
+		return nil
+	}
+	return a.EnvironmentGroup
 }
 
 func (a *Asset) GetExternalDeviceID() *string {
@@ -476,6 +610,20 @@ func (a *Asset) GetIPV6Addresses() []string {
 	return a.IPV6Addresses
 }
 
+func (a *Asset) GetIPSpace() *int64 {
+	if a == nil {
+		return nil
+	}
+	return a.IPSpace
+}
+
+func (a *Asset) GetIsIPSecConfigured() *bool {
+	if a == nil {
+		return nil
+	}
+	return a.IsIPSecConfigured
+}
+
 func (a *Asset) GetLastLogon() *int64 {
 	if a == nil {
 		return nil
@@ -497,14 +645,14 @@ func (a *Asset) GetOperatingSystem() *string {
 	return a.OperatingSystem
 }
 
-func (a *Asset) GetOsType() *int64 {
+func (a *Asset) GetOsType() *OsType {
 	if a == nil {
 		return nil
 	}
 	return a.OsType
 }
 
-func (a *Asset) GetOutboundRestriction() *int64 {
+func (a *Asset) GetOutboundRestriction() *OutboundRestrictionMode {
 	if a == nil {
 		return nil
 	}
@@ -523,6 +671,13 @@ func (a *Asset) GetPreferredDeploymentID() *string {
 		return nil
 	}
 	return a.PreferredDeploymentID
+}
+
+func (a *Asset) GetPreferredDeployment() *IDNamePair {
+	if a == nil {
+		return nil
+	}
+	return a.PreferredDeployment
 }
 
 func (a *Asset) GetPrincipalName() *string {
@@ -546,18 +701,11 @@ func (a *Asset) GetProtectedAt() *int64 {
 	return a.ProtectedAt
 }
 
-func (a *Asset) GetPurdueLevel() *int64 {
+func (a *Asset) GetPurdueLevel() *PurdueLevel {
 	if a == nil {
 		return nil
 	}
 	return a.PurdueLevel
-}
-
-func (a *Asset) GetIsQuarantined() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.IsQuarantined
 }
 
 func (a *Asset) GetRPCMonitored() *bool {
@@ -581,13 +729,6 @@ func (a *Asset) GetRPCProtectedAt() *int64 {
 	return a.RPCProtectedAt
 }
 
-func (a *Asset) GetEnforcementMethod() *EnforcementMethod {
-	if a == nil {
-		return nil
-	}
-	return a.EnforcementMethod
-}
-
 func (a *Asset) GetSource() *Source {
 	if a == nil {
 		return nil
@@ -595,16 +736,16 @@ func (a *Asset) GetSource() *Source {
 	return a.Source
 }
 
+func (a *Asset) GetState() *State {
+	if a == nil {
+		return nil
+	}
+	return a.State
+}
+
 func (a *Asset) GetSwitchLocationOverridden() *bool {
 	if a == nil {
 		return nil
 	}
 	return a.SwitchLocationOverridden
-}
-
-func (a *Asset) GetIsIPSecConfigured() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.IsIPSecConfigured
 }

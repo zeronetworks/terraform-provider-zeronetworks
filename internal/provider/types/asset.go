@@ -9,10 +9,16 @@ import (
 type Asset struct {
 	AssetStatus              types.Int64    `tfsdk:"asset_status"`
 	AssetType                types.Int32    `tfsdk:"asset_type"`
+	AssignedDeployment       *IDNamePair    `tfsdk:"assigned_deployment"`
 	AssignedDeploymentID     types.String   `tfsdk:"assigned_deployment_id"`
 	BreakGlassActivated      types.Bool     `tfsdk:"break_glass_activated"`
+	CloudConnectorVersion    types.String   `tfsdk:"cloud_connector_version"`
+	DeploymentaClusterID     types.String   `tfsdk:"deploymenta_cluster_id"`
+	DeploymentsCluster       *IDNamePair    `tfsdk:"deployments_cluster"`
+	DeploymentsClusterSource types.Int32    `tfsdk:"deployments_cluster_source"`
 	Domain                   types.String   `tfsdk:"domain"`
 	EnforcementMethod        types.Int64    `tfsdk:"enforcement_method"`
+	EnvironmentGroup         *IDNamePair    `tfsdk:"environment_group"`
 	ExternalDeviceID         types.String   `tfsdk:"external_device_id"`
 	Fqdn                     types.String   `tfsdk:"fqdn"`
 	HasDNS                   types.Bool     `tfsdk:"has_dns"`
@@ -20,9 +26,10 @@ type Asset struct {
 	ID                       types.String   `tfsdk:"id"`
 	IdentityProtectAt        types.Int64    `tfsdk:"identity_protect_at"`
 	IdentityProtectedAt      types.Int64    `tfsdk:"identity_protected_at"`
-	IdentityProtectionState  types.Int64    `tfsdk:"identity_protection_state"`
+	IdentityProtectionState  types.Int32    `tfsdk:"identity_protection_state"`
 	InactiveReason           types.Int32    `tfsdk:"inactive_reason"`
 	InactiveSince            types.Int64    `tfsdk:"inactive_since"`
+	IPSpace                  types.Int64    `tfsdk:"ip_space"`
 	IPV4Addresses            []types.String `tfsdk:"ip_v4_addresses"`
 	IPV6Addresses            []types.String `tfsdk:"ip_v6_addresses"`
 	IsIPSecConfigured        types.Bool     `tfsdk:"is_ip_sec_configured"`
@@ -31,20 +38,22 @@ type Asset struct {
 	Manufacturer             types.String   `tfsdk:"manufacturer"`
 	Name                     types.String   `tfsdk:"name"`
 	OperatingSystem          types.String   `tfsdk:"operating_system"`
-	OsType                   types.Int64    `tfsdk:"os_type"`
+	OsType                   types.Int32    `tfsdk:"os_type"`
 	OtLocattion              *OtLocation    `tfsdk:"ot_locattion"`
-	OutboundRestriction      types.Int64    `tfsdk:"outbound_restriction"`
+	OutboundRestriction      types.Int32    `tfsdk:"outbound_restriction"`
 	PasswordUpdateTime       types.Int64    `tfsdk:"password_update_time"`
+	PreferredDeployment      *IDNamePair    `tfsdk:"preferred_deployment"`
 	PreferredDeploymentID    types.String   `tfsdk:"preferred_deployment_id"`
 	PrincipalName            types.String   `tfsdk:"principal_name"`
 	ProtectAt                types.Int64    `tfsdk:"protect_at"`
 	ProtectedAt              types.Int64    `tfsdk:"protected_at"`
 	ProtectionState          types.Int32    `tfsdk:"protection_state"`
-	PurdueLevel              types.Int64    `tfsdk:"purdue_level"`
+	PurdueLevel              types.Int32    `tfsdk:"purdue_level"`
 	RPCMonitored             types.Bool     `tfsdk:"rpc_monitored"`
 	RPCProtectAt             types.Int64    `tfsdk:"rpc_protect_at"`
 	RPCProtectedAt           types.Int64    `tfsdk:"rpc_protected_at"`
-	RPCProtectionState       types.Int64    `tfsdk:"rpc_protection_state"`
+	RPCProtectionState       types.Int32    `tfsdk:"rpc_protection_state"`
 	Source                   types.Int32    `tfsdk:"source"`
+	State                    *State         `tfsdk:"state"`
 	SwitchLocationOverridden types.Bool     `tfsdk:"switch_location_overridden"`
 }

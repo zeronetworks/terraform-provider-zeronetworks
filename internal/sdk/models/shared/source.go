@@ -8,6 +8,7 @@ import (
 )
 
 // Source - Possible asset sources:
+//   - '0' - Unspecified
 //   - '1' - Access portal
 //   - '2' - SSP
 //   - '3' - Active directory
@@ -20,6 +21,7 @@ import (
 //   - '10' - Azure
 //   - '11' - AWS
 //   - '12' - GCP
+//   - '13' - Tag
 //   - '14' - Jamf
 //   - '15' - Manual Linux
 //   - '16' - IBM cloud
@@ -40,8 +42,12 @@ import (
 type Source int
 
 const (
+	SourceZero        Source = 0
+	SourceOne         Source = 1
 	SourceTwo         Source = 2
 	SourceThree       Source = 3
+	SourceFour        Source = 4
+	SourceFive        Source = 5
 	SourceSix         Source = 6
 	SourceSeven       Source = 7
 	SourceEight       Source = 8
@@ -49,6 +55,7 @@ const (
 	SourceTen         Source = 10
 	SourceEleven      Source = 11
 	SourceTwelve      Source = 12
+	SourceThirteen    Source = 13
 	SourceFourteen    Source = 14
 	SourceFifteen     Source = 15
 	SourceSixteen     Source = 16
@@ -77,9 +84,17 @@ func (e *Source) UnmarshalJSON(data []byte) error {
 		return err
 	}
 	switch v {
+	case 0:
+		fallthrough
+	case 1:
+		fallthrough
 	case 2:
 		fallthrough
 	case 3:
+		fallthrough
+	case 4:
+		fallthrough
+	case 5:
 		fallthrough
 	case 6:
 		fallthrough
@@ -94,6 +109,8 @@ func (e *Source) UnmarshalJSON(data []byte) error {
 	case 11:
 		fallthrough
 	case 12:
+		fallthrough
+	case 13:
 		fallthrough
 	case 14:
 		fallthrough

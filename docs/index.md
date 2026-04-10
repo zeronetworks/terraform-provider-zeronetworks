@@ -16,7 +16,7 @@ terraform {
   required_providers {
     zeronetworks = {
       source  = "zeronetworks/zeronetworks"
-      version = "1.1.19"
+      version = "1.2.15"
     }
   }
 }

@@ -1,5 +1,8 @@
 # Update overlay if needed
 
+# validate overlay 
+speakeasy overlay validate -o overlay.yaml
+
 # Run speakeasy
 speakeasy run
 

@@ -111,7 +111,10 @@ must be one of ["1", "2"]
 
 ### Read-Only
 
-- `context` (Number)
+- `context` (Number) * '0' - Unspecified
+* '1' - Unmonitored Policies
+* '2' - Default MFA Policies
+* '3' - Senstive Tools and Processes
 - `created_at` (Number) Epoch Millis
 - `created_by` (String)
 - `created_by_name` (String)
@@ -408,7 +411,537 @@ Required:
 
 Read-Only:
 
+- `asset_status` (Number) Possible asset status:
+  * '1' - Not monitored
+  * '2' - Segment server
+  * '4' - Can't be monitored (unsupported OS)
+  * '5' - Can't be monitored (unmonitorable)
+  * '6' - Can't be monitored (unmonitorable)
+  * '7' - Cloud connector
+  * '8' - Not monitored (ansible unreachable)
+  * '9' - Not monitored (cloud connector uninstalled)
+  * '10' - Not monitored (cloud connector required)
+  * '12' - Can't be monitored (inactive entity)
+  * '13' - Stalked Externally
+  * '14' - Lightweight Agent
+- `asset_type` (Number) Possible asset status:
+  * '0' - Unknown
+  * '1' - Client
+  * '2' - Server
+  * '3' - Virtual cluster
+  * '4' - IP camera
+  * '5' - Smart TV
+  * '6' - Factory controller
+  * '7' - Medical device
+  * '8' - Printer
+  * '9' - Scanner
+  * '10' - Smart card reader
+  * '11' - Router
+  * '12' - Hypervisor
+  * '13' - PLC
+  * '14' - HMI
+  * '15' - Switch
+  * '16' - Terminal station
+  * '17' - RTU
+  * '18' - Wireless access point
+  * '19' - Historian
+  * '20' - Game console
+  * '21' - Fire alarm
+  * '22' - UPS
+  * '23' - Storage appliance
+  * '24' - Virtualization appliance
+  * '25' - Firewall appliance
+  * '26' - Security scanner
+  * '27' - Security controller
+  * '28 ' - Door lock
+  * '29' - Biometric entry system
+  * '30' - HVAC
+  * '31' - Room scheduler
+  * '32' - Load Balancer Appliance
+  * '33' - WAN Concentrator
+  * '34' - IPAM Appliance
+  * '35' - TEMPERATURE SENSOR GATEWAY
+  * '36' - POWER METER
+  * '37' - CONVEYOR SYSTEM
+  * '38' - BUILDING AUTOMATION DEVICE
+  * '39' - VISION CONTROLLER
+  * '40' - MANUFACTURING EXECUTION SYSTEM
+  * '41' - BACNET BROADCAST MANAGEMENT DEVICE BBMD
+  * '42' - BACNET ROUTER AND BBMD
+  * '43' - CLOCK
+  * '44' - RFID
+  * '45' - SCALE
+  * '46' - MOBILE PRINTER
+  * '47' - IED
+  * '48' - CNC MILL
+  * '49' - ROOM MONITOR
+  * '50' - SMART SPEAKER
+  * '51' - VENDING MACHINE
+  * '52' - AUTONOMOUS VEHICLE
+  * '53' - FLEET MANAGEMENT SYSTEM
+  * '54' - BACNET ROUTER
+  * '55' - MOTOR CONTROLLER
+  * '56' - OT GATEWAY
+  * '57' - CONTROLLER
+  * '58' - BUILDING MANAGEMENT SYSTEM
+  * '59' - VOIP PHONE
+  * '60' - VISION SENSOR
+  * '61' - REMOTE IO
+  * '62' - VOIP SERVER
+  * '63' - FLOW METER
+  * '64' - BUILDING AUTOMATION CONTROLLER
+  * '65' - SECURITY CAMERA
+  * '66' - DIGITAL SIGN
+  * '67' - REMOTE ACCESS GATEWAY
+  * '68' - TEMPERATURE SENSOR
+  * '69' - RTLS
+  * '70' - SERIAL TO ETHERNET
+  * '71' - INTERCOM
+  * '72' - ENGINEERING STATION
+  * '73' - DATA LOGGER GATEWAY
+  * '74' - ROBOT
+  * '75' - TABLET
+  * '76' - SCADA SERVER
+  * '77' - INDUSTRIAL PRINTER
+  * '78' - VISION CAMERA
+  * '79' - TIME CLOCK
+  * '80' - VIDEO CONFERENCE
+  * '81' - ELECTRICAL DRIVE
+  * '82' - ACCESS CONTROL
+  * '83' - PRINTER 3D
+  * '84' - ACCESS CONTROL GATEWAY
+  * '85' - ATM
+  * '86' - AUDIO DECODER
+  * '87' - AV SYSTEM
+  * '88' - BACNET ROUTER BBMD
+  * '89' - BADGE READER
+  * '90' - BARCODE SCANNER
+  * '91' - BUILDING AUTOMATION CONTROLLER GATEWAY
+  * '92' - BUILDING MANAGEMENT SENSOR
+  * '93' - BUILDING MANAGEMENT SENSOR GATEWAY
+  * '94' - BUILDING MANAGEMENT SYSTEM GATEWAY
+  * '95' - CAR
+  * '96' - CIRCUIT MONITOR
+  * '97' - CLINICAL MOBILE DEVICE
+  * '98' - CLINICAL MOBILE DEVICE GATEWAY
+  * '99' - CLOCK GATEWAY
+  * '100' - CNC SYSTEM
+  * '101' - CONFERENCE ROOM
+  * '102' - DATA LOGGER
+  * '103' - DIGITAL SIGN WORKSTATION
+  * '104' - DISK PUBLISHER
+  * '105' - DISPATCHER
+  * '106' - EMBEDDED PC
+  * '107' - ENCODER
+  * '108' - EV CHARGING
+  * '109' - FITNESS DEVICE
+  * '110' - GENERIC MOBILE DEVICE
+  * '111' - GPS NAVIGATOR
+  * '112' - INDUSTRIAL BARCODE SCANNER
+  * '113' - INDUSTRIAL METAL DETECTOR
+  * '114' - INDUSTRIAL NETWORK EQUIPMENT
+  * '115' - INDUSTRIAL THIN CLIENT
+  * '116' - INDUSTRIAL THIN CLIENT GATEWAY
+  * '117' - INDUSTRIAL WIRELESS
+  * '118' - INDUSTRIAL WORKSTATION
+  * '119' - INSPECTION SYSTEM
+  * '120' - INTERACTIVE VOICE RESPONSE
+  * '121' - INTERCOM GATEWAY
+  * '122' - IOT CONTROLLER
+  * '123' - LOCK BOX
+  * '124' - MACHINERY HEALTH ANALYZER
+  * '125' - MAILING SYSTEM
+  * '126' - MEDIA GATEWAY
+  * '127' - MEDIA PLAYER
+  * '128' - MEDIA STREAMER
+  * '129' - MICROSCOPE
+  * '130' - MOBILE COMPUTER
+  * '131' - MOTOR STARTER
+  * '132' - MUSICAL INSTRUMENT
+  * '133' - OPC SERVER
+  * '134' - ORDER FULFILLMENT SYSTEM
+  * '135' - OT DEVICE
+  * '136' - OT SERVER
+  * '137' - PA SYSTEM
+  * '138' - PAYMENT KIOSK
+  * '139' - PHYSICAL SECURITY PLATFORM
+  * '140' - POINT OF SALE
+  * '141' - POINT OF SALE GATEWAY
+  * '142' - POWER DISTRIBUTION UNIT
+  * '143' - POWER DISTRIBUTION UNIT GATEWAY
+  * '144' - POWER SUPPLY
+  * '145' - PRINT SERVER
+  * '146' - PROJECTOR
+  * '147' - RADIO
+  * '148' - RADIO REPEATER
+  * '149' - RECORDING SERVER
+  * '150' - REPORTING SERVER
+  * '151' - ROOM AUTOMATION STATION
+  * '152' - ROOM DISPLAY
+  * '153' - RTLS GATEWAY
+  * '154' - SAFETY SYSTEM
+  * '155' - SCADA CLIENT
+  * '156' - SCREEN SHARE
+  * '157' - SECURITY XRAY SCANNER
+  * '158' - SENSOR
+  * '159' - SERIAL TO ETHERNET GATEWAY
+  * '160' - SERVICE TROLLEY
+  * '161' - SMART BOARD
+  * '162' - SMART HOME
+  * '163' - SMART LIGHT
+  * '164' - SMART LIGHT GATEWAY
+  * '165' - SMART LOCK CONTROLLER
+  * '166' - SMARTPHONE
+  * '167' - SMARTWATCH
+  * '168' - SOLAR ENERGY
+  * '169' - TIME CLOCK GATEWAY
+  * '170' - VIDEO CONFERENCE GATEWAY
+  * '171' - VIDEO DECODER
+  * '172' - VIDEO ENCODER
+  * '173' - VIDEO SURVEILLANCE DEVICE
+  * '174' - VOIP ADAPTER
+  * '175' - VOIP PHONE GATEWAY
+  * '176' - WATER SYSTEM
+  * '177' - WIRELESS PHONE
+  * '178' - WIRELESS PHONE GATEWAY
+  * '1001' - OTHER OT
+- `assigned_deployment` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--assigned_deployment))
+- `assigned_deployment_id` (String)
+- `break_glass_activated` (Boolean)
+- `cloud_connector_version` (String)
+- `deploymenta_cluster_id` (String)
+- `deployments_cluster` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--deployments_cluster))
+- `deployments_cluster_source` (Number) * '1' - System
+* '2' - User
+* '3' - Domain
+* '4' - Subnet
+* '5' - None
+* '6' - N/A
+- `domain` (String)
+- `enforcement_method` (Number) Possible values:
+  * '1' - Linux IP Tables
+  * '2' - Linux NF Tables
+  * '3' - Windows Firewall
+  * '4' - Windows WFP
+- `environment_group` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--environment_group))
+- `external_device_id` (String)
+- `fqdn` (String)
+- `has_dns` (Boolean)
+- `health_state` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--health_state))
+- `identity_protect_at` (Number) Epoch Millis
+- `identity_protected_at` (Number) Epoch Millis
+- `identity_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `inactive_reason` (Number) * '1' - Duplicated in asset repository
+* '2' - Manually set as inactive
+* '3' - None
+* '4' - Disabled in asset repository
+* '5' - Inactive in asset repository
+* '6' - Deleted in asset repository
+- `inactive_since` (Number) Epoch Millis
+- `ip_space` (Number)
+- `ip_v4_addresses` (List of String)
+- `ip_v6_addresses` (List of String)
+- `is_ip_sec_configured` (Boolean)
+- `is_quarantined` (Boolean)
+- `last_logon` (Number) Epoch Millis
+- `manufacturer` (String)
+- `name` (String)
+- `operating_system` (String)
+- `os_type` (Number) Possible osType:
+  * '1' - Unmanagable
+  * '2' - Windows
+  * '3' - Linux
+  * '4' - Mac
+- `ot_locattion` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--ot_locattion))
+- `outbound_restriction` (Number) * '1' - No restrictions
+* '2' - Internal Restricted
+* '3' - External Restricted
+* '4' - Internal and External Restricted
+* '5' - No applicable
+- `password_update_time` (Number) Epoch Millis
+- `preferred_deployment` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--preferred_deployment))
+- `preferred_deployment_id` (String)
+- `principal_name` (String)
+- `protect_at` (Number) Epoch Millis
+- `protected_at` (Number) Epoch Millis
+- `protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `purdue_level` (Number) Purdue Level:
+  * '0' - Unspecified
+  * '1' - Level 0
+  * '2' - Level 1
+  * '3' - Level 2
+  * '4' - Level 3
+  * '5' - Level 4
+- `rpc_monitored` (Boolean)
+- `rpc_protect_at` (Number) Epoch Millis
+- `rpc_protected_at` (Number) Epoch Millis
+- `rpc_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `source` (Number) Possible asset sources:
+  * '0' - Unspecified
+  * '1' - Access portal
+  * '2' - SSP
+  * '3' - Active directory
+  * '4' - Custom
+  * '5' - System
+  * '6' - Ansible
+  * '7' - Manual OT/IoT
+  * '8' - Workgroup
+  * '9' - Azure active directory
+  * '10' - Azure
+  * '11' - AWS
+  * '12' - GCP
+  * '13' - Tag
+  * '14' - Jamf
+  * '15' - Manual Linux
+  * '16' - IBM cloud
+  * '17' - Oracle cloud
+  * '18' - VMware cloud
+  * '19' - Alibaba cloud
+  * '20' - Lumen cloud
+  * '21' - OVH cloud
+  * '22' - Connect
+  * '23' - AI
+  * '24' - SNOW
+  * '25' - Google Workspace
+  * '26' - OU
+  * '27' - Environment
+  * '28' - Conditional
+  * '29' - Claroty OT
+  * '30' - Manual Mac
+- `state` (Attributes) (see [below for nested schema](#nestedatt--dst_entity_info--state))
+- `switch_location_overridden` (Boolean)
+
+<a id="nestedatt--dst_entity_info--assigned_deployment"></a>
+### Nested Schema for `dst_entity_info.assigned_deployment`
+
+Read-Only:
+
+- `id` (String) EntityId
 - `name` (String) Entity Name
+
+
+<a id="nestedatt--dst_entity_info--deployments_cluster"></a>
+### Nested Schema for `dst_entity_info.deployments_cluster`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--dst_entity_info--environment_group"></a>
+### Nested Schema for `dst_entity_info.environment_group`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--dst_entity_info--health_state"></a>
+### Nested Schema for `dst_entity_info.health_state`
+
+Read-Only:
+
+- `health_issues_list` (Attributes List) (see [below for nested schema](#nestedatt--dst_entity_info--health_state--health_issues_list))
+- `health_status` (Number) * '0' - Unspecified
+* '1' - Healthy
+* '2' - Error
+* '3' - Warning
+* '4' - N/A
+* '5' - Retrying
+* '6' - Blocker
+
+<a id="nestedatt--dst_entity_info--health_state--health_issues_list"></a>
+### Nested Schema for `dst_entity_info.health_state.health_issues_list`
+
+Read-Only:
+
+- `details` (String)
+- `issue_code` (Number) * '0' - Unspecified
+* '1' - Unknown
+* '2' - Access Denied
+* '3' - IO Device Issue
+* '4' - DotNet 3.5
+* '5' - WMI Corrupted
+* '6' - URL Filtering
+* '7' - Out of Space
+* '8' - Unsupported HMAC
+* '9' - Unsupported Encryption
+* '10' - Setup Script Failed
+* '11' - Slow MFA
+* '12' - Unexpted GPO Rules
+* '13' - Zero Networks GPO Rule Mismatch
+* '14' - Audit Mismatch
+* '15' - Asset ID Mismatch
+* '16' - Unsupported HTTP Version
+* '17' - Registry Marked for Deletion
+* '18' - Unable to add to automation group
+* '19' - Incorrect Username or Password
+* '20' - RPC Open Source Installed
+* '21' - Timeout during initialization
+* '22' - Data collection timeout
+* '23' - Not in Sudoers
+* '24' - Invalid SSH Key
+* '25' - Events Unavailable
+* '26' - SSH Password Incorrect
+* '27' - SSH Password Expired
+* '28' - Segmneted Users not found
+* '29' - Unsupported Python Versions
+* '30' - Cound not query segmented users
+* '31' - Switch unreachable
+* '32' - Switch communication issue
+* '33' - Interface protection resource exceeded
+* '34' - Unsupported Package Manager
+* '35' - Firewall disabled by GPO
+* '36' - Linux firewall logs oversized
+* '1000' - First blocker issue code
+* '1001' - Cluster node ipv6 disabled
+* '1002' - Local rules merge disallowed
+
+
+
+<a id="nestedatt--dst_entity_info--ot_locattion"></a>
+### Nested Schema for `dst_entity_info.ot_locattion`
+
+Read-Only:
+
+- `interface_name` (String)
+- `name` (String)
+- `switch_id` (String)
+
+
+<a id="nestedatt--dst_entity_info--preferred_deployment"></a>
+### Nested Schema for `dst_entity_info.preferred_deployment`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--dst_entity_info--state"></a>
+### Nested Schema for `dst_entity_info.state`
+
+Read-Only:
+
+- `asset_id` (String)
+- `identity_protect_at` (Number) Epoch Millis
+- `identity_protected_at` (Number) Epoch Millis
+- `identity_protection_state` (Number) Possible asset status:
+  * '0' - Unspecified
+  * '1' - Unsegmented
+  * '2' - Unspecified
+  * '3' - Segmented
+  * '4' - Unsegmented
+  * '5' - In learning
+  * '6' - Forced Unprotected
+  * '7' - Forced Removing Protection
+  * '8' - Protected Due To Policy
+  * '9' - Applying Protection Due To Policy
+  * '10' - In learning Due To Policy
+  * '11' - Learning Done
+  * '12' - In learning Due To Policy Done
+- `is_asset_connected` (Boolean)
+- `last_connected_at` (Number) Epoch Millis
+- `last_disconnected_at` (Number) Epoch Millis
+- `protect_at` (Number) Epoch Millis
+- `protected_at` (Number) Epoch Millis
+- `protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `rpc_protect_at` (Number) Epoch Millis
+- `rpc_protected_at` (Number) Epoch Millis
+- `rpc_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+
 
 
 <a id="nestedatt--src_entity_infos"></a>
@@ -420,7 +953,537 @@ Optional:
 
 Read-Only:
 
+- `asset_status` (Number) Possible asset status:
+  * '1' - Not monitored
+  * '2' - Segment server
+  * '4' - Can't be monitored (unsupported OS)
+  * '5' - Can't be monitored (unmonitorable)
+  * '6' - Can't be monitored (unmonitorable)
+  * '7' - Cloud connector
+  * '8' - Not monitored (ansible unreachable)
+  * '9' - Not monitored (cloud connector uninstalled)
+  * '10' - Not monitored (cloud connector required)
+  * '12' - Can't be monitored (inactive entity)
+  * '13' - Stalked Externally
+  * '14' - Lightweight Agent
+- `asset_type` (Number) Possible asset status:
+  * '0' - Unknown
+  * '1' - Client
+  * '2' - Server
+  * '3' - Virtual cluster
+  * '4' - IP camera
+  * '5' - Smart TV
+  * '6' - Factory controller
+  * '7' - Medical device
+  * '8' - Printer
+  * '9' - Scanner
+  * '10' - Smart card reader
+  * '11' - Router
+  * '12' - Hypervisor
+  * '13' - PLC
+  * '14' - HMI
+  * '15' - Switch
+  * '16' - Terminal station
+  * '17' - RTU
+  * '18' - Wireless access point
+  * '19' - Historian
+  * '20' - Game console
+  * '21' - Fire alarm
+  * '22' - UPS
+  * '23' - Storage appliance
+  * '24' - Virtualization appliance
+  * '25' - Firewall appliance
+  * '26' - Security scanner
+  * '27' - Security controller
+  * '28 ' - Door lock
+  * '29' - Biometric entry system
+  * '30' - HVAC
+  * '31' - Room scheduler
+  * '32' - Load Balancer Appliance
+  * '33' - WAN Concentrator
+  * '34' - IPAM Appliance
+  * '35' - TEMPERATURE SENSOR GATEWAY
+  * '36' - POWER METER
+  * '37' - CONVEYOR SYSTEM
+  * '38' - BUILDING AUTOMATION DEVICE
+  * '39' - VISION CONTROLLER
+  * '40' - MANUFACTURING EXECUTION SYSTEM
+  * '41' - BACNET BROADCAST MANAGEMENT DEVICE BBMD
+  * '42' - BACNET ROUTER AND BBMD
+  * '43' - CLOCK
+  * '44' - RFID
+  * '45' - SCALE
+  * '46' - MOBILE PRINTER
+  * '47' - IED
+  * '48' - CNC MILL
+  * '49' - ROOM MONITOR
+  * '50' - SMART SPEAKER
+  * '51' - VENDING MACHINE
+  * '52' - AUTONOMOUS VEHICLE
+  * '53' - FLEET MANAGEMENT SYSTEM
+  * '54' - BACNET ROUTER
+  * '55' - MOTOR CONTROLLER
+  * '56' - OT GATEWAY
+  * '57' - CONTROLLER
+  * '58' - BUILDING MANAGEMENT SYSTEM
+  * '59' - VOIP PHONE
+  * '60' - VISION SENSOR
+  * '61' - REMOTE IO
+  * '62' - VOIP SERVER
+  * '63' - FLOW METER
+  * '64' - BUILDING AUTOMATION CONTROLLER
+  * '65' - SECURITY CAMERA
+  * '66' - DIGITAL SIGN
+  * '67' - REMOTE ACCESS GATEWAY
+  * '68' - TEMPERATURE SENSOR
+  * '69' - RTLS
+  * '70' - SERIAL TO ETHERNET
+  * '71' - INTERCOM
+  * '72' - ENGINEERING STATION
+  * '73' - DATA LOGGER GATEWAY
+  * '74' - ROBOT
+  * '75' - TABLET
+  * '76' - SCADA SERVER
+  * '77' - INDUSTRIAL PRINTER
+  * '78' - VISION CAMERA
+  * '79' - TIME CLOCK
+  * '80' - VIDEO CONFERENCE
+  * '81' - ELECTRICAL DRIVE
+  * '82' - ACCESS CONTROL
+  * '83' - PRINTER 3D
+  * '84' - ACCESS CONTROL GATEWAY
+  * '85' - ATM
+  * '86' - AUDIO DECODER
+  * '87' - AV SYSTEM
+  * '88' - BACNET ROUTER BBMD
+  * '89' - BADGE READER
+  * '90' - BARCODE SCANNER
+  * '91' - BUILDING AUTOMATION CONTROLLER GATEWAY
+  * '92' - BUILDING MANAGEMENT SENSOR
+  * '93' - BUILDING MANAGEMENT SENSOR GATEWAY
+  * '94' - BUILDING MANAGEMENT SYSTEM GATEWAY
+  * '95' - CAR
+  * '96' - CIRCUIT MONITOR
+  * '97' - CLINICAL MOBILE DEVICE
+  * '98' - CLINICAL MOBILE DEVICE GATEWAY
+  * '99' - CLOCK GATEWAY
+  * '100' - CNC SYSTEM
+  * '101' - CONFERENCE ROOM
+  * '102' - DATA LOGGER
+  * '103' - DIGITAL SIGN WORKSTATION
+  * '104' - DISK PUBLISHER
+  * '105' - DISPATCHER
+  * '106' - EMBEDDED PC
+  * '107' - ENCODER
+  * '108' - EV CHARGING
+  * '109' - FITNESS DEVICE
+  * '110' - GENERIC MOBILE DEVICE
+  * '111' - GPS NAVIGATOR
+  * '112' - INDUSTRIAL BARCODE SCANNER
+  * '113' - INDUSTRIAL METAL DETECTOR
+  * '114' - INDUSTRIAL NETWORK EQUIPMENT
+  * '115' - INDUSTRIAL THIN CLIENT
+  * '116' - INDUSTRIAL THIN CLIENT GATEWAY
+  * '117' - INDUSTRIAL WIRELESS
+  * '118' - INDUSTRIAL WORKSTATION
+  * '119' - INSPECTION SYSTEM
+  * '120' - INTERACTIVE VOICE RESPONSE
+  * '121' - INTERCOM GATEWAY
+  * '122' - IOT CONTROLLER
+  * '123' - LOCK BOX
+  * '124' - MACHINERY HEALTH ANALYZER
+  * '125' - MAILING SYSTEM
+  * '126' - MEDIA GATEWAY
+  * '127' - MEDIA PLAYER
+  * '128' - MEDIA STREAMER
+  * '129' - MICROSCOPE
+  * '130' - MOBILE COMPUTER
+  * '131' - MOTOR STARTER
+  * '132' - MUSICAL INSTRUMENT
+  * '133' - OPC SERVER
+  * '134' - ORDER FULFILLMENT SYSTEM
+  * '135' - OT DEVICE
+  * '136' - OT SERVER
+  * '137' - PA SYSTEM
+  * '138' - PAYMENT KIOSK
+  * '139' - PHYSICAL SECURITY PLATFORM
+  * '140' - POINT OF SALE
+  * '141' - POINT OF SALE GATEWAY
+  * '142' - POWER DISTRIBUTION UNIT
+  * '143' - POWER DISTRIBUTION UNIT GATEWAY
+  * '144' - POWER SUPPLY
+  * '145' - PRINT SERVER
+  * '146' - PROJECTOR
+  * '147' - RADIO
+  * '148' - RADIO REPEATER
+  * '149' - RECORDING SERVER
+  * '150' - REPORTING SERVER
+  * '151' - ROOM AUTOMATION STATION
+  * '152' - ROOM DISPLAY
+  * '153' - RTLS GATEWAY
+  * '154' - SAFETY SYSTEM
+  * '155' - SCADA CLIENT
+  * '156' - SCREEN SHARE
+  * '157' - SECURITY XRAY SCANNER
+  * '158' - SENSOR
+  * '159' - SERIAL TO ETHERNET GATEWAY
+  * '160' - SERVICE TROLLEY
+  * '161' - SMART BOARD
+  * '162' - SMART HOME
+  * '163' - SMART LIGHT
+  * '164' - SMART LIGHT GATEWAY
+  * '165' - SMART LOCK CONTROLLER
+  * '166' - SMARTPHONE
+  * '167' - SMARTWATCH
+  * '168' - SOLAR ENERGY
+  * '169' - TIME CLOCK GATEWAY
+  * '170' - VIDEO CONFERENCE GATEWAY
+  * '171' - VIDEO DECODER
+  * '172' - VIDEO ENCODER
+  * '173' - VIDEO SURVEILLANCE DEVICE
+  * '174' - VOIP ADAPTER
+  * '175' - VOIP PHONE GATEWAY
+  * '176' - WATER SYSTEM
+  * '177' - WIRELESS PHONE
+  * '178' - WIRELESS PHONE GATEWAY
+  * '1001' - OTHER OT
+- `assigned_deployment` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--assigned_deployment))
+- `assigned_deployment_id` (String)
+- `break_glass_activated` (Boolean)
+- `cloud_connector_version` (String)
+- `deploymenta_cluster_id` (String)
+- `deployments_cluster` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--deployments_cluster))
+- `deployments_cluster_source` (Number) * '1' - System
+* '2' - User
+* '3' - Domain
+* '4' - Subnet
+* '5' - None
+* '6' - N/A
+- `domain` (String)
+- `enforcement_method` (Number) Possible values:
+  * '1' - Linux IP Tables
+  * '2' - Linux NF Tables
+  * '3' - Windows Firewall
+  * '4' - Windows WFP
+- `environment_group` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--environment_group))
+- `external_device_id` (String)
+- `fqdn` (String)
+- `has_dns` (Boolean)
+- `health_state` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--health_state))
+- `identity_protect_at` (Number) Epoch Millis
+- `identity_protected_at` (Number) Epoch Millis
+- `identity_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `inactive_reason` (Number) * '1' - Duplicated in asset repository
+* '2' - Manually set as inactive
+* '3' - None
+* '4' - Disabled in asset repository
+* '5' - Inactive in asset repository
+* '6' - Deleted in asset repository
+- `inactive_since` (Number) Epoch Millis
+- `ip_space` (Number)
+- `ip_v4_addresses` (List of String)
+- `ip_v6_addresses` (List of String)
+- `is_ip_sec_configured` (Boolean)
+- `is_quarantined` (Boolean)
+- `last_logon` (Number) Epoch Millis
+- `manufacturer` (String)
+- `name` (String)
+- `operating_system` (String)
+- `os_type` (Number) Possible osType:
+  * '1' - Unmanagable
+  * '2' - Windows
+  * '3' - Linux
+  * '4' - Mac
+- `ot_locattion` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--ot_locattion))
+- `outbound_restriction` (Number) * '1' - No restrictions
+* '2' - Internal Restricted
+* '3' - External Restricted
+* '4' - Internal and External Restricted
+* '5' - No applicable
+- `password_update_time` (Number) Epoch Millis
+- `preferred_deployment` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--preferred_deployment))
+- `preferred_deployment_id` (String)
+- `principal_name` (String)
+- `protect_at` (Number) Epoch Millis
+- `protected_at` (Number) Epoch Millis
+- `protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `purdue_level` (Number) Purdue Level:
+  * '0' - Unspecified
+  * '1' - Level 0
+  * '2' - Level 1
+  * '3' - Level 2
+  * '4' - Level 3
+  * '5' - Level 4
+- `rpc_monitored` (Boolean)
+- `rpc_protect_at` (Number) Epoch Millis
+- `rpc_protected_at` (Number) Epoch Millis
+- `rpc_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `source` (Number) Possible asset sources:
+  * '0' - Unspecified
+  * '1' - Access portal
+  * '2' - SSP
+  * '3' - Active directory
+  * '4' - Custom
+  * '5' - System
+  * '6' - Ansible
+  * '7' - Manual OT/IoT
+  * '8' - Workgroup
+  * '9' - Azure active directory
+  * '10' - Azure
+  * '11' - AWS
+  * '12' - GCP
+  * '13' - Tag
+  * '14' - Jamf
+  * '15' - Manual Linux
+  * '16' - IBM cloud
+  * '17' - Oracle cloud
+  * '18' - VMware cloud
+  * '19' - Alibaba cloud
+  * '20' - Lumen cloud
+  * '21' - OVH cloud
+  * '22' - Connect
+  * '23' - AI
+  * '24' - SNOW
+  * '25' - Google Workspace
+  * '26' - OU
+  * '27' - Environment
+  * '28' - Conditional
+  * '29' - Claroty OT
+  * '30' - Manual Mac
+- `state` (Attributes) (see [below for nested schema](#nestedatt--src_entity_infos--state))
+- `switch_location_overridden` (Boolean)
+
+<a id="nestedatt--src_entity_infos--assigned_deployment"></a>
+### Nested Schema for `src_entity_infos.assigned_deployment`
+
+Read-Only:
+
+- `id` (String) EntityId
 - `name` (String) Entity Name
+
+
+<a id="nestedatt--src_entity_infos--deployments_cluster"></a>
+### Nested Schema for `src_entity_infos.deployments_cluster`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--src_entity_infos--environment_group"></a>
+### Nested Schema for `src_entity_infos.environment_group`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--src_entity_infos--health_state"></a>
+### Nested Schema for `src_entity_infos.health_state`
+
+Read-Only:
+
+- `health_issues_list` (Attributes List) (see [below for nested schema](#nestedatt--src_entity_infos--health_state--health_issues_list))
+- `health_status` (Number) * '0' - Unspecified
+* '1' - Healthy
+* '2' - Error
+* '3' - Warning
+* '4' - N/A
+* '5' - Retrying
+* '6' - Blocker
+
+<a id="nestedatt--src_entity_infos--health_state--health_issues_list"></a>
+### Nested Schema for `src_entity_infos.health_state.health_issues_list`
+
+Read-Only:
+
+- `details` (String)
+- `issue_code` (Number) * '0' - Unspecified
+* '1' - Unknown
+* '2' - Access Denied
+* '3' - IO Device Issue
+* '4' - DotNet 3.5
+* '5' - WMI Corrupted
+* '6' - URL Filtering
+* '7' - Out of Space
+* '8' - Unsupported HMAC
+* '9' - Unsupported Encryption
+* '10' - Setup Script Failed
+* '11' - Slow MFA
+* '12' - Unexpted GPO Rules
+* '13' - Zero Networks GPO Rule Mismatch
+* '14' - Audit Mismatch
+* '15' - Asset ID Mismatch
+* '16' - Unsupported HTTP Version
+* '17' - Registry Marked for Deletion
+* '18' - Unable to add to automation group
+* '19' - Incorrect Username or Password
+* '20' - RPC Open Source Installed
+* '21' - Timeout during initialization
+* '22' - Data collection timeout
+* '23' - Not in Sudoers
+* '24' - Invalid SSH Key
+* '25' - Events Unavailable
+* '26' - SSH Password Incorrect
+* '27' - SSH Password Expired
+* '28' - Segmneted Users not found
+* '29' - Unsupported Python Versions
+* '30' - Cound not query segmented users
+* '31' - Switch unreachable
+* '32' - Switch communication issue
+* '33' - Interface protection resource exceeded
+* '34' - Unsupported Package Manager
+* '35' - Firewall disabled by GPO
+* '36' - Linux firewall logs oversized
+* '1000' - First blocker issue code
+* '1001' - Cluster node ipv6 disabled
+* '1002' - Local rules merge disallowed
+
+
+
+<a id="nestedatt--src_entity_infos--ot_locattion"></a>
+### Nested Schema for `src_entity_infos.ot_locattion`
+
+Read-Only:
+
+- `interface_name` (String)
+- `name` (String)
+- `switch_id` (String)
+
+
+<a id="nestedatt--src_entity_infos--preferred_deployment"></a>
+### Nested Schema for `src_entity_infos.preferred_deployment`
+
+Read-Only:
+
+- `id` (String) EntityId
+- `name` (String) Entity Name
+
+
+<a id="nestedatt--src_entity_infos--state"></a>
+### Nested Schema for `src_entity_infos.state`
+
+Read-Only:
+
+- `asset_id` (String)
+- `identity_protect_at` (Number) Epoch Millis
+- `identity_protected_at` (Number) Epoch Millis
+- `identity_protection_state` (Number) Possible asset status:
+  * '0' - Unspecified
+  * '1' - Unsegmented
+  * '2' - Unspecified
+  * '3' - Segmented
+  * '4' - Unsegmented
+  * '5' - In learning
+  * '6' - Forced Unprotected
+  * '7' - Forced Removing Protection
+  * '8' - Protected Due To Policy
+  * '9' - Applying Protection Due To Policy
+  * '10' - In learning Due To Policy
+  * '11' - Learning Done
+  * '12' - In learning Due To Policy Done
+- `is_asset_connected` (Boolean)
+- `last_connected_at` (Number) Epoch Millis
+- `last_disconnected_at` (Number) Epoch Millis
+- `protect_at` (Number) Epoch Millis
+- `protected_at` (Number) Epoch Millis
+- `protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+- `rpc_protect_at` (Number) Epoch Millis
+- `rpc_protected_at` (Number) Epoch Millis
+- `rpc_protection_state` (Number) * '0' - Unspecified
+* '1' - Unsegmented
+* '2' - Unsegmenting
+* '3' - Segmented
+* '4' - Segmenting
+* '5' - Learning until
+* '6' - forced_unprotected
+* '7' - Unsegmenting' - Due to Policy
+* '8' - Segmented' - Due to Policy
+* '9' - Segmenting- Due to Policy
+* '10' - Learning until' - Due to Policy
+* '11' - Learning done
+* '12' - Learning done- Due to Policy
+* '13' - APPLYING_QUEUE_WITH_BLOCKS
+* '14' - APPLYING_QUEUE_WITH_BLOCKS_DUE_TO_POLICY
+* '15' - QUEUED_WITH_BLOCKS
+* '16' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY
+* '17' - QUEUED_WITH_BLOCKS_DONE
+* '18' - QUEUED_WITH_BLOCKS_DUE_TO_POLICY_DONE
+
 
 
 <a id="nestedatt--src_user_infos"></a>

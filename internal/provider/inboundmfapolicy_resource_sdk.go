@@ -31,14 +31,202 @@ func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx cont
 			r.AdditionalPortsList = append(r.AdditionalPortsList, additionalPortsList)
 		}
 		r.ChangeTicket = types.StringPointerValue(resp.ChangeTicket)
-		r.Context = types.Int64PointerValue(resp.Context)
+		if resp.Context != nil {
+			r.Context = types.Int32Value(int32(*resp.Context))
+		} else {
+			r.Context = types.Int32Null()
+		}
 		r.CreatedAt = types.Int64PointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		r.CreatedByName = types.StringPointerValue(resp.CreatedByName)
 		r.Description = types.StringPointerValue(resp.Description)
 		if resp.DstEntityInfo != nil {
+			if resp.DstEntityInfo.AssetStatus != nil {
+				r.DstEntityInfo.AssetStatus = types.Int64Value(int64(*resp.DstEntityInfo.AssetStatus))
+			} else {
+				r.DstEntityInfo.AssetStatus = types.Int64Null()
+			}
+			if resp.DstEntityInfo.AssetType != nil {
+				r.DstEntityInfo.AssetType = types.Int32Value(int32(*resp.DstEntityInfo.AssetType))
+			} else {
+				r.DstEntityInfo.AssetType = types.Int32Null()
+			}
+			if resp.DstEntityInfo.AssignedDeployment == nil {
+				r.DstEntityInfo.AssignedDeployment = nil
+			} else {
+				r.DstEntityInfo.AssignedDeployment = &tfTypes.IDNamePair{}
+				r.DstEntityInfo.AssignedDeployment.ID = types.StringPointerValue(resp.DstEntityInfo.AssignedDeployment.ID)
+				r.DstEntityInfo.AssignedDeployment.Name = types.StringPointerValue(resp.DstEntityInfo.AssignedDeployment.Name)
+			}
+			r.DstEntityInfo.AssignedDeploymentID = types.StringPointerValue(resp.DstEntityInfo.AssignedDeploymentID)
+			r.DstEntityInfo.BreakGlassActivated = types.BoolPointerValue(resp.DstEntityInfo.BreakGlassActivated)
+			r.DstEntityInfo.CloudConnectorVersion = types.StringPointerValue(resp.DstEntityInfo.CloudConnectorVersion)
+			r.DstEntityInfo.DeploymentaClusterID = types.StringPointerValue(resp.DstEntityInfo.DeploymentaClusterID)
+			if resp.DstEntityInfo.DeploymentsCluster == nil {
+				r.DstEntityInfo.DeploymentsCluster = nil
+			} else {
+				r.DstEntityInfo.DeploymentsCluster = &tfTypes.IDNamePair{}
+				r.DstEntityInfo.DeploymentsCluster.ID = types.StringPointerValue(resp.DstEntityInfo.DeploymentsCluster.ID)
+				r.DstEntityInfo.DeploymentsCluster.Name = types.StringPointerValue(resp.DstEntityInfo.DeploymentsCluster.Name)
+			}
+			if resp.DstEntityInfo.DeploymentsClusterSource != nil {
+				r.DstEntityInfo.DeploymentsClusterSource = types.Int32Value(int32(*resp.DstEntityInfo.DeploymentsClusterSource))
+			} else {
+				r.DstEntityInfo.DeploymentsClusterSource = types.Int32Null()
+			}
+			r.DstEntityInfo.Domain = types.StringPointerValue(resp.DstEntityInfo.Domain)
+			if resp.DstEntityInfo.EnforcementMethod != nil {
+				r.DstEntityInfo.EnforcementMethod = types.Int64Value(int64(*resp.DstEntityInfo.EnforcementMethod))
+			} else {
+				r.DstEntityInfo.EnforcementMethod = types.Int64Null()
+			}
+			if resp.DstEntityInfo.EnvironmentGroup == nil {
+				r.DstEntityInfo.EnvironmentGroup = nil
+			} else {
+				r.DstEntityInfo.EnvironmentGroup = &tfTypes.IDNamePair{}
+				r.DstEntityInfo.EnvironmentGroup.ID = types.StringPointerValue(resp.DstEntityInfo.EnvironmentGroup.ID)
+				r.DstEntityInfo.EnvironmentGroup.Name = types.StringPointerValue(resp.DstEntityInfo.EnvironmentGroup.Name)
+			}
+			r.DstEntityInfo.ExternalDeviceID = types.StringPointerValue(resp.DstEntityInfo.ExternalDeviceID)
+			r.DstEntityInfo.Fqdn = types.StringPointerValue(resp.DstEntityInfo.Fqdn)
+			r.DstEntityInfo.HasDNS = types.BoolPointerValue(resp.DstEntityInfo.HasDNS)
+			if resp.DstEntityInfo.HealthState == nil {
+				r.DstEntityInfo.HealthState = nil
+			} else {
+				r.DstEntityInfo.HealthState = &tfTypes.HealthState{}
+				r.DstEntityInfo.HealthState.HealthIssuesList = []tfTypes.HealthIssue{}
+
+				for _, healthIssuesListItem := range resp.DstEntityInfo.HealthState.HealthIssuesList {
+					var healthIssuesList tfTypes.HealthIssue
+
+					healthIssuesList.Details = types.StringPointerValue(healthIssuesListItem.Details)
+					if healthIssuesListItem.IssueCode != nil {
+						healthIssuesList.IssueCode = types.Int32Value(int32(*healthIssuesListItem.IssueCode))
+					} else {
+						healthIssuesList.IssueCode = types.Int32Null()
+					}
+
+					r.DstEntityInfo.HealthState.HealthIssuesList = append(r.DstEntityInfo.HealthState.HealthIssuesList, healthIssuesList)
+				}
+				if resp.DstEntityInfo.HealthState.HealthStatus != nil {
+					r.DstEntityInfo.HealthState.HealthStatus = types.Int32Value(int32(*resp.DstEntityInfo.HealthState.HealthStatus))
+				} else {
+					r.DstEntityInfo.HealthState.HealthStatus = types.Int32Null()
+				}
+			}
 			r.DstEntityInfo.ID = types.StringPointerValue(resp.DstEntityInfo.ID)
+			r.DstEntityInfo.IdentityProtectAt = types.Int64PointerValue(resp.DstEntityInfo.IdentityProtectAt)
+			r.DstEntityInfo.IdentityProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.IdentityProtectedAt)
+			if resp.DstEntityInfo.IdentityProtectionState != nil {
+				r.DstEntityInfo.IdentityProtectionState = types.Int32Value(int32(*resp.DstEntityInfo.IdentityProtectionState))
+			} else {
+				r.DstEntityInfo.IdentityProtectionState = types.Int32Null()
+			}
+			if resp.DstEntityInfo.InactiveReason != nil {
+				r.DstEntityInfo.InactiveReason = types.Int32Value(int32(*resp.DstEntityInfo.InactiveReason))
+			} else {
+				r.DstEntityInfo.InactiveReason = types.Int32Null()
+			}
+			r.DstEntityInfo.InactiveSince = types.Int64PointerValue(resp.DstEntityInfo.InactiveSince)
+			r.DstEntityInfo.IPSpace = types.Int64PointerValue(resp.DstEntityInfo.IPSpace)
+			r.DstEntityInfo.IPV4Addresses = make([]types.String, 0, len(resp.DstEntityInfo.IPV4Addresses))
+			for _, v := range resp.DstEntityInfo.IPV4Addresses {
+				r.DstEntityInfo.IPV4Addresses = append(r.DstEntityInfo.IPV4Addresses, types.StringValue(v))
+			}
+			r.DstEntityInfo.IPV6Addresses = make([]types.String, 0, len(resp.DstEntityInfo.IPV6Addresses))
+			for _, v := range resp.DstEntityInfo.IPV6Addresses {
+				r.DstEntityInfo.IPV6Addresses = append(r.DstEntityInfo.IPV6Addresses, types.StringValue(v))
+			}
+			r.DstEntityInfo.IsIPSecConfigured = types.BoolPointerValue(resp.DstEntityInfo.IsIPSecConfigured)
+			r.DstEntityInfo.IsQuarantined = types.BoolPointerValue(resp.DstEntityInfo.IsQuarantined)
+			r.DstEntityInfo.LastLogon = types.Int64PointerValue(resp.DstEntityInfo.LastLogon)
+			r.DstEntityInfo.Manufacturer = types.StringPointerValue(resp.DstEntityInfo.Manufacturer)
 			r.DstEntityInfo.Name = types.StringPointerValue(resp.DstEntityInfo.Name)
+			r.DstEntityInfo.OperatingSystem = types.StringPointerValue(resp.DstEntityInfo.OperatingSystem)
+			if resp.DstEntityInfo.OsType != nil {
+				r.DstEntityInfo.OsType = types.Int32Value(int32(*resp.DstEntityInfo.OsType))
+			} else {
+				r.DstEntityInfo.OsType = types.Int32Null()
+			}
+			if resp.DstEntityInfo.OtLocattion == nil {
+				r.DstEntityInfo.OtLocattion = nil
+			} else {
+				r.DstEntityInfo.OtLocattion = &tfTypes.OtLocation{}
+				r.DstEntityInfo.OtLocattion.InterfaceName = types.StringPointerValue(resp.DstEntityInfo.OtLocattion.InterfaceName)
+				r.DstEntityInfo.OtLocattion.Name = types.StringPointerValue(resp.DstEntityInfo.OtLocattion.Name)
+				r.DstEntityInfo.OtLocattion.SwitchID = types.StringPointerValue(resp.DstEntityInfo.OtLocattion.SwitchID)
+			}
+			if resp.DstEntityInfo.OutboundRestriction != nil {
+				r.DstEntityInfo.OutboundRestriction = types.Int32Value(int32(*resp.DstEntityInfo.OutboundRestriction))
+			} else {
+				r.DstEntityInfo.OutboundRestriction = types.Int32Null()
+			}
+			r.DstEntityInfo.PasswordUpdateTime = types.Int64PointerValue(resp.DstEntityInfo.PasswordUpdateTime)
+			if resp.DstEntityInfo.PreferredDeployment == nil {
+				r.DstEntityInfo.PreferredDeployment = nil
+			} else {
+				r.DstEntityInfo.PreferredDeployment = &tfTypes.IDNamePair{}
+				r.DstEntityInfo.PreferredDeployment.ID = types.StringPointerValue(resp.DstEntityInfo.PreferredDeployment.ID)
+				r.DstEntityInfo.PreferredDeployment.Name = types.StringPointerValue(resp.DstEntityInfo.PreferredDeployment.Name)
+			}
+			r.DstEntityInfo.PreferredDeploymentID = types.StringPointerValue(resp.DstEntityInfo.PreferredDeploymentID)
+			r.DstEntityInfo.PrincipalName = types.StringPointerValue(resp.DstEntityInfo.PrincipalName)
+			r.DstEntityInfo.ProtectAt = types.Int64PointerValue(resp.DstEntityInfo.ProtectAt)
+			r.DstEntityInfo.ProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.ProtectedAt)
+			if resp.DstEntityInfo.ProtectionState != nil {
+				r.DstEntityInfo.ProtectionState = types.Int32Value(int32(*resp.DstEntityInfo.ProtectionState))
+			} else {
+				r.DstEntityInfo.ProtectionState = types.Int32Null()
+			}
+			if resp.DstEntityInfo.PurdueLevel != nil {
+				r.DstEntityInfo.PurdueLevel = types.Int32Value(int32(*resp.DstEntityInfo.PurdueLevel))
+			} else {
+				r.DstEntityInfo.PurdueLevel = types.Int32Null()
+			}
+			r.DstEntityInfo.RPCMonitored = types.BoolPointerValue(resp.DstEntityInfo.RPCMonitored)
+			r.DstEntityInfo.RPCProtectAt = types.Int64PointerValue(resp.DstEntityInfo.RPCProtectAt)
+			r.DstEntityInfo.RPCProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.RPCProtectedAt)
+			if resp.DstEntityInfo.RPCProtectionState != nil {
+				r.DstEntityInfo.RPCProtectionState = types.Int32Value(int32(*resp.DstEntityInfo.RPCProtectionState))
+			} else {
+				r.DstEntityInfo.RPCProtectionState = types.Int32Null()
+			}
+			if resp.DstEntityInfo.Source != nil {
+				r.DstEntityInfo.Source = types.Int32Value(int32(*resp.DstEntityInfo.Source))
+			} else {
+				r.DstEntityInfo.Source = types.Int32Null()
+			}
+			if resp.DstEntityInfo.State == nil {
+				r.DstEntityInfo.State = nil
+			} else {
+				r.DstEntityInfo.State = &tfTypes.State{}
+				r.DstEntityInfo.State.AssetID = types.StringPointerValue(resp.DstEntityInfo.State.AssetID)
+				r.DstEntityInfo.State.IdentityProtectAt = types.Int64PointerValue(resp.DstEntityInfo.State.IdentityProtectAt)
+				r.DstEntityInfo.State.IdentityProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.State.IdentityProtectedAt)
+				if resp.DstEntityInfo.State.IdentityProtectionState != nil {
+					r.DstEntityInfo.State.IdentityProtectionState = types.Int64Value(int64(*resp.DstEntityInfo.State.IdentityProtectionState))
+				} else {
+					r.DstEntityInfo.State.IdentityProtectionState = types.Int64Null()
+				}
+				r.DstEntityInfo.State.IsAssetConnected = types.BoolPointerValue(resp.DstEntityInfo.State.IsAssetConnected)
+				r.DstEntityInfo.State.LastConnectedAt = types.Int64PointerValue(resp.DstEntityInfo.State.LastConnectedAt)
+				r.DstEntityInfo.State.LastDisconnectedAt = types.Int64PointerValue(resp.DstEntityInfo.State.LastDisconnectedAt)
+				r.DstEntityInfo.State.ProtectAt = types.Int64PointerValue(resp.DstEntityInfo.State.ProtectAt)
+				r.DstEntityInfo.State.ProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.State.ProtectedAt)
+				if resp.DstEntityInfo.State.ProtectionState != nil {
+					r.DstEntityInfo.State.ProtectionState = types.Int32Value(int32(*resp.DstEntityInfo.State.ProtectionState))
+				} else {
+					r.DstEntityInfo.State.ProtectionState = types.Int32Null()
+				}
+				r.DstEntityInfo.State.RPCProtectAt = types.Int64PointerValue(resp.DstEntityInfo.State.RPCProtectAt)
+				r.DstEntityInfo.State.RPCProtectedAt = types.Int64PointerValue(resp.DstEntityInfo.State.RPCProtectedAt)
+				if resp.DstEntityInfo.State.RPCProtectionState != nil {
+					r.DstEntityInfo.State.RPCProtectionState = types.Int32Value(int32(*resp.DstEntityInfo.State.RPCProtectionState))
+				} else {
+					r.DstEntityInfo.State.RPCProtectionState = types.Int32Null()
+				}
+			}
+			r.DstEntityInfo.SwitchLocationOverridden = types.BoolPointerValue(resp.DstEntityInfo.SwitchLocationOverridden)
 		}
 		r.DstPort = types.StringPointerValue(resp.DstPort)
 		r.DstProcessNames = make([]types.String, 0, len(resp.DstProcessNames))
@@ -50,10 +238,10 @@ func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx cont
 		} else {
 			r.EnforcementSource = types.Int32Null()
 		}
-		r.ExcludedSrcEntityInfos = []tfTypes.IDNamePair{}
+		r.ExcludedSrcEntityInfos = []tfTypes.IDNamePair1{}
 
 		for _, excludedSrcEntityInfosItem := range resp.ExcludedSrcEntityInfos {
-			var excludedSrcEntityInfos tfTypes.IDNamePair
+			var excludedSrcEntityInfos tfTypes.IDNamePair1
 
 			excludedSrcEntityInfos.ID = types.StringPointerValue(excludedSrcEntityInfosItem.ID)
 			excludedSrcEntityInfos.Name = types.StringPointerValue(excludedSrcEntityInfosItem.Name)
@@ -84,13 +272,197 @@ func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx cont
 		} else {
 			r.RuleDuration = types.Int32Null()
 		}
-		r.SrcEntityInfos = []tfTypes.IDNamePair{}
+		r.SrcEntityInfos = []tfTypes.Asset1{}
 
 		for _, srcEntityInfosItem := range resp.SrcEntityInfos {
-			var srcEntityInfos tfTypes.IDNamePair
+			var srcEntityInfos tfTypes.Asset1
 
+			if srcEntityInfosItem.AssetStatus != nil {
+				srcEntityInfos.AssetStatus = types.Int64Value(int64(*srcEntityInfosItem.AssetStatus))
+			} else {
+				srcEntityInfos.AssetStatus = types.Int64Null()
+			}
+			if srcEntityInfosItem.AssetType != nil {
+				srcEntityInfos.AssetType = types.Int32Value(int32(*srcEntityInfosItem.AssetType))
+			} else {
+				srcEntityInfos.AssetType = types.Int32Null()
+			}
+			if srcEntityInfosItem.AssignedDeployment == nil {
+				srcEntityInfos.AssignedDeployment = nil
+			} else {
+				srcEntityInfos.AssignedDeployment = &tfTypes.IDNamePair{}
+				srcEntityInfos.AssignedDeployment.ID = types.StringPointerValue(srcEntityInfosItem.AssignedDeployment.ID)
+				srcEntityInfos.AssignedDeployment.Name = types.StringPointerValue(srcEntityInfosItem.AssignedDeployment.Name)
+			}
+			srcEntityInfos.AssignedDeploymentID = types.StringPointerValue(srcEntityInfosItem.AssignedDeploymentID)
+			srcEntityInfos.BreakGlassActivated = types.BoolPointerValue(srcEntityInfosItem.BreakGlassActivated)
+			srcEntityInfos.CloudConnectorVersion = types.StringPointerValue(srcEntityInfosItem.CloudConnectorVersion)
+			srcEntityInfos.DeploymentaClusterID = types.StringPointerValue(srcEntityInfosItem.DeploymentaClusterID)
+			if srcEntityInfosItem.DeploymentsCluster == nil {
+				srcEntityInfos.DeploymentsCluster = nil
+			} else {
+				srcEntityInfos.DeploymentsCluster = &tfTypes.IDNamePair{}
+				srcEntityInfos.DeploymentsCluster.ID = types.StringPointerValue(srcEntityInfosItem.DeploymentsCluster.ID)
+				srcEntityInfos.DeploymentsCluster.Name = types.StringPointerValue(srcEntityInfosItem.DeploymentsCluster.Name)
+			}
+			if srcEntityInfosItem.DeploymentsClusterSource != nil {
+				srcEntityInfos.DeploymentsClusterSource = types.Int32Value(int32(*srcEntityInfosItem.DeploymentsClusterSource))
+			} else {
+				srcEntityInfos.DeploymentsClusterSource = types.Int32Null()
+			}
+			srcEntityInfos.Domain = types.StringPointerValue(srcEntityInfosItem.Domain)
+			if srcEntityInfosItem.EnforcementMethod != nil {
+				srcEntityInfos.EnforcementMethod = types.Int64Value(int64(*srcEntityInfosItem.EnforcementMethod))
+			} else {
+				srcEntityInfos.EnforcementMethod = types.Int64Null()
+			}
+			if srcEntityInfosItem.EnvironmentGroup == nil {
+				srcEntityInfos.EnvironmentGroup = nil
+			} else {
+				srcEntityInfos.EnvironmentGroup = &tfTypes.IDNamePair{}
+				srcEntityInfos.EnvironmentGroup.ID = types.StringPointerValue(srcEntityInfosItem.EnvironmentGroup.ID)
+				srcEntityInfos.EnvironmentGroup.Name = types.StringPointerValue(srcEntityInfosItem.EnvironmentGroup.Name)
+			}
+			srcEntityInfos.ExternalDeviceID = types.StringPointerValue(srcEntityInfosItem.ExternalDeviceID)
+			srcEntityInfos.Fqdn = types.StringPointerValue(srcEntityInfosItem.Fqdn)
+			srcEntityInfos.HasDNS = types.BoolPointerValue(srcEntityInfosItem.HasDNS)
+			if srcEntityInfosItem.HealthState == nil {
+				srcEntityInfos.HealthState = nil
+			} else {
+				srcEntityInfos.HealthState = &tfTypes.HealthState{}
+				srcEntityInfos.HealthState.HealthIssuesList = []tfTypes.HealthIssue{}
+
+				for _, healthIssuesListItem1 := range srcEntityInfosItem.HealthState.HealthIssuesList {
+					var healthIssuesList1 tfTypes.HealthIssue
+
+					healthIssuesList1.Details = types.StringPointerValue(healthIssuesListItem1.Details)
+					if healthIssuesListItem1.IssueCode != nil {
+						healthIssuesList1.IssueCode = types.Int32Value(int32(*healthIssuesListItem1.IssueCode))
+					} else {
+						healthIssuesList1.IssueCode = types.Int32Null()
+					}
+
+					srcEntityInfos.HealthState.HealthIssuesList = append(srcEntityInfos.HealthState.HealthIssuesList, healthIssuesList1)
+				}
+				if srcEntityInfosItem.HealthState.HealthStatus != nil {
+					srcEntityInfos.HealthState.HealthStatus = types.Int32Value(int32(*srcEntityInfosItem.HealthState.HealthStatus))
+				} else {
+					srcEntityInfos.HealthState.HealthStatus = types.Int32Null()
+				}
+			}
 			srcEntityInfos.ID = types.StringPointerValue(srcEntityInfosItem.ID)
+			srcEntityInfos.IdentityProtectAt = types.Int64PointerValue(srcEntityInfosItem.IdentityProtectAt)
+			srcEntityInfos.IdentityProtectedAt = types.Int64PointerValue(srcEntityInfosItem.IdentityProtectedAt)
+			if srcEntityInfosItem.IdentityProtectionState != nil {
+				srcEntityInfos.IdentityProtectionState = types.Int32Value(int32(*srcEntityInfosItem.IdentityProtectionState))
+			} else {
+				srcEntityInfos.IdentityProtectionState = types.Int32Null()
+			}
+			if srcEntityInfosItem.InactiveReason != nil {
+				srcEntityInfos.InactiveReason = types.Int32Value(int32(*srcEntityInfosItem.InactiveReason))
+			} else {
+				srcEntityInfos.InactiveReason = types.Int32Null()
+			}
+			srcEntityInfos.InactiveSince = types.Int64PointerValue(srcEntityInfosItem.InactiveSince)
+			srcEntityInfos.IPSpace = types.Int64PointerValue(srcEntityInfosItem.IPSpace)
+			srcEntityInfos.IPV4Addresses = make([]types.String, 0, len(srcEntityInfosItem.IPV4Addresses))
+			for _, v := range srcEntityInfosItem.IPV4Addresses {
+				srcEntityInfos.IPV4Addresses = append(srcEntityInfos.IPV4Addresses, types.StringValue(v))
+			}
+			srcEntityInfos.IPV6Addresses = make([]types.String, 0, len(srcEntityInfosItem.IPV6Addresses))
+			for _, v := range srcEntityInfosItem.IPV6Addresses {
+				srcEntityInfos.IPV6Addresses = append(srcEntityInfos.IPV6Addresses, types.StringValue(v))
+			}
+			srcEntityInfos.IsIPSecConfigured = types.BoolPointerValue(srcEntityInfosItem.IsIPSecConfigured)
+			srcEntityInfos.IsQuarantined = types.BoolPointerValue(srcEntityInfosItem.IsQuarantined)
+			srcEntityInfos.LastLogon = types.Int64PointerValue(srcEntityInfosItem.LastLogon)
+			srcEntityInfos.Manufacturer = types.StringPointerValue(srcEntityInfosItem.Manufacturer)
 			srcEntityInfos.Name = types.StringPointerValue(srcEntityInfosItem.Name)
+			srcEntityInfos.OperatingSystem = types.StringPointerValue(srcEntityInfosItem.OperatingSystem)
+			if srcEntityInfosItem.OsType != nil {
+				srcEntityInfos.OsType = types.Int32Value(int32(*srcEntityInfosItem.OsType))
+			} else {
+				srcEntityInfos.OsType = types.Int32Null()
+			}
+			if srcEntityInfosItem.OtLocattion == nil {
+				srcEntityInfos.OtLocattion = nil
+			} else {
+				srcEntityInfos.OtLocattion = &tfTypes.OtLocation{}
+				srcEntityInfos.OtLocattion.InterfaceName = types.StringPointerValue(srcEntityInfosItem.OtLocattion.InterfaceName)
+				srcEntityInfos.OtLocattion.Name = types.StringPointerValue(srcEntityInfosItem.OtLocattion.Name)
+				srcEntityInfos.OtLocattion.SwitchID = types.StringPointerValue(srcEntityInfosItem.OtLocattion.SwitchID)
+			}
+			if srcEntityInfosItem.OutboundRestriction != nil {
+				srcEntityInfos.OutboundRestriction = types.Int32Value(int32(*srcEntityInfosItem.OutboundRestriction))
+			} else {
+				srcEntityInfos.OutboundRestriction = types.Int32Null()
+			}
+			srcEntityInfos.PasswordUpdateTime = types.Int64PointerValue(srcEntityInfosItem.PasswordUpdateTime)
+			if srcEntityInfosItem.PreferredDeployment == nil {
+				srcEntityInfos.PreferredDeployment = nil
+			} else {
+				srcEntityInfos.PreferredDeployment = &tfTypes.IDNamePair{}
+				srcEntityInfos.PreferredDeployment.ID = types.StringPointerValue(srcEntityInfosItem.PreferredDeployment.ID)
+				srcEntityInfos.PreferredDeployment.Name = types.StringPointerValue(srcEntityInfosItem.PreferredDeployment.Name)
+			}
+			srcEntityInfos.PreferredDeploymentID = types.StringPointerValue(srcEntityInfosItem.PreferredDeploymentID)
+			srcEntityInfos.PrincipalName = types.StringPointerValue(srcEntityInfosItem.PrincipalName)
+			srcEntityInfos.ProtectAt = types.Int64PointerValue(srcEntityInfosItem.ProtectAt)
+			srcEntityInfos.ProtectedAt = types.Int64PointerValue(srcEntityInfosItem.ProtectedAt)
+			if srcEntityInfosItem.ProtectionState != nil {
+				srcEntityInfos.ProtectionState = types.Int32Value(int32(*srcEntityInfosItem.ProtectionState))
+			} else {
+				srcEntityInfos.ProtectionState = types.Int32Null()
+			}
+			if srcEntityInfosItem.PurdueLevel != nil {
+				srcEntityInfos.PurdueLevel = types.Int32Value(int32(*srcEntityInfosItem.PurdueLevel))
+			} else {
+				srcEntityInfos.PurdueLevel = types.Int32Null()
+			}
+			srcEntityInfos.RPCMonitored = types.BoolPointerValue(srcEntityInfosItem.RPCMonitored)
+			srcEntityInfos.RPCProtectAt = types.Int64PointerValue(srcEntityInfosItem.RPCProtectAt)
+			srcEntityInfos.RPCProtectedAt = types.Int64PointerValue(srcEntityInfosItem.RPCProtectedAt)
+			if srcEntityInfosItem.RPCProtectionState != nil {
+				srcEntityInfos.RPCProtectionState = types.Int32Value(int32(*srcEntityInfosItem.RPCProtectionState))
+			} else {
+				srcEntityInfos.RPCProtectionState = types.Int32Null()
+			}
+			if srcEntityInfosItem.Source != nil {
+				srcEntityInfos.Source = types.Int32Value(int32(*srcEntityInfosItem.Source))
+			} else {
+				srcEntityInfos.Source = types.Int32Null()
+			}
+			if srcEntityInfosItem.State == nil {
+				srcEntityInfos.State = nil
+			} else {
+				srcEntityInfos.State = &tfTypes.State{}
+				srcEntityInfos.State.AssetID = types.StringPointerValue(srcEntityInfosItem.State.AssetID)
+				srcEntityInfos.State.IdentityProtectAt = types.Int64PointerValue(srcEntityInfosItem.State.IdentityProtectAt)
+				srcEntityInfos.State.IdentityProtectedAt = types.Int64PointerValue(srcEntityInfosItem.State.IdentityProtectedAt)
+				if srcEntityInfosItem.State.IdentityProtectionState != nil {
+					srcEntityInfos.State.IdentityProtectionState = types.Int64Value(int64(*srcEntityInfosItem.State.IdentityProtectionState))
+				} else {
+					srcEntityInfos.State.IdentityProtectionState = types.Int64Null()
+				}
+				srcEntityInfos.State.IsAssetConnected = types.BoolPointerValue(srcEntityInfosItem.State.IsAssetConnected)
+				srcEntityInfos.State.LastConnectedAt = types.Int64PointerValue(srcEntityInfosItem.State.LastConnectedAt)
+				srcEntityInfos.State.LastDisconnectedAt = types.Int64PointerValue(srcEntityInfosItem.State.LastDisconnectedAt)
+				srcEntityInfos.State.ProtectAt = types.Int64PointerValue(srcEntityInfosItem.State.ProtectAt)
+				srcEntityInfos.State.ProtectedAt = types.Int64PointerValue(srcEntityInfosItem.State.ProtectedAt)
+				if srcEntityInfosItem.State.ProtectionState != nil {
+					srcEntityInfos.State.ProtectionState = types.Int32Value(int32(*srcEntityInfosItem.State.ProtectionState))
+				} else {
+					srcEntityInfos.State.ProtectionState = types.Int32Null()
+				}
+				srcEntityInfos.State.RPCProtectAt = types.Int64PointerValue(srcEntityInfosItem.State.RPCProtectAt)
+				srcEntityInfos.State.RPCProtectedAt = types.Int64PointerValue(srcEntityInfosItem.State.RPCProtectedAt)
+				if srcEntityInfosItem.State.RPCProtectionState != nil {
+					srcEntityInfos.State.RPCProtectionState = types.Int32Value(int32(*srcEntityInfosItem.State.RPCProtectionState))
+				} else {
+					srcEntityInfos.State.RPCProtectionState = types.Int32Null()
+				}
+			}
+			srcEntityInfos.SwitchLocationOverridden = types.BoolPointerValue(srcEntityInfosItem.SwitchLocationOverridden)
 
 			r.SrcEntityInfos = append(r.SrcEntityInfos, srcEntityInfos)
 		}
@@ -98,10 +470,10 @@ func (r *InboundMFAPolicyResourceModel) RefreshFromSharedReactivePolicy(ctx cont
 		for _, v := range resp.SrcProcessNames {
 			r.SrcProcessNames = append(r.SrcProcessNames, types.StringValue(v))
 		}
-		r.SrcUserInfos = []tfTypes.IDNamePair{}
+		r.SrcUserInfos = []tfTypes.IDNamePair1{}
 
 		for _, srcUserInfosItem := range resp.SrcUserInfos {
-			var srcUserInfos tfTypes.IDNamePair
+			var srcUserInfos tfTypes.IDNamePair1
 
 			srcUserInfos.ID = types.StringPointerValue(srcUserInfosItem.ID)
 			srcUserInfos.Name = types.StringPointerValue(srcUserInfosItem.Name)

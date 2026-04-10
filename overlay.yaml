@@ -2,7 +2,7 @@ overlay: 1.0.0
 x-speakeasy-jsonpath: rfc9535
 info:
   title: Overlay
-  version: 0.0.0
+  version: 1.26.3
 extends: file:///Volumes/Repos/zero-core/ts/api/docs/openapi.yaml
 actions:
   - target: $["servers"][*]
@@ -46,6 +46,42 @@ actions:
   - target: $["paths"]["/groups/custom/{groupId}/members"]["delete"]
     update:
       x-speakeasy-entity-operation: CustomGroupMembers#delete
+  - target: $["paths"]["/protection/ae-exclusions/inbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionInbound#create
+  - target: $["paths"]["/protection/ae-exclusions/inbound/{ruleId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionInbound#get
+  - target: $["paths"]["/protection/ae-exclusions/inbound/{ruleId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionInbound#update
+  - target: $["paths"]["/protection/ae-exclusions/inbound/{ruleId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionInbound#delete
+  - target: $["paths"]["/protection/ae-exclusions/outbound"]["post"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionOutbound#create
+  - target: $["paths"]["/protection/ae-exclusions/outbound/{ruleId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionOutbound#get
+  - target: $["paths"]["/protection/ae-exclusions/outbound/{ruleId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionOutbound#update
+  - target: $["paths"]["/protection/ae-exclusions/outbound/{ruleId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: AEExclusionOutbound#delete
+  - target: $["paths"]["/protection/internal-access/policies"]["post"]
+    update:
+      x-speakeasy-entity-operation: InternalAccessPolicy#create
+  - target: $["paths"]["/protection/internal-access/policies/{policyId}"]["get"]
+    update:
+      x-speakeasy-entity-operation: InternalAccessPolicy#get
+  - target: $["paths"]["/protection/internal-access/policies/{policyId}"]["put"]
+    update:
+      x-speakeasy-entity-operation: InternalAccessPolicy#update
+  - target: $["paths"]["/protection/internal-access/policies/{policyId}"]["delete"]
+    update:
+      x-speakeasy-entity-operation: InternalAccessPolicy#delete
   - target: $["paths"]["/protection/reactive-policies/inbound"]["post"]
     update:
       x-speakeasy-entity-operation: InboundMFAPolicy#create
@@ -109,12 +145,25 @@ actions:
   - target: $["components"]["parameters"]["reactivePolicyIdParameter"]
     update:
       x-speakeasy-name-override: id
+  - target: $["components"]["parameters"]["internalAccessPolicyIdParameter"]
+    update:
+      x-speakeasy-name-override: id
   - target: $["components"]["parameters"]["ruleIdParameter"]
     update:
       x-speakeasy-name-override: id
   - target: $["components"]["parameters"]["groupIdParameter"]
     update:
       x-speakeasy-name-override: id
+  - target: $['components']['schemas']['aeExclusion']
+    update:
+      x-speakeasy-entity: 
+        - AEExclusionInbound
+        - AEExclusionOutbound
+  - target: $["components"]["schemas"]["aeExclusionRuleBody"]
+    update:
+      x-speakeasy-entity: 
+        - AEExclusionInbound
+        - AEExclusionOutbound
   - target: $["components"]["schemas"]["assetSearchResponse"]
     update:
       x-speakeasy-entity: AssetId
@@ -124,17 +173,38 @@ actions:
   - target: $["components"]["schemas"]["customGroupBody"]
     update:
       x-speakeasy-entity: CustomGroup
+  - target: $["components"]["schemas"]["customGroupBody"]['not']
+    remove: true
+  - target: $["components"]["schemas"]["customGroupBody"]['oneOf']
+    remove: true
   - target: $["components"]["schemas"]["groupMembersList"]
     update:
       x-speakeasy-entity: CustomGroupMembers
   - target: $["components"]["schemas"]["customGroupMembersBody"]
     update:
       x-speakeasy-entity: CustomGroupMembers
+  - target: $["components"]["schemas"]["internalAccessPolicy"]
+    update:
+      x-speakeasy-entity: InternalAccessPolicy
+  - target: $["components"]["schemas"]["internalAccessPolicyBody"]
+    update:
+      x-speakeasy-entity: InternalAccessPolicy
   - target: $["components"]["schemas"]["reactivePolicy"]
     update:
       x-speakeasy-entity: 
         - InboundMFAPolicy
         - OutboundMFAPolicy
+  - target: $["components"]["schemas"]["reactivePolicy"]['properties']['dstEntityInfo']['anyOf']
+    remove: true
+  - target: $["components"]["schemas"]["reactivePolicy"]['properties']['dstEntityInfo']
+    update:
+      $ref: '#/components/schemas/asset'
+  - target: $["components"]["schemas"]["reactivePolicy"]['properties']['srcEntityInfos']['items']
+    remove: true
+  - target: $["components"]["schemas"]["reactivePolicy"]['properties']['srcEntityInfos']
+    update:
+      items:
+        $ref: '#/components/schemas/asset'
   - target: $["components"]["schemas"]["reactivePolicyInboundBody"]
     update:
       x-speakeasy-entity: InboundMFAPolicy

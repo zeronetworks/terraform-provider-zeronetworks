@@ -2,23 +2,23 @@
 
 package shared
 
-type CustomGroupAddedBy struct {
+type AddedBy struct {
 	ID   *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 }
 
-func (c *CustomGroupAddedBy) GetID() *string {
-	if c == nil {
+func (a *AddedBy) GetID() *string {
+	if a == nil {
 		return nil
 	}
-	return c.ID
+	return a.ID
 }
 
-func (c *CustomGroupAddedBy) GetName() *string {
-	if c == nil {
+func (a *AddedBy) GetName() *string {
+	if a == nil {
 		return nil
 	}
-	return c.Name
+	return a.Name
 }
 
 type CustomGroup struct {
@@ -37,8 +37,8 @@ type CustomGroup struct {
 	// Epoch Millis
 	UpdatedAt *int64 `json:"updatedAt,omitempty"`
 	// Epoch Millis
-	AddedAt *int64              `json:"addedAt,omitempty"`
-	AddedBy *CustomGroupAddedBy `json:"addedBy,omitempty"`
+	AddedAt *int64   `json:"addedAt,omitempty"`
+	AddedBy *AddedBy `json:"addedBy,omitempty"`
 }
 
 func (c *CustomGroup) GetCreatedAt() *int64 {
@@ -132,7 +132,7 @@ func (c *CustomGroup) GetAddedAt() *int64 {
 	return c.AddedAt
 }
 
-func (c *CustomGroup) GetAddedBy() *CustomGroupAddedBy {
+func (c *CustomGroup) GetAddedBy() *AddedBy {
 	if c == nil {
 		return nil
 	}
