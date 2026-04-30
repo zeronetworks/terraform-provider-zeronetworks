@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 1b1ea54c-df12-489c-b709-cd18064f581d
 management:
-  docChecksum: 33133410d38909a13346d212e1872fe8
+  docChecksum: 984794e19e56fb09d22a6367949ca97d
   docVersion: 1.26.3
   speakeasyVersion: 1.666.2
   generationVersion: 2.768.1
-  releaseVersion: 1.2.15
-  configChecksum: 9fad5126913d2097a88388db501efb8f
+  releaseVersion: 1.26.31
+  configChecksum: 3656649384baceff05a9f5e74ce4f795
   published: true
 features:
   terraform:
@@ -24,6 +24,9 @@ generatedFiles:
   - examples/data-sources/zeronetworks_asset_id/data-source.tf
   - examples/data-sources/zeronetworks_custom_group/data-source.tf
   - examples/data-sources/zeronetworks_custom_group_members/data-source.tf
+  - examples/data-sources/zeronetworks_encode_ip/data-source.tf
+  - examples/data-sources/zeronetworks_encode_ip_range/data-source.tf
+  - examples/data-sources/zeronetworks_encode_subnet/data-source.tf
   - examples/data-sources/zeronetworks_inbound_mfa_policy/data-source.tf
   - examples/data-sources/zeronetworks_inbound_rule/data-source.tf
   - examples/data-sources/zeronetworks_internal_access_policy/data-source.tf
@@ -93,6 +96,12 @@ generatedFiles:
   - internal/provider/customgroupmembers_data_source_sdk.go
   - internal/provider/customgroupmembers_resource.go
   - internal/provider/customgroupmembers_resource_sdk.go
+  - internal/provider/encodeip_data_source.go
+  - internal/provider/encodeip_data_source_sdk.go
+  - internal/provider/encodeiprange_data_source.go
+  - internal/provider/encodeiprange_data_source_sdk.go
+  - internal/provider/encodesubnet_data_source.go
+  - internal/provider/encodesubnet_data_source_sdk.go
   - internal/provider/inboundmfapolicy_data_source.go
   - internal/provider/inboundmfapolicy_data_source_sdk.go
   - internal/provider/inboundmfapolicy_resource.go
@@ -160,6 +169,7 @@ generatedFiles:
   - internal/sdk/aeexclusions.go
   - internal/sdk/assets.go
   - internal/sdk/customgroup.go
+  - internal/sdk/entity.go
   - internal/sdk/groupscustom.go
   - internal/sdk/internal/config/sdkconfiguration.go
   - internal/sdk/internal/hooks/hooks.go
@@ -194,6 +204,9 @@ generatedFiles:
   - internal/sdk/models/operations/customgroupsmembersadd.go
   - internal/sdk/models/operations/customgroupsmembersdelete.go
   - internal/sdk/models/operations/customgroupsupdate.go
+  - internal/sdk/models/operations/entityencodeip.go
+  - internal/sdk/models/operations/entityencodeiprange.go
+  - internal/sdk/models/operations/entityencodesubnet.go
   - internal/sdk/models/operations/inboundruledelete.go
   - internal/sdk/models/operations/inboundruleget.go
   - internal/sdk/models/operations/inboundrulescreate.go
@@ -234,6 +247,7 @@ generatedFiles:
   - internal/sdk/models/shared/customgroupresponse.go
   - internal/sdk/models/shared/deploymentsclustersource.go
   - internal/sdk/models/shared/emptyresponse.go
+  - internal/sdk/models/shared/encodedentity.go
   - internal/sdk/models/shared/enforcementmethod.go
   - internal/sdk/models/shared/enforcementsource.go
   - internal/sdk/models/shared/error.go

@@ -13,6 +13,8 @@ generation:
     requestResponseComponentNamesFeb2024: true
     securityFeb2025: true
     sharedErrorComponentsApr2025: true
+    nameOverrideFeb2026: false
+    sharedNestedComponentsJan2026: false
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
@@ -25,8 +27,10 @@ generation:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
+  persistentEdits: {}
+  versioningStrategy: automatic
 terraform:
-  version: 1.26.3
+  version: 1.26.31
   additionalDataSources: []
   additionalDependencies: {}
   additionalEphemeralResources: []

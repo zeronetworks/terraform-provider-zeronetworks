@@ -23,6 +23,15 @@ actions:
         x-speakeasy-entity: AssetId
   - target: $["paths"]["/activities/analysis/widgets/{widgetId}"]
     remove: true
+  - target: $["paths"]["/entities/encode-ip"]['get']
+    update:
+      x-speakeasy-entity-operation: EncodeIP#get
+  - target: $["paths"]["/entities/encode-ip-range"]['get']
+    update:
+      x-speakeasy-entity-operation: EncodeIPRange#get
+  - target: $["paths"]["/entities/encode-subnet"]['get']
+    update:
+      x-speakeasy-entity-operation: EncodeSubnet#get
   - target: $["paths"]["/groups/custom"]["post"]
     update:
       x-speakeasy-entity-operation: CustomGroup#create
@@ -177,6 +186,12 @@ actions:
     remove: true
   - target: $["components"]["schemas"]["customGroupBody"]['oneOf']
     remove: true
+  - target: $["components"]["schemas"]["encodedEntity"]
+    update:
+      x-speakeasy-entity: 
+        - EncodeIP
+        - EncodeIPRange
+        - EncodeSubnet
   - target: $["components"]["schemas"]["groupMembersList"]
     update:
       x-speakeasy-entity: CustomGroupMembers
