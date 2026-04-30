@@ -53,6 +53,8 @@ type ZeroNetworks struct {
 	SDKVersion string
 	// API calls related to Assets.
 	Assets *Assets
+	// API calls related to Entities.
+	Entity *Entity
 	// API calls related to Custom Groups.
 	GroupsCustom *GroupsCustom
 	CustomGroup  *CustomGroup
@@ -157,9 +159,9 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *ZeroNetworks {
 	sdk := &ZeroNetworks{
-		SDKVersion: "1.2.15",
+		SDKVersion: "1.26.31",
 		sdkConfiguration: config.SDKConfiguration{
-			UserAgent:  "speakeasy-sdk/terraform 1.2.15 2.768.1 1.26.3 github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk",
+			UserAgent:  "speakeasy-sdk/terraform 1.26.31 2.768.1 1.26.3 github.com/zeronetworks/terraform-provider-zeronetworks/internal/sdk",
 			ServerList: ServerList,
 			ServerVariables: []map[string]string{
 				{
@@ -186,6 +188,7 @@ func New(opts ...SDKOption) *ZeroNetworks {
 	}
 
 	sdk.Assets = newAssets(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Entity = newEntity(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.GroupsCustom = newGroupsCustom(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.CustomGroup = newCustomGroup(sdk, sdk.sdkConfiguration, sdk.hooks)
 	sdk.AEExclusions = newAEExclusions(sdk, sdk.sdkConfiguration, sdk.hooks)
